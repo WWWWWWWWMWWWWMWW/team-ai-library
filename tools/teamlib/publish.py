@@ -11,7 +11,7 @@ from pathlib import Path
 from .contracts import TeamLibError, ensure_no_symlinks, hash_file, read_json, write_json, validate_id
 from .package import tree_files, validate_entry, validate_outbound, scan_text
 from .policy import check_change
-from .platform import doctor_platform, create_request, get_request, repository_name, _request_number
+from .platform import doctor_platform, create_request, get_request, repository_name, _request_number, _find_pr, _operation
 from .snapshots import open_snapshot
 
 run_command = subprocess.run
@@ -89,6 +89,47 @@ def _version_conflict(base_entry, candidate_entry):
             raise TeamLibError('CONFLICT', 'A published version already contains different material. Prepare a new version.')
 
 
+
+def _chinese_upload_description(validated, operation_id, deployment):
+    """Describe verified material in Chinese; never invent business results."""
+    meta=validated['meta'];identifier=meta['id']
+    kinds={'case':'案例','prompt':'提示词','workflow':'工作流','skill':'技能','tool':'工具','lesson':'经验','research':'研究资料'}
+    title=('上传'+kinds[meta['kind']]+'：'+' '.join(meta['title'].split()))[:120]
+    def values(items):return '、'.join('不限' if value=='any' else value for value in items) or '未声明'
+    lines=['## 分享的内容',meta['summary'],'',
+           '## 本次提交',f'- 能力名称：{meta["title"]}',f'- 类型：{kinds[meta["kind"]]}',
+           f'- 条目：{identifier}',f'- 本次提供版本：{values(sorted(validated["releases"]))}',
+           '- 本次新增、更新或状态变化以实际文件差异为准；本版变化和具体步骤见随包的中文 README。','']
+    effects={'read_only':'只读，不修改业务资料','local_generate':'生成本地文件','project_write':'修改项目文件','remote_write':'写入远端'}
+    for version,manifest in sorted(validated['releases'].items()):
+        scope=manifest['scope'];compat=manifest['compatibility']
+        lines += [f'## 版本 {version}：适用范围',f'- 输入：{values(scope["inputs"])}',
+                  f'- 输出：{values(scope["outputs"])}',f'- 适用场景：{values(scope["includes"])}',
+                  f'- 不适用场景：{values(scope["excludes"])}',
+                  f'- 系统：{values(compat["os"])}；所需工具：{values(compat["tools"])}',
+                  '- 运行时要求：'+('、'.join(k+' '+v for k,v in compat['runtimes'].items()) or '无额外声明'),
+                  f'- 所需操作能力：{values(compat["capabilities"])}',
+                  '- 副作用：'+values([effects.get(v,v) for v in manifest['effects']]),'',
+                  '### 怎么复用','1. 先阅读本版 README，确认任务范围和环境符合上述条件。',
+                  '2. 由 AI 下载固定版本并完成使用前检查，再按以下入口读取方法：']
+        lines += [f'   - releases/{version}/{entrypoint}' for entrypoint in manifest['entrypoints']]
+        lines += ['3. 只在用户已授权的任务范围内使用；具体步骤、示例和本版变化见 README。','',
+                  '### 依赖',*([f'- {d["id"]}@{d["version"]}；固定摘要：{d["manifest_sha256"]}' for d in manifest['dependencies']] or ['- 无团队能力依赖。']),
+                  '','### 包含哪些文件',*[f'- {row["path"]}（{row["size"]} 字节）' for row in manifest['files']],
+                  f'- 版本说明：entries/{identifier}/releases/{version}/README.md','']
+    lines += ['## 验证与审核','本次只校验材料、权限、依赖和分享范围，不代表已经执行能力或验证业务效果。',
+              '业务验证需逐版本核对 state 中绑定的证据；没有证据的范围必须标注“未验证”，不能编造效果或节省时间。',
+              '创建请求只表示已投稿待审核，合并后核实共享材料才表示已入库。','',
+              '## 来源与追溯',meta['source']['reference'],f'- 原作者：{meta["author_key"]}；当前负责人：{meta["owner_key"]}']
+    if meta['source'].get('derived_from'):
+        d=meta['source']['derived_from'];lines.append(f'- 改编自：{d["repository"]}，{d["id"]}@{d["version"]}，来源提交 {d["source_commit"]}，摘要 {d["manifest_sha256"]}')
+    if deployment['owner_trial']:
+        lines += ['','## 当前发布方式','仅所有者试用：GitHub 尚未强制执行审核规则，须由人审核并明确授权后入库；AI 不自动合并。']
+    lines += ['',f'<!-- teamlib-operation: {operation_id} -->','']
+    body='\n'.join(lines)
+    return title,title+'\n\n'+body,body
+
+
 def propose_entry(config, entry, workspace):
     entry = ensure_no_symlinks(entry); workspace = ensure_no_symlinks(workspace)
     validated = validate_entry(entry); identifier = validated['meta']['id']; validate_id(identifier)
@@ -107,16 +148,33 @@ def propose_entry(config, entry, workspace):
                 raise TeamLibError('CONFLICT', 'Stored operation does not match the proposal material.')
             if previous.get('request_id'):
                 return verify_request(config, previous['request_id'], previous)
+            if previous.get('source_branch'):
+                branch=previous['source_branch']
+                if not re.fullmatch('teamlib/'+operation_id+r'(?:-[0-2])?',branch):
+                    raise TeamLibError('CONFLICT','Original proposal branch does not match this operation.')
+                try:
+                    observed=_find_pr(repository_name(config),branch,operation_id,config['shared_branch'],doctor['login'])
+                except TeamLibError as exc:
+                    if exc.code not in {'REMOTE_FAILED','AUTH_REQUIRED','STATUS_UNVERIFIED','TOOL_MISSING'}:raise
+                    return dict(previous,state='prepared',code='STATUS_UNVERIFIED',message='原投稿查询暂不可用，保留原始描述与回执；未再次上传。')
+                if observed:
+                    if not isinstance(previous.get('author_login'),str) or any(not isinstance(previous.get(key),str) or not re.fullmatch(r'[0-9a-f]{64}',previous[key]) for key in ('body_sha256','title_sha256')):
+                        raise TeamLibError('STATUS_UNVERIFIED','Original request bindings are incomplete; the receipt is preserved.')
+                    if any(observed.get(key)!=previous.get(key) for key in ('body_sha256','title_sha256')) or observed.get('headRefOid')!=previous.get('head_commit') or observed.get('author_login','').casefold()!=previous.get('author_login','').casefold():
+                        raise TeamLibError('CONFLICT','Original request content changed; its stored review bindings are preserved.')
+                    recovered=dict(previous,request_id=observed['request_id'],url=observed['url'])
+                    result=verify_request(config,observed['request_id'],recovered)
+                    write_json(record_path,result)
+                    return result
+
         deployment={'deployment_mode':doctor.get('deployment_mode','protected'),
                     'owner_trial':doctor.get('owner_trial',False),
                     'hard_gate_enforced':doctor.get('hard_gate_enforced',False),
                     'manual_review_required':doctor.get('manual_review_required',True)}
-        title = 'Team library proposal: ' + identifier
-        commit_message = 'Team library proposal ' + identifier + '\n\nOperation: ' + operation_id
+        title,commit_message,body=_chinese_upload_description(validated,operation_id,deployment)
         body_file = temp / 'body.md'
-        body_file.write_text('Review entry ' + identifier + '.\nBusiness behavior remains unverified unless version-bound evidence is supplied.\n\n<!-- teamlib-operation: ' + operation_id + ' -->\n', encoding='utf-8')
-        if deployment['owner_trial']:
-            body_file.write_text(body_file.read_text()+'\nDeployment: owner-only trial. Server branch protection is not enforced. Human review and explicit merge authorization are required; no automatic merge.\n',encoding='utf-8')
+        body_file.write_text(body,encoding='utf-8')
+        _operation(body)  # Validate the final marker before creating or uploading a Git commit.
         scan_text(title, 'request_title')
         for attempt in range(3):
             snapshot = open_snapshot(config, workspace)

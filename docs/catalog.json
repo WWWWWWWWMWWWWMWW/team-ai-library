@@ -1,0 +1,392 @@
+{
+  "schema_version": 1,
+  "generator": "teamlib-catalog",
+  "source": {
+    "repository": "https://github.com/WWWWWWWWMWWWWMWW/team-ai-library.git",
+    "branch": "main",
+    "commit": "5f63a343a7b663b9d5dc80074518705d4cadf469"
+  },
+  "capability_count": 6,
+  "version_count": 6,
+  "releases": [
+    {
+      "id": "owner/design-review",
+      "title": "策划案 AI 审查流程",
+      "summary": "内置示例：策划案 AI 审查流程。未验证真实策划业务，供试用与改编。",
+      "kind": "workflow",
+      "tags": [
+        "内置示例",
+        "workflow"
+      ],
+      "aliases": [
+        "审策划案"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本次平台实现生成的内置示例；非既有团队实绩或真实业务资料。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "56637827944c56966b8abe0186a45fd24b961d96f16c5934ba1d2a6304f262b3",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "策划案"
+        ],
+        "outputs": [
+          "审查报告"
+        ],
+        "includes": [
+          "planning-review"
+        ],
+        "excludes": [
+          "production-change",
+          "external-send",
+          "unrequested-upload"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "any"
+        ],
+        "runtimes": {},
+        "tools": [],
+        "capabilities": [
+          "filesystem.read"
+        ]
+      },
+      "effects": [
+        "read_only"
+      ],
+      "dependencies": [
+        {
+          "id": "owner/review-checklist",
+          "version": "0.1.0",
+          "manifest_sha256": "012da7879f0cc55bb7e00611de6cdb677416fbf91bb38435d465622d5e6b46a4"
+        }
+      ],
+      "readme": "entries/owner/design-review/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/design-review/releases/0.1.0/payload/instructions.md"
+      ]
+    },
+    {
+      "id": "owner/experience-case",
+      "title": "可复用经验沉淀模板",
+      "summary": "内置示例：可复用经验沉淀模板。未验证真实策划业务，供试用与改编。",
+      "kind": "case",
+      "tags": [
+        "内置示例",
+        "case"
+      ],
+      "aliases": [
+        "整理经验"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本次平台实现生成的内置示例；非既有团队实绩或真实业务资料。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "3b57314f2ac4c27f9fce79fb916748f15c7c843f413c7e74393b8499155ba5f6",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "脱敏经验"
+        ],
+        "outputs": [
+          "经验说明"
+        ],
+        "includes": [
+          "experience-summary"
+        ],
+        "excludes": [
+          "production-change",
+          "external-send",
+          "unrequested-upload"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "any"
+        ],
+        "runtimes": {},
+        "tools": [],
+        "capabilities": [
+          "filesystem.read"
+        ]
+      },
+      "effects": [
+        "read_only"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/experience-case/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/experience-case/releases/0.1.0/payload/instructions.md"
+      ]
+    },
+    {
+      "id": "owner/meeting-summary",
+      "title": "会议记录整理提示词",
+      "summary": "内置示例：会议记录整理提示词。未验证真实策划业务，供试用与改编。",
+      "kind": "prompt",
+      "tags": [
+        "内置示例",
+        "prompt"
+      ],
+      "aliases": [
+        "整理会议"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本次平台实现生成的内置示例；非既有团队实绩或真实业务资料。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "4214611af6d8b1068c1147d2712f1633ccabbc0d0e8b03ebd3ab8135c73aaba4",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "会议记录"
+        ],
+        "outputs": [
+          "决策清单"
+        ],
+        "includes": [
+          "meeting-summary"
+        ],
+        "excludes": [
+          "production-change",
+          "external-send",
+          "unrequested-upload"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "any"
+        ],
+        "runtimes": {},
+        "tools": [],
+        "capabilities": [
+          "filesystem.read"
+        ]
+      },
+      "effects": [
+        "read_only"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/meeting-summary/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/meeting-summary/releases/0.1.0/payload/instructions.md"
+      ]
+    },
+    {
+      "id": "owner/recovery-retrospective",
+      "title": "能力误上传恢复经验模板",
+      "summary": "内置示例：能力误上传恢复经验模板。未验证真实策划业务，供试用与改编。",
+      "kind": "lesson",
+      "tags": [
+        "内置示例",
+        "lesson"
+      ],
+      "aliases": [
+        "误上传复盘"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本次平台实现生成的内置示例；非既有团队实绩或真实业务资料。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "f6bf7f1c1ec2c2667d48259d969428e47084f1a1f44b41153d56c4d56ee7305e",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "恢复记录"
+        ],
+        "outputs": [
+          "复盘摘要"
+        ],
+        "includes": [
+          "recovery-review"
+        ],
+        "excludes": [
+          "production-change",
+          "external-send",
+          "unrequested-upload"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "any"
+        ],
+        "runtimes": {},
+        "tools": [],
+        "capabilities": [
+          "filesystem.read"
+        ]
+      },
+      "effects": [
+        "read_only"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/recovery-retrospective/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/recovery-retrospective/releases/0.1.0/payload/instructions.md"
+      ]
+    },
+    {
+      "id": "owner/reference-evaluation",
+      "title": "AI 工具资料核查框架",
+      "summary": "内置示例：AI 工具资料核查框架。未验证真实策划业务，供试用与改编。",
+      "kind": "research",
+      "tags": [
+        "内置示例",
+        "research"
+      ],
+      "aliases": [
+        "核对参考资料"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本次平台实现生成的内置示例；非既有团队实绩或真实业务资料。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "425fa334828f869e5d9cd7c9be07a11a439f85ee3e9e65adffbe3490f6c0f187",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "来源材料"
+        ],
+        "outputs": [
+          "核查报告"
+        ],
+        "includes": [
+          "reference-review"
+        ],
+        "excludes": [
+          "production-change",
+          "external-send",
+          "unrequested-upload"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "any"
+        ],
+        "runtimes": {},
+        "tools": [],
+        "capabilities": [
+          "filesystem.read"
+        ]
+      },
+      "effects": [
+        "read_only"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/reference-evaluation/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/reference-evaluation/releases/0.1.0/payload/instructions.md"
+      ]
+    },
+    {
+      "id": "owner/review-checklist",
+      "title": "AI 工作成果检查清单",
+      "summary": "内置示例：AI 工作成果检查清单。未验证真实策划业务，供试用与改编。",
+      "kind": "skill",
+      "tags": [
+        "内置示例",
+        "skill"
+      ],
+      "aliases": [
+        "查漏项"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本次平台实现生成的内置示例；非既有团队实绩或真实业务资料。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "012da7879f0cc55bb7e00611de6cdb677416fbf91bb38435d465622d5e6b46a4",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "any"
+        ],
+        "outputs": [
+          "any"
+        ],
+        "includes": [
+          "any"
+        ],
+        "excludes": [
+          "production-change",
+          "external-send",
+          "unrequested-upload"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "any"
+        ],
+        "runtimes": {},
+        "tools": [],
+        "capabilities": [
+          "filesystem.read"
+        ]
+      },
+      "effects": [
+        "read_only"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/review-checklist/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/review-checklist/releases/0.1.0/payload/SKILL.md"
+      ]
+    }
+  ],
+  "pending_status": "available",
+  "pending_requests": [
+    {
+      "number": 1,
+      "kind": "publication",
+      "ids": [
+        "owner/cold-start-reuse-case"
+      ],
+      "head_commit": "e879c4150593b2db88879d1f31643a5a23979f11",
+      "url": "https://github.com/WWWWWWWWMWWWWMWW/team-ai-library/pull/1"
+    },
+    {
+      "number": 2,
+      "kind": "maintenance",
+      "ids": [],
+      "head_commit": "46d63b9a82e2d38b9c63a5aecafe4e7388086389",
+      "url": "https://github.com/WWWWWWWWMWWWWMWW/team-ai-library/pull/2"
+    }
+  ]
+}
