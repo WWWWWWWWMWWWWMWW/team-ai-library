@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "owner/cold-start-reuse-case",
+  "title": "团队能力库冷启动复用案例（合成测试）",
+  "kind": "case",
+  "summary": "新AI按仓库指南查找、下载固定版本及依赖，并对合成策划稿完成审查和本地来源记录。仅为同机器、同账号、同工具的试用案例，真实业务和第二成员未验证。",
+  "tags": [
+    "内置示例",
+    "接入试用",
+    "合成材料"
+  ],
+  "aliases": [
+    "冷启动复用案例"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "2026-10-08 已实际完成的AI冷启动合成材料试用；不是公司原始业务资料或生产验证。"
+  }
+}

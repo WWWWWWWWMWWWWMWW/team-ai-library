@@ -1,0 +1,27 @@
+{
+  "sources": [
+    {
+      "repository": "https://github.com/WWWWWWWWMWWWWMWW/team-ai-library.git",
+      "source_commit": "cc27766c0dcf541dd07a996eabddf87534857e7a",
+      "id": "owner/review-checklist",
+      "version": "0.1.0",
+      "manifest_sha256": "012da7879f0cc55bb7e00611de6cdb677416fbf91bb38435d465622d5e6b46a4"
+    },
+    {
+      "repository": "https://github.com/WWWWWWWWMWWWWMWW/team-ai-library.git",
+      "source_commit": "cc27766c0dcf541dd07a996eabddf87534857e7a",
+      "id": "owner/design-review",
+      "version": "0.1.0",
+      "manifest_sha256": "56637827944c56966b8abe0186a45fd24b961d96f16c5934ba1d2a6304f262b3"
+    }
+  ],
+  "date": "2026-10-08",
+  "environment": "same macOS account and Codex desktop tool",
+  "result": "synthetic_document_review_passed",
+  "unverified": [
+    "production runtime",
+    "second member",
+    "second AI tool",
+    "formal branch protection"
+  ]
+}

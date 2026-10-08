@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "id": "owner/cold-start-reuse-case",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/case.md"
+  ],
+  "scope": {
+    "inputs": [
+      "团队能力库接入问题"
+    ],
+    "outputs": [
+      "试用参考"
+    ],
+    "includes": [
+      "capability-library-onboarding"
+    ],
+    "excludes": [
+      "production-change",
+      "real-business-validation"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "any"
+    ],
+    "runtimes": {},
+    "tools": [],
+    "capabilities": [
+      "filesystem.read"
+    ]
+  },
+  "effects": [
+    "read_only"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "1351c6713dca15bb84e947d925e722683a726eb801365ab1b98c0ba2099622cd",
+      "size": 903
+    },
+    {
+      "path": "payload/case.md",
+      "sha256": "a6f7bba7f8555f509dd173cb89bce3171789c347b87c7ead8d3f216a4402f901",
+      "size": 1610
+    },
+    {
+      "path": "payload/sources.json",
+      "sha256": "3aac76cbda292260ce5f024ec84ae8ff4df702d0115547bcc30545d7f76901e2",
+      "size": 906
+    }
+  ]
+}
