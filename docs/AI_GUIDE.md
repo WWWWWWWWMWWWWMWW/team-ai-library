@@ -2,7 +2,7 @@
 
 `tools/library.py` 已实现，Python 3.11+、标准库即可运行；GitHub 操作还需要 Git 和已登录个人账号的 `gh`。先读本仓库 `AGENTS.md`，再按用户当前意图选择流程。本文命令在仓库根目录运行，JSON 只保存脱敏任务摘要。
 
-实际配置为 private 仓库 [WWWWWWWWMWWWWMWW/team-ai-library](https://github.com/WWWWWWWWMWWWWMWW/team-ai-library)、共享 `main`。当前只有 owner 维护者，分支保护设置遇到 403/Pro 条件，正式发布仍被工具阻断；首次共享材料、第二成员和真实业务闭环仍需核实。下面涉及远端条目的示例，以维护者已完成 main 初始化且账号/成员映射可读为前提。
+实际配置为 private 仓库 [WWWWWWWWMWWWWMWW/team-ai-library](https://github.com/WWWWWWWWMWWWWMWW/team-ai-library)、共享 `main`。当前只有 owner 维护者，分支保护设置遇到 403/Pro 条件，正式发布仍被工具阻断；源码、配置、指南与六个示例已于 2026-10-08 初始化到 main；第二成员和真实业务闭环仍需核实。下面涉及远端条目的示例以当前账号/成员映射可读为前提。
 
 ## 按意图选择命令
 
