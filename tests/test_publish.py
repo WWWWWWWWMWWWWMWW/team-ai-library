@@ -237,3 +237,18 @@ class PublishTests(unittest.TestCase):
         persisted = json.loads((self.workspace / 'proposals' / (first['operation_id'] + '.json')).read_text())
         self.assertEqual(persisted['body_sha256'], first['body_sha256'])
         self.assertEqual(len(self.service.requests), 1)
+
+    def test_owner_trial_submission_and_retry_keep_explicit_review_boundary(self):
+        original=self.platform.doctor_platform
+        def trial(cfg):
+            return dict(original(cfg),deployment_mode='owner_trial',owner_trial=True,hard_gate_enforced=False,manual_review_required=True)
+        with patch.object(self.publish,'doctor_platform',trial),patch.object(self.platform,'doctor_platform',trial):
+            first=self.publish.propose_entry(self.cfg,self.source,self.workspace)
+            second=self.publish.propose_entry(self.cfg,self.source,self.workspace)
+        for result in (first,second):
+            self.assertEqual(result['deployment_mode'],'owner_trial')
+            self.assertTrue(result['manual_review_required']);self.assertFalse(result['hard_gate_enforced'])
+            self.assertEqual(result['state'],'submitted')
+        self.assertEqual(first['request_id'],second['request_id'])
+        self.assertIn('owner-only trial',self.service.requests[0]['body'])
+        self.assertEqual(len(self.service.requests),1)

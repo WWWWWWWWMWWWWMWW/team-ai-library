@@ -5,6 +5,14 @@ from urllib.parse import urlsplit, unquote
 from .contracts import TeamLibError, read_json, ensure_no_symlinks, validate_record
 
 CONFIG_KEYS = {'schema_version','remote','shared_branch','platform','workspace','publish_mode','auto_merge','target_profiles'}
+OPTIONAL_CONFIG_KEYS = {'deployment_mode'}
+
+
+def deployment_mode(config):
+    mode = config.get('deployment_mode', 'protected')
+    if mode not in ('protected', 'owner_trial') or (mode == 'owner_trial' and config.get('platform') != 'github'):
+        raise TeamLibError('CONFIG_MISSING', 'Deployment mode is unsupported for this platform.')
+    return mode
 
 
 def normalize_directory(value, repository_root, *, allow_absolute=True):
@@ -70,15 +78,13 @@ def validate_layout(config):
         locations.append(target)
 
 
-def load_config(path):
-    path = ensure_no_symlinks(path)
-    try: config = read_json(path)
-    except TeamLibError:
-        raise TeamLibError('CONFIG_MISSING', 'Library configuration is unavailable or invalid.') from None
+def validate_config_fields(config):
+    """Validate configuration data without accessing its configured directories."""
     try: validate_record('library', config)
     except TeamLibError: raise TeamLibError('CONFIG_MISSING', 'Library configuration fields are missing or unsupported.') from None
-    if set(config) != CONFIG_KEYS or type(config.get('schema_version')) is not int or config['schema_version'] != 1:
+    if not CONFIG_KEYS <= config.keys() or set(config) - CONFIG_KEYS - OPTIONAL_CONFIG_KEYS or type(config.get('schema_version')) is not int or config['schema_version'] != 1:
         raise TeamLibError('CONFIG_MISSING', 'Library configuration fields are missing or unsupported.')
+    deployment_mode(config)
     if config['publish_mode'] != 'request' or config['auto_merge'] is not False:
         raise TeamLibError('CONFIG_MISSING', 'Publication requires reviewed requests with automatic merging disabled.')
     if config['platform'] not in {'github','local','unconfigured'}:
@@ -98,16 +104,26 @@ def load_config(path):
         raise TeamLibError('CONFIG_MISSING', 'Unconfigured platform must not contain connected settings.')
     if config['platform'] != 'unconfigured' and (not remote or not branch):
         raise TeamLibError('CONFIG_MISSING', 'Connected platform requires an explicit remote and shared branch.')
-    root = path.parent.resolve()
-    config['workspace'] = normalize_directory(config['workspace'], root)
     if not isinstance(config['target_profiles'], dict):
         raise TeamLibError('CONFIG_MISSING', 'Target profiles must be an object.')
-    profiles = {}
     for name, profile in config['target_profiles'].items():
         if not isinstance(name,str) or not re.fullmatch(r'[a-z0-9][a-z0-9_-]*',name) or not isinstance(profile,dict) or set(profile) - {'path','tool'} or 'path' not in profile:
             raise TeamLibError('CONFIG_MISSING', 'Target profile is invalid.')
         if 'tool' in profile and (not isinstance(profile['tool'],str) or not profile['tool']):
             raise TeamLibError('CONFIG_MISSING', 'Target tool configuration is invalid.')
+
+
+def load_config(path):
+    path = ensure_no_symlinks(path)
+    try: config = read_json(path)
+    except TeamLibError:
+        raise TeamLibError('CONFIG_MISSING', 'Library configuration is unavailable or invalid.') from None
+    validate_config_fields(config)
+    config['deployment_mode'] = deployment_mode(config)
+    root = path.parent.resolve()
+    config['workspace'] = normalize_directory(config['workspace'], root)
+    profiles = {}
+    for name, profile in config['target_profiles'].items():
         profiles[name] = dict(profile, path=normalize_directory(profile['path'], root))
     config['target_profiles'] = profiles
     config['repository_root'] = str(root)

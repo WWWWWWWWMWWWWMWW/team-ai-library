@@ -11,5 +11,6 @@
       "path": ".teamlib-installed",
       "tool": "library-directory"
     }
-  }
+  },
+  "deployment_mode": "owner_trial"
 }

@@ -2,13 +2,15 @@
 import base64
 import hashlib
 import json
+import os
 import re
 import subprocess
 import tempfile
 from pathlib import Path
 from urllib.parse import quote
 
-from .contracts import TeamLibError, read_json, validate_id, validate_version
+from .contracts import TeamLibError, read_json, validate_id, validate_version, _pairs
+from .config import deployment_mode, validate_config_fields
 
 run_command = subprocess.run
 _OPERATION = re.compile(r'<!-- teamlib-operation: ([0-9a-f]{32}) -->')
@@ -17,9 +19,12 @@ _ISSUE_FIELDS = 'number,url,state,title,body,author'
 
 
 def _run(argv, *, cwd=None):
+    # The configured adapter accepts github.com only. Preserve the existing
+    # account/token environment while pinning just this child's destination.
+    environment = {'env': dict(os.environ, GH_HOST='github.com')} if argv[0] == 'gh' else {}
     try:
         result = run_command(argv, cwd=cwd, shell=False, check=False, text=True,
-                             stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60)
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, **environment)
     except FileNotFoundError:
         raise TeamLibError('TOOL_MISSING', 'Required Git or platform CLI is unavailable.') from None
     except (subprocess.SubprocessError, OSError):
@@ -29,14 +34,20 @@ def _run(argv, *, cwd=None):
     return result.stdout
 
 
-def _json(argv):
+def _strict_json(text):
     try:
-        return json.loads(_run(argv))
-    except (ValueError, TypeError):
+        return json.loads(text, object_pairs_hook=_pairs,
+                          parse_constant=lambda _: (_ for _ in ()).throw(ValueError()))
+    except (ValueError, TypeError, RecursionError, TeamLibError):
         raise TeamLibError('STATUS_UNVERIFIED', 'Platform returned unverifiable data.') from None
 
 
+def _json(argv):
+    return _strict_json(_run(argv))
+
+
 def repository_name(config):
+    deployment_mode(config)
     if config.get('platform') != 'github':
         raise TeamLibError('CONFIG_MISSING', 'Connected publishing requires the configured real GitHub repository; local mode has no native review or protection.')
     remote = config.get('remote', '')
@@ -60,16 +71,16 @@ def _api(repo, suffix):
 def _contents(repo, path, ref):
     row = _api(repo, '/contents/' + path + '?ref=' + quote(ref, safe=''))
     try:
-        if row['encoding'] != 'base64': raise ValueError()
-        return base64.b64decode(row['content'], validate=False).decode('utf-8')
+        if not isinstance(row, dict) or row['encoding'] != 'base64' or not isinstance(row['content'], str): raise ValueError()
+        return base64.b64decode(re.sub(r'\s', '', row['content']), validate=True).decode('utf-8')
     except (KeyError, TypeError, ValueError, UnicodeError):
         raise TeamLibError('STATUS_UNVERIFIED', 'Trusted repository content is unavailable.') from None
 
 
-def _trusted_member(repo, sha, login):
+def _trusted_member(repo, sha, login, *, owner_only=False):
     try:
-        members = json.loads(_contents(repo, 'governance/members.json', sha))
-        if not isinstance(members, dict) or set(members) != {'schema_version', 'members'} or members['schema_version'] != 1 or not isinstance(members['members'], list):
+        members = _strict_json(_contents(repo, 'governance/members.json', sha))
+        if not isinstance(members, dict) or set(members) != {'schema_version', 'members'} or type(members['schema_version']) is not int or members['schema_version'] != 1 or not isinstance(members['members'], list):
             raise ValueError()
         actors = set(); logins = set(); matched = None
         for row in members['members']:
@@ -82,11 +93,17 @@ def _trusted_member(repo, sha, login):
         raise TeamLibError('STATUS_UNVERIFIED', 'Trusted account mapping is invalid.') from None
     if matched is None:
         raise TeamLibError('SCOPE_DENIED', 'The authenticated account has no unique trusted membership mapping.')
+    if owner_only and (len(members['members']) != 1 or matched['role'] != 'maintainer'):
+        raise TeamLibError('SCOPE_DENIED', 'Owner trial requires exactly one trusted owner maintainer.')
     return matched
 
 
 def doctor_read(config):
     """Verify private-repository reading without requiring PR/push/protection privileges."""
+    return _read_identity(config)[0]
+
+
+def _read_identity(config):
     repo = repository_name(config)
     try:
         actor = _json(['gh', 'api', 'user'])
@@ -96,24 +113,78 @@ def doctor_read(config):
     if not isinstance(actor, dict) or actor.get('type') != 'User' or not isinstance(actor.get('login'), str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9-]*', actor['login']):
         raise TeamLibError('AUTH_REQUIRED', 'Repository operations require an individual account.')
     repository = _api(repo, '')
-    if not isinstance(repository, dict) or repository.get('private') is not True or repository.get('full_name', '').lower() != repo.lower():
+    if not isinstance(repository, dict) or repository.get('private') is not True or not isinstance(repository.get('full_name'), str) or repository['full_name'].lower() != repo.lower():
         raise TeamLibError('SCOPE_DENIED', 'The configured repository is not verified private.')
-    permissions = {k: repository.get('permissions', {}).get(k) is True for k in ('pull', 'push', 'admin')}
+    permission_data = repository.get('permissions')
+    if not isinstance(permission_data, dict):
+        raise TeamLibError('STATUS_UNVERIFIED', 'Repository permissions cannot be verified.')
+    permissions = {k: permission_data.get(k) is True for k in ('pull', 'push', 'admin')}
     if not permissions['pull']:
         raise TeamLibError('SCOPE_DENIED', 'The authenticated account has no verified repository read permission.')
     branch = _api(repo, '/branches/' + quote(config['shared_branch'], safe=''))
-    sha = branch.get('commit', {}).get('sha', '') if isinstance(branch, dict) else ''
+    commit = branch.get('commit') if isinstance(branch, dict) else None
+    sha = commit.get('sha', '') if isinstance(commit, dict) else ''
     if not isinstance(sha, str) or not re.fullmatch(r'[0-9a-f]{40}', sha):
         raise TeamLibError('STATUS_UNVERIFIED', 'The configured shared branch cannot be verified.')
+    if type(branch.get('protected')) is not bool:
+        raise TeamLibError('STATUS_UNVERIFIED', 'Shared branch protection state cannot be verified.')
     member = _trusted_member(repo, sha, actor['login'])
     return {'platform': 'github', 'repository': repo, 'private': True, 'read_verified': True,
             'shared_branch': config['shared_branch'], 'source_commit': sha,
             'login': actor['login'], 'actor_key': member['actor_key'], 'role': member['role'],
-            'permissions': permissions, 'protected': branch.get('protected') is True}
+            'permissions': permissions, 'protected': branch.get('protected') is True}, repository
+
+
+def _paginated(repo, suffix):
+    """gh follows Link headers to completion; slurp preserves page boundaries."""
+    pages = _json(['gh', 'api', 'repos/' + repo + suffix, '--paginate', '--slurp'])
+    if not isinstance(pages, list) or not pages or any(not isinstance(page, list) for page in pages):
+        raise TeamLibError('STATUS_UNVERIFIED', 'Repository access pagination cannot be verified.')
+    # These endpoints explicitly request at most 100 records per page. An empty
+    # page followed by data or an oversized page is not a trustworthy traversal.
+    if any(len(page) > 100 for page in pages) or any(not page for page in pages[:-1]):
+        raise TeamLibError('STATUS_UNVERIFIED', 'Repository access pagination is inconsistent.')
+    return [row for page in pages for row in page]
+
+
+def _owner_trial(config, identity, repository):
+    repo = identity['repository']; sha = identity['source_commit']; login = identity['login']
+    owner = repository.get('owner')
+    if not isinstance(owner, dict) or owner.get('type') != 'User' or not isinstance(owner.get('login'), str) or owner['login'].casefold() != login.casefold() or repo.split('/')[0].casefold() != login.casefold():
+        raise TeamLibError('SCOPE_DENIED', 'Owner trial requires the authenticated personal repository owner.')
+    if not identity['permissions']['push'] or not identity['permissions']['admin']:
+        raise TeamLibError('SCOPE_DENIED', 'Owner trial requires verified owner push and admin permissions.')
+    collaborators = _paginated(repo, '/collaborators?affiliation=all&per_page=100')
+    if len(collaborators) != 1:
+        raise TeamLibError('SCOPE_DENIED', 'Owner trial permits only the individual owner as collaborator.')
+    row = collaborators[0]
+    permissions = row.get('permissions') if isinstance(row, dict) else None
+    if not isinstance(row, dict) or row.get('type') != 'User' or not isinstance(row.get('login'), str) or row['login'].casefold() != login.casefold() or not isinstance(permissions, dict) or any(permissions.get(key) is not True for key in ('pull', 'push', 'admin')):
+        raise TeamLibError('SCOPE_DENIED', 'The sole owner collaborator cannot be verified.')
+    if _paginated(repo, '/invitations?per_page=100'):
+        raise TeamLibError('SCOPE_DENIED', 'Owner trial does not permit pending repository invitations.')
+    _trusted_member(repo, sha, login, owner_only=True)
+    shared = _strict_json(_contents(repo, 'library.json', sha))
+    from .package import scan_json
+    validate_config_fields(shared)
+    scan_json(shared, location='trusted library configuration')
+    if shared.get('deployment_mode') != 'owner_trial' or any(shared.get(key) != config.get(key) for key in ('remote', 'shared_branch', 'platform', 'publish_mode', 'auto_merge', 'deployment_mode')):
+        raise TeamLibError('SCOPE_DENIED', 'Owner trial configuration must exactly match the trusted shared baseline.')
+    return dict(identity, deployment_mode='owner_trial', owner_trial=True,
+                approval_required=False, hard_gate_enforced=False, manual_review_required=True)
 
 
 def doctor_platform(config):
-    identity = doctor_read(config); repo = identity['repository']; sha = identity['source_commit']
+    mode = deployment_mode(config)
+    if mode == 'owner_trial':
+        local = {key: value for key, value in config.items() if key not in {'repository_root', 'config_path'}}
+        validate_config_fields(local)
+        from .package import scan_json
+        scan_json(local, location='local library configuration')
+    identity, repository = _read_identity(config)
+    if mode == 'owner_trial':
+        return _owner_trial(config, identity, repository)
+    repo = identity['repository']; sha = identity['source_commit']
     if identity['protected'] is not True:
         raise TeamLibError('SCOPE_DENIED', 'The configured shared branch is not verified protected.')
     try:
@@ -128,7 +199,7 @@ def doctor_platform(config):
     # Presence is evidence of base ownership, not evidence GitHub enforces a trusted check source.
     check_rows = (protection.get('required_status_checks') or {}).get('checks', [])
     check_sources = [{'context': r.get('context'), 'app_id': r.get('app_id')} for r in check_rows if r.get('context') == 'team-library-policy']
-    return dict(identity, approval_required=True, base_owned_checker=True,
+    return dict(identity, deployment_mode='protected', owner_trial=False, approval_required=True, base_owned_checker=True,
                 workflow_uses_base_event='pull_request_target' in workflow, required_check_sources=check_sources,
                 hard_gate_enforced=False, manual_review_required=True)
 
@@ -209,6 +280,12 @@ def create_request(config, source_branch, title, body_file):
         return _create_request_locked(config, source_branch, title, locked)
 
 
+def _write_status(result, doctor):
+    """Keep the verified deployment limits visible on fresh and retried writes."""
+    return dict(result, **{key: doctor[key] for key in ('deployment_mode', 'owner_trial', 'protected',
+                                                      'approval_required', 'hard_gate_enforced', 'manual_review_required')})
+
+
 def _create_request_locked(config, source_branch, title, body_file):
     repo = repository_name(config)
     if not re.fullmatch(r'teamlib/[0-9a-f]{32}(?:-[0-2])?', source_branch) or source_branch == config['shared_branch']:
@@ -218,7 +295,7 @@ def _create_request_locked(config, source_branch, title, body_file):
     if not doctor['permissions']['push']:
         raise TeamLibError('SCOPE_DENIED', 'The authenticated account cannot submit a branch.')
     existing = _find_pr(repo, source_branch, operation_id, config['shared_branch'], doctor['login'], body, title)
-    if existing: return existing
+    if existing: return _write_status(existing, doctor)
     try:
         _scan(title, body_file)
         _run(['gh', 'pr', 'create', '--repo', repo, '--base', config['shared_branch'], '--head', source_branch, '--title', title, '--body-file', str(body_file)])
@@ -226,11 +303,11 @@ def _create_request_locked(config, source_branch, title, body_file):
         pass
     try:
         existing = _find_pr(repo, source_branch, operation_id, config['shared_branch'], doctor['login'], body, title)
-        if existing: return existing
+        if existing: return _write_status(existing, doctor)
     except TeamLibError as exc:
         if exc.code == 'CONFLICT': raise
-    return {'state': 'prepared', 'code': 'REMOTE_FAILED', 'operation_id': operation_id,
-            'source_branch': source_branch, 'message': 'Proposal branch prepared; request creation is not verified. Retry queries the same operation first.'}
+    return _write_status({'state': 'prepared', 'code': 'REMOTE_FAILED', 'operation_id': operation_id,
+            'source_branch': source_branch, 'message': 'Proposal branch prepared; request creation is not verified. Retry queries the same operation first.'}, doctor)
 
 
 def _find_issue(repo, operation_id, login, expected_body=None):
@@ -259,10 +336,13 @@ def create_governance_request(config, kind, payload_file):
         raise TeamLibError('INVALID_PACKAGE', 'Governance request requires a stable operation ID.')
     doctor = doctor_platform(config)
     title = 'Team library ' + kind + ': ' + payload['id'] + ' ' + payload['version']
-    body = json.dumps({'kind': kind, 'payload': payload}, ensure_ascii=False, indent=2) + '\n<!-- teamlib-operation: ' + operation_id + ' -->\n'
+    document = {'kind': kind, 'payload': payload}
+    if doctor['owner_trial']:
+        document['deployment'] = {key: doctor[key] for key in ('deployment_mode', 'owner_trial', 'hard_gate_enforced', 'manual_review_required')}
+    body = json.dumps(document, ensure_ascii=False, indent=2) + '\n<!-- teamlib-operation: ' + operation_id + ' -->\n'
     scan_text(title, location='issue title'); scan_text(body, location='issue body')
     existing = _find_issue(repo, operation_id, doctor['login'], body)
-    if existing: return existing
+    if existing: return _write_status(existing, doctor)
     with tempfile.TemporaryDirectory(prefix='teamlib-issue-') as temp:
         body_file = Path(temp) / 'body.md'; body_file.write_text(body, encoding='utf-8')
         try:
@@ -272,11 +352,11 @@ def create_governance_request(config, kind, payload_file):
             pass
     try:
         existing = _find_issue(repo, operation_id, doctor['login'], body)
-        if existing: return existing
+        if existing: return _write_status(existing, doctor)
     except TeamLibError as exc:
         if exc.code == 'CONFLICT': raise
-    return {'state': 'prepared', 'code': 'REMOTE_FAILED', 'operation_id': operation_id,
-            'message': 'Governance issue creation is not verified; no state change has been applied.'}
+    return _write_status({'state': 'prepared', 'code': 'REMOTE_FAILED', 'operation_id': operation_id,
+            'message': 'Governance issue creation is not verified; no state change has been applied.'}, doctor)
 
 
 def get_governance_request(config, request_id):

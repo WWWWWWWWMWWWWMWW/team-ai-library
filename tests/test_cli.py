@@ -127,3 +127,19 @@ class CLITests(unittest.TestCase):
             row=json.loads(output.getvalue());self.assertEqual(status,2)
             self.assertTrue(row['data']['readable']);self.assertFalse(row['data']['can_publish'])
             self.assertEqual(row['code'],'SCOPE_DENIED')
+
+    def test_doctor_owner_trial_explicitly_reports_no_server_gate(self):
+        import io
+        from contextlib import redirect_stdout
+        from unittest.mock import patch
+        from tools import library
+        with TemporaryDirectory() as d:
+            root=Path(d).resolve();_,_,config=create_remote(root);config['platform']='github'
+            config['remote']='https://github.com/company/library.git';path=root/'config.json';dump(path,config)
+            output=io.StringIO()
+            checks={'permissions':{'pull':True,'push':True,'admin':True},'deployment_mode':'owner_trial','owner_trial':True,'protected':False,'hard_gate_enforced':False,'manual_review_required':True}
+            with patch('tools.teamlib.snapshots.open_snapshot',return_value={'source_commit':'a'*40}),patch('tools.teamlib.platform.doctor_platform',return_value=checks),redirect_stdout(output):
+                status=library.main(['doctor','--config',str(path)])
+            row=json.loads(output.getvalue());self.assertEqual(status,0)
+            self.assertTrue(row['data']['can_publish']);self.assertEqual(row['data']['deployment_mode'],'owner_trial')
+            self.assertFalse(row['data']['hard_gate_enforced']);self.assertTrue(row['data']['manual_review_required'])

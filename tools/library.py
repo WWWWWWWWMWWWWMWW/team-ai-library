@@ -82,6 +82,8 @@ def dispatch(args,operation_id):
                 if not data['platform_checks'].get('permissions',{}).get('push'):
                     raise TeamLibError('SCOPE_DENIED','The authenticated account can read but cannot submit a branch.')
                 data['can_publish']=True
+                for key in ('deployment_mode','owner_trial','hard_gate_enforced','manual_review_required','protected'):
+                    if key in data['platform_checks']:data[key]=data['platform_checks'][key]
             except TeamLibError as exc:
                 data['publishing_failure']={'code':exc.code,'message':exc.message}
                 raise TeamLibError(exc.code,exc.message,data) from exc

@@ -60,3 +60,14 @@ class CITests(unittest.TestCase):
             denied=check_change(base,candidate,{'actor_key':'alice','role':'contributor','proposal_author':'alice','proposal_kind':kind})
             self.assertTrue(allowed['allowed'],allowed)
             self.assertFalse(denied['allowed'])
+
+    def test_ci_api_targets_configured_github_host_despite_environment(self):
+        import json,os,subprocess
+        from unittest.mock import patch
+        from tools.check_ci import _api
+        def hosted(argv,**kwargs):
+            host=argv[argv.index('--hostname')+1] if '--hostname' in argv else os.environ.get('GH_HOST','github.com')
+            kwargs['stdout'].write(json.dumps({'host':host}).encode())
+            return subprocess.CompletedProcess(argv,0)
+        with patch.dict(os.environ,{'GH_HOST':'enterprise.invalid'}),patch('tools.check_ci.subprocess.run',side_effect=hosted):
+            self.assertEqual(json.loads(_api('repos/company/library'))['host'],'github.com')

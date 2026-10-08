@@ -107,10 +107,16 @@ def propose_entry(config, entry, workspace):
                 raise TeamLibError('CONFLICT', 'Stored operation does not match the proposal material.')
             if previous.get('request_id'):
                 return verify_request(config, previous['request_id'], previous)
+        deployment={'deployment_mode':doctor.get('deployment_mode','protected'),
+                    'owner_trial':doctor.get('owner_trial',False),
+                    'hard_gate_enforced':doctor.get('hard_gate_enforced',False),
+                    'manual_review_required':doctor.get('manual_review_required',True)}
         title = 'Team library proposal: ' + identifier
         commit_message = 'Team library proposal ' + identifier + '\n\nOperation: ' + operation_id
         body_file = temp / 'body.md'
         body_file.write_text('Review entry ' + identifier + '.\nBusiness behavior remains unverified unless version-bound evidence is supplied.\n\n<!-- teamlib-operation: ' + operation_id + ' -->\n', encoding='utf-8')
+        if deployment['owner_trial']:
+            body_file.write_text(body_file.read_text()+'\nDeployment: owner-only trial. Server branch protection is not enforced. Human review and explicit merge authorization are required; no automatic merge.\n',encoding='utf-8')
         scan_text(title, 'request_title')
         for attempt in range(3):
             snapshot = open_snapshot(config, workspace)
@@ -126,7 +132,7 @@ def propose_entry(config, entry, workspace):
                 return {'state': 'published', 'code': 'OK', 'operation_id': operation_id, 'id': identifier,
                         'versions': sorted(validated['releases']), 'source_commit': snapshot['source_commit'],
                         'repository': config['remote'], 'shared_branch': config['shared_branch'], 'files': files,
-                        'message': 'Exact entry material is verified in the current shared branch.'}
+                        'message': 'Exact entry material is verified in the current shared branch.',**deployment}
             candidate = temp / ('candidate-' + str(attempt)); candidate.mkdir()
             _copy_snapshot(base, candidate)
             target = candidate / 'entries' / identifier
@@ -184,7 +190,7 @@ def propose_entry(config, entry, workspace):
                         'source_branch': branch, 'head_commit': head_commit, 'source_commit': parent_commit,
                         'repository': config['remote'], 'shared_branch': config['shared_branch'], 'workspace': str(workspace),
                         'checks': decision['checks'], 'proposal_actor_key': doctor['actor_key'],
-                        'author_login': doctor['login'],
+                        'author_login': doctor['login'], **deployment,
                         'body_sha256': hashlib.sha256(body_file.read_bytes()).hexdigest(),
                         'title_sha256': hashlib.sha256(title.encode('utf-8')).hexdigest()}
             write_json(record_path, prepared)

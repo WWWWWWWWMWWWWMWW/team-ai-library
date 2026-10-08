@@ -15,6 +15,26 @@ class ConfigTests(unittest.TestCase):
             self.assertEqual(c['platform'],'unconfigured'); self.assertEqual(c['repository_root'],str(Path(d).resolve()))
             self.assertTrue(Path(c['workspace']).is_absolute())
 
+    def test_optional_deployment_mode_defaults_to_protected(self):
+        from tools.teamlib.config import load_config
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)/'library.json'; dump(p,self.config())
+            self.assertEqual(load_config(p)['deployment_mode'], 'protected')
+
+    def test_owner_trial_is_explicit_and_only_supported_by_github(self):
+        from tools.teamlib.config import load_config
+        from tools.teamlib.contracts import TeamLibError, validate_record
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)/'library.json'
+            good=dict(self.config(), platform='github', remote='https://github.com/acme/library.git', shared_branch='main', deployment_mode='owner_trial')
+            dump(p,good)
+            self.assertEqual(load_config(p)['deployment_mode'], 'owner_trial')
+            validate_record('library',good)
+            for change in [{'deployment_mode':'unknown'}, {'deployment_mode':None}, {'platform':'unconfigured','remote':'','shared_branch':''}, {'platform':'local','remote':str(Path(d)/'remote.git')}]:
+                bad=dict(good,**change); dump(p,bad)
+                with self.subTest(change=change), self.assertRaises(TeamLibError): load_config(p)
+                with self.subTest(schema=change), self.assertRaises(TeamLibError): validate_record('library',bad)
+
     def test_reject_missing_insecure_workspace_credentials_and_modes(self):
         from tools.teamlib.config import load_config
         from tools.teamlib.contracts import TeamLibError

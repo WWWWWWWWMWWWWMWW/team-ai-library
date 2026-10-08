@@ -6,5 +6,6 @@
   "workspace": ".teamlib-workspace",
   "publish_mode": "request",
   "auto_merge": false,
-  "target_profiles": {}
+  "target_profiles": {},
+  "deployment_mode": "protected"
 }

@@ -59,7 +59,7 @@ def _api(endpoint):
     # gh manages existing authentication and redirect handling; token is only an environment value.
     try:
         with tempfile.TemporaryFile() as response:
-            result=subprocess.run(['gh','api',endpoint],stdout=response,stderr=subprocess.DEVNULL,timeout=60)
+            result=subprocess.run(['gh','api',endpoint,'--hostname','github.com'],stdout=response,stderr=subprocess.DEVNULL,timeout=60)
             if result.returncode:raise TeamLibError('REMOTE_FAILED','Read-only platform access failed.')
             if response.tell()>64*1024*1024:
                 raise TeamLibError('INVALID_PACKAGE','API response exceeds the size limit.')

@@ -1,4 +1,5 @@
 import json
+import os
 import subprocess
 import tempfile
 import unittest
@@ -23,6 +24,16 @@ class PlatformTests(unittest.TestCase):
         for cfg in ({'platform': 'unconfigured'}, {'platform': 'local', 'remote': '/tmp/demo.git', 'shared_branch': 'main'}):
             with self.assertRaises(TeamLibError): self.platform.doctor_platform(cfg)
         self.assertEqual(self.service.calls, [])
+
+    def test_github_child_processes_pin_host_without_changing_account_environment(self):
+        with patch.dict(os.environ, {'GH_HOST':'enterprise.example','GH_REPO':'unrelated/private','TEAMLIB_ENV_PROBE':'retained'}):
+            self.platform.create_request(config(), 'teamlib/'+'a'*32, 'Safe title', self.body)
+            self.assertEqual(os.environ['GH_HOST'],'enterprise.example')
+        for args,kwargs in self.service.calls:
+            if args[0]=='gh':
+                self.assertEqual(kwargs['env']['GH_HOST'],'github.com')
+                self.assertEqual(kwargs['env']['GH_REPO'],'unrelated/private')
+                self.assertEqual(kwargs['env']['TEAMLIB_ENV_PROBE'],'retained')
 
     def test_actual_private_auth_and_protection_are_required(self):
         result = self.platform.doctor_platform(config())

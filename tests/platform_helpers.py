@@ -24,6 +24,10 @@ class GithubService:
         self.issues = []
         self.fail_create = False
         self.create_then_timeout = False
+        self.owner = {'login': 'acme', 'type': 'Organization'}
+        self.collaborator_pages = []
+        self.invitation_pages = [[]]
+        self.shared_config = None
         self.members = {'schema_version': 1, 'members': [{'actor_key':'alice','github_login':'alice-gh','role':'contributor'},{'actor_key':'bob','github_login':'bob-gh','role':'contributor'},{'actor_key':'maintainer','github_login':'maintainer-gh','role':'maintainer'}]}
         self.workflow = 'name: Team library submission\non: pull_request_target\npermissions:\n  contents: read\n'
 
@@ -38,6 +42,9 @@ class GithubService:
         if args[1] == 'api':
             endpoint = args[2]
             if endpoint == 'user': return {'login': self.login, 'type': 'User'}
+            if '/collaborators?' in endpoint: return self.collaborator_pages
+            if '/invitations?' in endpoint: return self.invitation_pages
+            if '/contents/library.json' in endpoint: return encoded(self.shared_config)
             if '/contents/governance/members.json' in endpoint: return encoded(self.members)
             if '/contents/.github/workflows/check-submission.yml' in endpoint: return encoded(self.workflow)
             if '/contents/tools/check_submission.py' in endpoint: return encoded('# trusted checker\n')
@@ -45,7 +52,7 @@ class GithubService:
                 if not self.protected: raise subprocess.CalledProcessError(1, args, stderr='token secret error')
                 return {'enforce_admins': {'enabled': True}, 'required_pull_request_reviews': {'required_approving_review_count': 1, 'dismiss_stale_reviews': True}, 'required_status_checks': {'strict': True, 'checks': []}, 'allow_force_pushes': {'enabled': False}, 'allow_deletions': {'enabled': False}}
             if '/branches/' in endpoint: return {'protected': self.protected, 'commit': {'sha': self.head}}
-            return {'private': self.private, 'full_name': 'acme/library', 'permissions': self.permissions}
+            return {'private': self.private, 'full_name': 'acme/library', 'permissions': self.permissions, 'owner': self.owner}
         if args[1:3] == ['pr', 'list']:
             if '--head' in args: return [r for r in self.requests if r['headRefName'] == args[args.index('--head') + 1]]
             return self.requests
@@ -72,3 +79,16 @@ class GithubService:
 
 def config():
     return {'schema_version': 1, 'remote': 'https://github.com/acme/library.git', 'shared_branch': 'main', 'platform': 'github', 'publish_mode': 'request', 'auto_merge': False}
+
+
+def owner_trial_config(service):
+    """Explicit fixture only for tests exercising the real trial adapter checks."""
+    service.login = 'acme'
+    service.owner = {'login': 'acme', 'type': 'User'}
+    service.permissions = {'pull': True, 'push': True, 'admin': True}
+    service.protected = False
+    service.members = {'schema_version': 1, 'members': [{'actor_key': 'owner', 'github_login': 'acme', 'role': 'maintainer'}]}
+    service.collaborator_pages = [[{'login': 'acme', 'type': 'User', 'permissions': dict(service.permissions)}]]
+    value = dict(config(), deployment_mode='owner_trial', workspace='.cache/teamlib', target_profiles={})
+    service.shared_config = dict(value)
+    return value
