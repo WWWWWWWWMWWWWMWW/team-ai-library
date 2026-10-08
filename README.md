@@ -4,12 +4,14 @@
 
 实际仓库：[WWWWWWWWMWWWWMWW/team-ai-library](https://github.com/WWWWWWWWMWWWWMWW/team-ai-library)，共享分支 `main`。本地 `library.json` 已配置该地址、专用工作区和 `local_materials` 材料安装目标。
 
-对具备文件和终端操作能力的 AI 说：
+策划只需复制 [一段简化提示词](docs/MEMBER_PROMPT.md)，然后直接说本次业务需求。复杂流程写在 [AI 自动操作手册](docs/AI_OPERATIONS.md) 中，由 AI 自动读取；环境检查、资源整理、中文说明和 Git 操作均由 AI 处理。
 
-> 阅读本仓库 README.md、AGENTS.md、docs/ONBOARDING.md 和 docs/AI_GUIDE.md，检查当前配置和账号。先按我的任务查找并核对适用范围；需要使用时下载固定版本并运行 check-reuse。不要把下载、检查或材料安装说成业务已验证。
+想全面整理本地可沉淀内容，可直接复制 [全面整理提示词](docs/LOCAL_CAPTURE_PROMPT.md)，由 AI 产出完整盘点、详细中文能力草稿、缺项与建议上传清单。
 
 日常可以直接说：
 
+- 安装接入这套能力库，检查能不能用。
+- 把我指定文件夹里的工作流和提示词整理后上传，写清中文用法，入库前让我审核。
 - 找一个审查策划案的流程，先说明适用范围。
 - 下载 `owner/design-review` 的 `0.1.0`，临时用于这次策划案审查。
 - 把这次实际结果记在本地，不上传原始策划案或完整聊天。
@@ -65,6 +67,10 @@ python3 tools/library.py fetch --id owner/design-review --version 0.1.0 --dest .
 
 | 文件 | 用途 |
 |---|---|
+| [策划简化提示词](docs/MEMBER_PROMPT.md) | 一次复制，之后直接描述本次需求 |
+| [AI 自动操作手册](docs/AI_OPERATIONS.md) | AI 自行读取的接入、整理、复用、上传与治理流程 |
+| [本地全面整理提示词](docs/LOCAL_CAPTURE_PROMPT.md) | 让 AI 全面盘点并详细整理本地可沉淀内容 |
+| [LOCAL_CAPTURE.md](docs/LOCAL_CAPTURE.md) | 完整检查清单、分类、来源、草稿、进度与交付要求 |
 | [AGENTS.md](AGENTS.md) | AI 操作边界与完成标准 |
 | [ONBOARDING.md](docs/ONBOARDING.md) | 接入前提、实际配置、当前门禁缺项 |
 | [AI_GUIDE.md](docs/AI_GUIDE.md) | 可直接运行的命令与 JSON 示例 |

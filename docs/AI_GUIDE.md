@@ -1,6 +1,6 @@
 # AI 操作指南
 
-`tools/library.py` 已实现，Python 3.11+、标准库即可运行；GitHub 操作还需要 Git 和已登录个人账号的 `gh`。先读本仓库 `AGENTS.md`，再按用户当前意图选择流程。本文命令在仓库根目录运行，JSON 只保存脱敏任务摘要。
+`tools/library.py` 已实现，Python 3.11+、标准库即可运行；GitHub 操作还需要 Git 和已登录个人账号的 `gh`。先读本仓库 `AGENTS.md` 与 [AI 自动操作手册](AI_OPERATIONS.md)，再按用户当前意图选择流程。本文是命令与 JSON 参考；策划只需 [简化提示词](MEMBER_PROMPT.md)。本文命令在仓库根目录运行，JSON 只保存脱敏任务摘要。
 
 实际仓库为 private 的 [WWWWWWWWMWWWWMWW/team-ai-library](https://github.com/WWWWWWWWMWWWWMWW/team-ai-library)、共享 `main`。当前只有 owner 维护者，分支保护设置遇到 403/Pro 条件，服务器硬门禁未生效。当前选择仅 owner 的 `owner_trial` 试用方案，部署到可信共享基线并验证后才可创建试用 PR；真实试用投稿验收待完成。源码、配置、指南与六个示例已于 2026-10-08 初始化到 main，读取可用；试用方案不会开放第二成员。下面涉及远端条目的示例以当前账号/成员映射可读为前提。
 
