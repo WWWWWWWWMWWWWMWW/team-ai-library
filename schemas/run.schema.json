@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "run",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "started_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "finished_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "type": "string",
+            "minLength": 1
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^(?:[a-z0-9][a-z0-9_-]*/[a-z0-9][a-z0-9_-]*)(?![\\s\\S])"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^(?:(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*))(?![\\s\\S])"
+          },
+          "manifest_sha256": {
+            "type": "string",
+            "pattern": "^(?:[0-9a-f]{64})(?![\\s\\S])"
+          },
+          "source_commit": {
+            "type": "string",
+            "pattern": "^(?:[0-9a-f]{40})(?![\\s\\S])"
+          },
+          "receipt_path": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "repository",
+          "id",
+          "version",
+          "manifest_sha256",
+          "source_commit"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "task_goal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "environment": {
+      "type": "object"
+    },
+    "result": {
+      "type": "string",
+      "enum": [
+        "passed",
+        "failed",
+        "unverified"
+      ]
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "change_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "unverified": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_id",
+    "started_at",
+    "finished_at",
+    "sources",
+    "task_goal",
+    "environment",
+    "result",
+    "artifacts",
+    "change_summary",
+    "unverified"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "id": "owner/meeting-summary",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/instructions.md"
+  ],
+  "scope": {
+    "inputs": [
+      "会议记录"
+    ],
+    "outputs": [
+      "决策清单"
+    ],
+    "includes": [
+      "meeting-summary"
+    ],
+    "excludes": [
+      "production-change",
+      "external-send",
+      "unrequested-upload"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "any"
+    ],
+    "runtimes": {},
+    "tools": [],
+    "capabilities": [
+      "filesystem.read"
+    ]
+  },
+  "effects": [
+    "read_only"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "b1087bfe795b7b6e069f5031afe252ad48192cc61d9c0413d13d0ac3340c92c6",
+      "size": 376
+    },
+    {
+      "path": "payload/instructions.md",
+      "sha256": "5c784641542ca3dd4883897bfea051e240988a852498e8502cfb1ab6e1c57192",
+      "size": 415
+    }
+  ]
+}

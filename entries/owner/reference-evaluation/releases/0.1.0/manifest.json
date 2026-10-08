@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "id": "owner/reference-evaluation",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/instructions.md"
+  ],
+  "scope": {
+    "inputs": [
+      "来源材料"
+    ],
+    "outputs": [
+      "核查报告"
+    ],
+    "includes": [
+      "reference-review"
+    ],
+    "excludes": [
+      "production-change",
+      "external-send",
+      "unrequested-upload"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "any"
+    ],
+    "runtimes": {},
+    "tools": [],
+    "capabilities": [
+      "filesystem.read"
+    ]
+  },
+  "effects": [
+    "read_only"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "3c752bfd3cd198a95e926230b8caa92dc2cab525c928c7365acd62e007aa7035",
+      "size": 377
+    },
+    {
+      "path": "payload/instructions.md",
+      "sha256": "36e7f2e365d6d9c49a5d14ae6f3eb024fc3fb60132219238fd6cd8bb47e2fd3c",
+      "size": 394
+    }
+  ]
+}

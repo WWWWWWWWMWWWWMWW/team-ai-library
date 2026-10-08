@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "library",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "remote": {
+      "type": "string"
+    },
+    "shared_branch": {
+      "type": "string"
+    },
+    "platform": {
+      "enum": [
+        "github",
+        "local",
+        "unconfigured"
+      ]
+    },
+    "workspace": {
+      "type": "string",
+      "minLength": 1
+    },
+    "publish_mode": {
+      "const": "request"
+    },
+    "auto_merge": {
+      "const": false
+    },
+    "target_profiles": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "tool": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "path"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "remote",
+    "shared_branch",
+    "platform",
+    "workspace",
+    "publish_mode",
+    "auto_merge",
+    "target_profiles"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "platform": {
+            "const": "local"
+          }
+        },
+        "required": [
+          "platform"
+        ]
+      },
+      "then": {
+        "properties": {
+          "remote": {
+            "type": "string",
+            "pattern": "^(?:file:///[^?#\\x00-\\x1f]+|(?!-)(?!\\\\)[^:@\\x00-\\x1f]+)(?![\\s\\S])",
+            "minLength": 1
+          },
+          "shared_branch": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "platform": {
+            "const": "unconfigured"
+          }
+        },
+        "required": [
+          "platform"
+        ]
+      },
+      "then": {
+        "properties": {
+          "remote": {
+            "const": ""
+          },
+          "shared_branch": {
+            "const": ""
+          }
+        }
+      }
+    }
+  ]
+}

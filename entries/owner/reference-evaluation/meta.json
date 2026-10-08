@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "owner/reference-evaluation",
+  "title": "AI 工具资料核查框架",
+  "kind": "research",
+  "summary": "内置示例：AI 工具资料核查框架。未验证真实策划业务，供试用与改编。",
+  "tags": [
+    "内置示例",
+    "research"
+  ],
+  "aliases": [
+    "核对参考资料"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "本次平台实现生成的内置示例；非既有团队实绩或真实业务资料。"
+  }
+}

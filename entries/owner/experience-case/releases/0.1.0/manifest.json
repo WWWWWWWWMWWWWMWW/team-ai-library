@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "id": "owner/experience-case",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/instructions.md"
+  ],
+  "scope": {
+    "inputs": [
+      "脱敏经验"
+    ],
+    "outputs": [
+      "经验说明"
+    ],
+    "includes": [
+      "experience-summary"
+    ],
+    "excludes": [
+      "production-change",
+      "external-send",
+      "unrequested-upload"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "any"
+    ],
+    "runtimes": {},
+    "tools": [],
+    "capabilities": [
+      "filesystem.read"
+    ]
+  },
+  "effects": [
+    "read_only"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "906e7e1201505cd40ff8d7fdcec70a82867df0df7c189634a4ce6d93721254c9",
+      "size": 379
+    },
+    {
+      "path": "payload/instructions.md",
+      "sha256": "609226ece4f214d2553e9e34d65d7e958de8966015e016f0566b94f46bd7c5a9",
+      "size": 421
+    }
+  ]
+}

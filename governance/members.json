@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "members": [
+    {
+      "actor_key": "owner",
+      "github_login": "WWWWWWWWMWWWWMWW",
+      "role": "maintainer"
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+test_actual_owner_transfer_governance_updates_both_copies (tests.test_policy.PolicyTests.test_actual_owner_transfer_governance_updates_both_copies) ... ok
+test_added_file_old_release_and_delete_are_immutable (tests.test_policy.PolicyTests.test_added_file_old_release_and_delete_are_immutable) ... ok
+test_contributor_or_ordinary_maintainer_cannot_modify_maintenance_files (tests.test_policy.PolicyTests.test_contributor_or_ordinary_maintainer_cannot_modify_maintenance_files) ... ok
+test_contributor_state_blocked_and_maintainer_governance_allowed (tests.test_policy.PolicyTests.test_contributor_state_blocked_and_maintainer_governance_allowed) ... ok
+test_fake_actor_paths_and_role_do_not_grant_access (tests.test_policy.PolicyTests.test_fake_actor_paths_and_role_do_not_grant_access) ... ok
+test_governance_candidate_cannot_appoint_its_own_author (tests.test_policy.PolicyTests.test_governance_candidate_cannot_appoint_its_own_author) ... ok
+test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) ...
+  test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) (path='AGENTS.md') ... FAIL
+  test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) (path='README.md') ... FAIL
+  test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) (path='.gitignore') ... FAIL
+  test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) (path='docs/GOVERNANCE.md') ... FAIL
+  test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) (path='tools/teamlib/helper.py') ... FAIL
+  test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) (path='schemas/new.schema.json') ... FAIL
+  test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) (path='templates/example.md') ... FAIL
+  test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) (path='tests/test_new.py') ... FAIL
+  test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) (path='.github/workflows/check-submission.yml') ... FAIL
+test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) ... FAIL
+test_maintenance_candidate_python_is_checked_as_data_without_execution (tests.test_policy.PolicyTests.test_maintenance_candidate_python_is_checked_as_data_without_execution) ... FAIL
+test_maintenance_governance_and_config_stay_strict (tests.test_policy.PolicyTests.test_maintenance_governance_and_config_stay_strict) ... FAIL
+test_maintenance_never_changes_entries_or_expands_unknown_paths (tests.test_policy.PolicyTests.test_maintenance_never_changes_entries_or_expands_unknown_paths) ... ok
+test_maintenance_preserves_critical_files_and_allows_obsolete_support_delete (tests.test_policy.PolicyTests.test_maintenance_preserves_critical_files_and_allows_obsolete_support_delete) ... FAIL
+test_new_namespace_impersonation_and_review_commit_binding (tests.test_policy.PolicyTests.test_new_namespace_impersonation_and_review_commit_binding) ... ok
+test_new_version_and_strict_first_state (tests.test_policy.PolicyTests.test_new_version_and_strict_first_state) ... ok
+test_owner_transfer_then_new_owner_uses_original_id (tests.test_policy.PolicyTests.test_owner_transfer_then_new_owner_uses_original_id) ... ok
+test_package_limits_are_taken_from_trusted_base (tests.test_policy.PolicyTests.test_package_limits_are_taken_from_trusted_base) ... ok
+test_passed_verification_without_execution_evidence_is_denied (tests.test_policy.PolicyTests.test_passed_verification_without_execution_evidence_is_denied) ... ok
+test_recommended_and_verification_have_actual_version_binding (tests.test_policy.PolicyTests.test_recommended_and_verification_have_actual_version_binding) ... ok
+test_release_immutable_even_for_maintainer (tests.test_policy.PolicyTests.test_release_immutable_even_for_maintainer) ... ok
+test_unicode_escaped_metadata_secret_fails_trusted_admission (tests.test_policy.PolicyTests.test_unicode_escaped_metadata_secret_fails_trusted_admission) ... ok
+
+======================================================================
+FAIL: test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) (path='AGENTS.md')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 122, in test_maintainer_maintenance_can_update_controlled_root_and_support_files
+    self.assertTrue(self.check()['allowed']); new.write_bytes(old.read_bytes())
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) (path='README.md')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 122, in test_maintainer_maintenance_can_update_controlled_root_and_support_files
+    self.assertTrue(self.check()['allowed']); new.write_bytes(old.read_bytes())
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) (path='.gitignore')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 122, in test_maintainer_maintenance_can_update_controlled_root_and_support_files
+    self.assertTrue(self.check()['allowed']); new.write_bytes(old.read_bytes())
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) (path='docs/GOVERNANCE.md')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 122, in test_maintainer_maintenance_can_update_controlled_root_and_support_files
+    self.assertTrue(self.check()['allowed']); new.write_bytes(old.read_bytes())
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) (path='tools/teamlib/helper.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 122, in test_maintainer_maintenance_can_update_controlled_root_and_support_files
+    self.assertTrue(self.check()['allowed']); new.write_bytes(old.read_bytes())
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) (path='schemas/new.schema.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 122, in test_maintainer_maintenance_can_update_controlled_root_and_support_files
+    self.assertTrue(self.check()['allowed']); new.write_bytes(old.read_bytes())
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) (path='templates/example.md')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 122, in test_maintainer_maintenance_can_update_controlled_root_and_support_files
+    self.assertTrue(self.check()['allowed']); new.write_bytes(old.read_bytes())
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) (path='tests/test_new.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 122, in test_maintainer_maintenance_can_update_controlled_root_and_support_files
+    self.assertTrue(self.check()['allowed']); new.write_bytes(old.read_bytes())
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files) (path='.github/workflows/check-submission.yml')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 122, in test_maintainer_maintenance_can_update_controlled_root_and_support_files
+    self.assertTrue(self.check()['allowed']); new.write_bytes(old.read_bytes())
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_maintainer_maintenance_can_update_controlled_root_and_support_files (tests.test_policy.PolicyTests.test_maintainer_maintenance_can_update_controlled_root_and_support_files)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 126, in test_maintainer_maintenance_can_update_controlled_root_and_support_files
+    self.assertTrue(self.check()['allowed']); dump(self.candidate/rel,c)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_maintenance_candidate_python_is_checked_as_data_without_execution (tests.test_policy.PolicyTests.test_maintenance_candidate_python_is_checked_as_data_without_execution)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 165, in test_maintenance_candidate_python_is_checked_as_data_without_execution
+    self.assertTrue(self.check()['allowed']); self.assertFalse(marker.exists())
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_maintenance_governance_and_config_stay_strict (tests.test_policy.PolicyTests.test_maintenance_governance_and_config_stay_strict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 156, in test_maintenance_governance_and_config_stay_strict
+    self.assertTrue(self.check()['allowed'])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_maintenance_preserves_critical_files_and_allows_obsolete_support_delete (tests.test_policy.PolicyTests.test_maintenance_preserves_critical_files_and_allows_obsolete_support_delete)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 142, in test_maintenance_preserves_critical_files_and_allows_obsolete_support_delete
+    self.assertTrue(self.check()['allowed'])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.292s
+
+FAILED (failures=13)

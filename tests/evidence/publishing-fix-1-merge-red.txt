@@ -1,0 +1,19 @@
+test_merge_commit_must_contain_expected_material_not_only_current_shared (tests.test_publish.PublishTests.test_merge_commit_must_contain_expected_material_not_only_current_shared) ... FAIL
+test_proposal_retry_keeps_original_review_binding_after_body_changed (tests.test_publish.PublishTests.test_proposal_retry_keeps_original_review_binding_after_body_changed) ... ok
+
+======================================================================
+FAIL: test_merge_commit_must_contain_expected_material_not_only_current_shared (tests.test_publish.PublishTests.test_merge_commit_must_contain_expected_material_not_only_current_shared)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_publish.py", line 229, in test_merge_commit_must_contain_expected_material_not_only_current_shared
+    self.assertEqual(checked['state'], 'submitted'); self.assertEqual(checked['code'], 'STATUS_UNVERIFIED')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'published' != 'submitted'
+- published
++ submitted
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 1.302s
+
+FAILED (failures=1)

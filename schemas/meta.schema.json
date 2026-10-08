@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "meta",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^(?:[a-z0-9][a-z0-9_-]*/[a-z0-9][a-z0-9_-]*)(?![\\s\\S])"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "case",
+        "prompt",
+        "workflow",
+        "skill",
+        "tool",
+        "lesson",
+        "research"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "author_key": {
+      "type": "string",
+      "pattern": "^(?:[a-z0-9][a-z0-9_-]*)(?![\\s\\S])"
+    },
+    "owner_key": {
+      "type": "string",
+      "pattern": "^(?:[a-z0-9][a-z0-9_-]*)(?![\\s\\S])"
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "original",
+            "adapted",
+            "external"
+          ]
+        },
+        "reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1
+        },
+        "derived_from": {
+          "type": "object",
+          "properties": {
+            "repository": {
+              "type": "string",
+              "minLength": 1
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^(?:[a-z0-9][a-z0-9_-]*/[a-z0-9][a-z0-9_-]*)(?![\\s\\S])"
+            },
+            "version": {
+              "type": "string",
+              "pattern": "^(?:(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*))(?![\\s\\S])"
+            },
+            "manifest_sha256": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{64})(?![\\s\\S])"
+            },
+            "source_commit": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{40})(?![\\s\\S])"
+            }
+          },
+          "required": [
+            "repository",
+            "id",
+            "version",
+            "manifest_sha256",
+            "source_commit"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type",
+        "reference"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "adapted"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "derived_from"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "title",
+    "kind",
+    "summary",
+    "tags",
+    "aliases",
+    "author_key",
+    "owner_key",
+    "source"
+  ],
+  "additionalProperties": false
+}

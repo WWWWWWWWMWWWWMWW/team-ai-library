@@ -1,0 +1,224 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "state",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^(?:[a-z0-9][a-z0-9_-]*/[a-z0-9][a-z0-9_-]*)(?![\\s\\S])"
+    },
+    "owner_key": {
+      "type": "string",
+      "pattern": "^(?:[a-z0-9][a-z0-9_-]*)(?![\\s\\S])"
+    },
+    "recommended_version": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^(?:(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*))(?![\\s\\S])"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "withdrawn_versions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(?:(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*))(?![\\s\\S])"
+      },
+      "uniqueItems": true
+    },
+    "reviews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^(?:[a-z0-9][a-z0-9_-]*/[a-z0-9][a-z0-9_-]*)(?![\\s\\S])"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^(?:(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*))(?![\\s\\S])"
+          },
+          "manifest_sha256": {
+            "type": "string",
+            "pattern": "^(?:[0-9a-f]{64})(?![\\s\\S])"
+          },
+          "date": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reviewer_key": {
+            "type": "string",
+            "pattern": "^(?:[a-z0-9][a-z0-9_-]*)(?![\\s\\S])"
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "approved",
+              "rejected"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "manifest_sha256",
+          "date",
+          "reviewer_key",
+          "decision",
+          "evidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "verification": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^(?:[a-z0-9][a-z0-9_-]*/[a-z0-9][a-z0-9_-]*)(?![\\s\\S])"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^(?:(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*))(?![\\s\\S])"
+          },
+          "manifest_sha256": {
+            "type": "string",
+            "pattern": "^(?:[0-9a-f]{64})(?![\\s\\S])"
+          },
+          "date": {
+            "type": "string",
+            "pattern": "^(?:(?!0000)[0-9]{4}-(?:(?:01|03|05|07|08|10|12)-(?:0[1-9]|[12][0-9]|3[01])|(?:04|06|09|11)-(?:0[1-9]|[12][0-9]|30)|02-(?:0[1-9]|1[0-9]|2[0-8]))|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)(?![\\s\\S])",
+            "format": "date"
+          },
+          "tool": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?=[\\s\\S]*\\S)[\\s\\S]+(?![\\s\\S])"
+          },
+          "environment": {
+            "type": "object"
+          },
+          "business_scope": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?=[\\s\\S]*\\S)[\\s\\S]+(?![\\s\\S])"
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "passed",
+              "failed",
+              "unverified"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^(?=[\\s\\S]*\\S)[\\s\\S]+(?![\\s\\S])"
+            },
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "manifest_sha256",
+          "date",
+          "tool",
+          "environment",
+          "business_scope",
+          "result",
+          "evidence"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "result": {
+                  "enum": [
+                    "passed",
+                    "failed"
+                  ]
+                }
+              },
+              "required": [
+                "result"
+              ]
+            },
+            "then": {
+              "properties": {
+                "evidence": {
+                  "minItems": 1
+                },
+                "environment": {
+                  "minProperties": 1,
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "^(?=[\\s\\S]*\\S)[\\s\\S]+(?![\\s\\S])"
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "pattern": "^(?=[\\s\\S]*\\S)[\\s\\S]+(?![\\s\\S])"
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "minProperties": 1,
+                        "additionalProperties": {
+                          "type": "string",
+                          "minLength": 1,
+                          "pattern": "^(?=[\\s\\S]*\\S)[\\s\\S]+(?![\\s\\S])"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "tool": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^(?=[\\s\\S]*[A-Za-z\\u0080-\\uffff])(?=[\\s\\S]*[0-9])\\S(?:[\\s\\S]*\\S)?(?![\\s\\S])"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "owner_key",
+    "recommended_version",
+    "withdrawn_versions",
+    "reviews",
+    "verification"
+  ],
+  "additionalProperties": false
+}

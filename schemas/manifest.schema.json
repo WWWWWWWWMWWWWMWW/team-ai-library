@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "manifest",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^(?:[a-z0-9][a-z0-9_-]*/[a-z0-9][a-z0-9_-]*)(?![\\s\\S])"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(?:(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*))(?![\\s\\S])"
+    },
+    "entrypoints": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^payload/(?:(?!(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM][1-9]|[lL][pP][tT][1-9])(?:\\.|/|$))[^/\\\\:\\x00-\\x1f]*[^/\\\\:\\x00-\\x1f .])(?:/(?!(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM][1-9]|[lL][pP][tT][1-9])(?:\\.|/|$))[^/\\\\:\\x00-\\x1f]*[^/\\\\:\\x00-\\x1f .])*(?![\\s\\S])"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "includes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "excludes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "inputs",
+        "outputs",
+        "includes",
+        "excludes"
+      ],
+      "additionalProperties": false
+    },
+    "compatibility": {
+      "type": "object",
+      "properties": {
+        "os": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "runtimes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "tools": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "os",
+        "runtimes",
+        "tools",
+        "capabilities"
+      ],
+      "additionalProperties": false
+    },
+    "effects": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^(?:[a-z0-9][a-z0-9_-]*/[a-z0-9][a-z0-9_-]*)(?![\\s\\S])"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^(?:(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*))(?![\\s\\S])"
+          },
+          "manifest_sha256": {
+            "type": "string",
+            "pattern": "^(?:[0-9a-f]{64})(?![\\s\\S])"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "manifest_sha256"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?:README\\.md|payload/(?:(?!(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM][1-9]|[lL][pP][tT][1-9])(?:\\.|/|$))[^/\\\\:\\x00-\\x1f]*[^/\\\\:\\x00-\\x1f .])(?:/(?!(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM][1-9]|[lL][pP][tT][1-9])(?:\\.|/|$))[^/\\\\:\\x00-\\x1f]*[^/\\\\:\\x00-\\x1f .])*)(?![\\s\\S])"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^(?:[0-9a-f]{64})(?![\\s\\S])"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "path",
+          "sha256",
+          "size"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "version",
+    "entrypoints",
+    "scope",
+    "compatibility",
+    "effects",
+    "dependencies",
+    "files"
+  ],
+  "additionalProperties": false
+}

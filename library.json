@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "remote": "https://github.com/WWWWWWWWMWWWWMWW/team-ai-library.git",
+  "shared_branch": "main",
+  "platform": "github",
+  "workspace": ".teamlib-workspace",
+  "publish_mode": "request",
+  "auto_merge": false,
+  "target_profiles": {
+    "local_materials": {
+      "path": ".teamlib-installed",
+      "tool": "library-directory"
+    }
+  }
+}

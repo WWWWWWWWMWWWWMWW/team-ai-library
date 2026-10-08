@@ -1,0 +1,139 @@
+test_adaptation_requires_exact_original_binding (tests.test_contracts.ContractTests.test_adaptation_requires_exact_original_binding) ... ok
+test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) ... ok
+test_inventory_portable_and_digest_constraints (tests.test_contracts.ContractTests.test_inventory_portable_and_digest_constraints) ... ok
+test_json_atomic_roundtrip_and_no_symlinks (tests.test_contracts.ContractTests.test_json_atomic_roundtrip_and_no_symlinks) ... ok
+test_receipt_and_run_require_accurate_material_sources (tests.test_contracts.ContractTests.test_receipt_and_run_require_accurate_material_sources) ... ok
+test_receipt_release_paths_baseline_and_lock_cannot_diverge (tests.test_contracts.ContractTests.test_receipt_release_paths_baseline_and_lock_cannot_diverge) ... ok
+test_required_shapes_unknown_fields_and_binding (tests.test_contracts.ContractTests.test_required_shapes_unknown_fields_and_binding) ... ok
+test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) ... ok
+test_valid_version_and_leading_zero_rejected (tests.test_contracts.ContractTests.test_valid_version_and_leading_zero_rejected) ... ok
+test_local_platform_remote_is_only_filesystem (tests.test_config.ConfigTests.test_local_platform_remote_is_only_filesystem) ... ok
+test_reject_missing_insecure_workspace_credentials_and_modes (tests.test_config.ConfigTests.test_reject_missing_insecure_workspace_credentials_and_modes) ... ok
+test_repo_ancestors_and_profile_layout_overlap_are_rejected (tests.test_config.ConfigTests.test_repo_ancestors_and_profile_layout_overlap_are_rejected) ... ok
+test_unconfigured_is_explicit_and_runtime_paths (tests.test_config.ConfigTests.test_unconfigured_is_explicit_and_runtime_paths) ... ok
+test_archive_magic_cannot_be_hidden_by_filename (tests.test_package.PackageTests.test_archive_magic_cannot_be_hidden_by_filename) ... ok
+test_binary_embedded_secret_cannot_be_approved (tests.test_package.PackageTests.test_binary_embedded_secret_cannot_be_approved) ... ok
+test_json_key_value_assignment_and_markdown_body_are_decoded (tests.test_package.PackageTests.test_json_key_value_assignment_and_markdown_body_are_decoded) ... ok
+test_manifest_not_self_hashed (tests.test_package.PackageTests.test_manifest_not_self_hashed) ... ok
+test_missing_manifest_returns_controlled_error (tests.test_package.PackageTests.test_missing_manifest_returns_controlled_error) ... ok
+test_nonregular_json_is_rejected_without_blocking (tests.test_package.PackageTests.test_nonregular_json_is_rejected_without_blocking) ... ok
+test_omitted_missing_hash_and_case_collisions (tests.test_package.PackageTests.test_omitted_missing_hash_and_case_collisions) ... ok
+test_opaque_content_unapproved_and_clean_share (tests.test_package.PackageTests.test_opaque_content_unapproved_and_clean_share) ... ok
+test_outbound_scans_meta_body_message_and_no_secret_echo (tests.test_package.PackageTests.test_outbound_scans_meta_body_message_and_no_secret_echo) ... ok
+test_release_budgets_apply_to_inventory (tests.test_package.PackageTests.test_release_budgets_apply_to_inventory) ... ok
+test_successful_outbound_result_contains_no_decoded_material (tests.test_package.PackageTests.test_successful_outbound_result_contains_no_decoded_material) ... ok
+test_symlink_and_nested_symlink_rejected (tests.test_package.PackageTests.test_symlink_and_nested_symlink_rejected) ... ok
+test_unicode_escaped_json_secrets_are_blocked_without_echo (tests.test_package.PackageTests.test_unicode_escaped_json_secrets_are_blocked_without_echo) ... ok
+test_actual_owner_transfer_governance_updates_both_copies (tests.test_policy.PolicyTests.test_actual_owner_transfer_governance_updates_both_copies) ... ok
+test_added_file_old_release_and_delete_are_immutable (tests.test_policy.PolicyTests.test_added_file_old_release_and_delete_are_immutable) ... ok
+test_contributor_state_blocked_and_maintainer_governance_allowed (tests.test_policy.PolicyTests.test_contributor_state_blocked_and_maintainer_governance_allowed) ... ok
+test_fake_actor_paths_and_role_do_not_grant_access (tests.test_policy.PolicyTests.test_fake_actor_paths_and_role_do_not_grant_access) ... ok
+test_governance_candidate_cannot_appoint_its_own_author (tests.test_policy.PolicyTests.test_governance_candidate_cannot_appoint_its_own_author) ... ok
+test_new_namespace_impersonation_and_review_commit_binding (tests.test_policy.PolicyTests.test_new_namespace_impersonation_and_review_commit_binding) ... ok
+test_new_version_and_strict_first_state (tests.test_policy.PolicyTests.test_new_version_and_strict_first_state) ... ok
+test_owner_transfer_then_new_owner_uses_original_id (tests.test_policy.PolicyTests.test_owner_transfer_then_new_owner_uses_original_id) ... ok
+test_package_limits_are_taken_from_trusted_base (tests.test_policy.PolicyTests.test_package_limits_are_taken_from_trusted_base) ... ok
+test_passed_verification_without_execution_evidence_is_denied (tests.test_policy.PolicyTests.test_passed_verification_without_execution_evidence_is_denied) ... ok
+test_recommended_and_verification_have_actual_version_binding (tests.test_policy.PolicyTests.test_recommended_and_verification_have_actual_version_binding) ... ok
+test_release_immutable_even_for_maintainer (tests.test_policy.PolicyTests.test_release_immutable_even_for_maintainer) ... ok
+test_unicode_escaped_metadata_secret_fails_trusted_admission (tests.test_policy.PolicyTests.test_unicode_escaped_metadata_secret_fails_trusted_admission) ... ok
+test_invalid_arguments_do_not_echo_unknown_private_text (tests.test_cli.CLITests.test_invalid_arguments_do_not_echo_unknown_private_text) ... ok
+test_local_validate_needs_no_remote_and_does_not_execute_payload (tests.test_cli.CLITests.test_local_validate_needs_no_remote_and_does_not_execute_payload) ... ok
+test_missing_configuration_is_blocked_json_not_traceback (tests.test_cli.CLITests.test_missing_configuration_is_blocked_json_not_traceback) ... ok
+test_real_local_git_search_fetch_install_and_reuse (tests.test_cli.CLITests.test_real_local_git_search_fetch_install_and_reuse) ... ok
+test_unconfigured_example_does_not_claim_platform_ready (tests.test_cli.CLITests.test_unconfigured_example_does_not_claim_platform_ready) ... ok
+test_unknown_install_profile_blocks_without_touching_target (tests.test_cli.CLITests.test_unknown_install_profile_blocks_without_touching_target) ... ok
+test_explicit_source_pinned_while_default_fresh (tests.test_snapshots.SnapshotTests.test_explicit_source_pinned_while_default_fresh) ... ok
+test_export_attributes_cannot_hide_or_transform_tracked_bytes (tests.test_snapshots.SnapshotTests.test_export_attributes_cannot_hide_or_transform_tracked_bytes) ... FAIL
+test_github_mode_read_gate_precedes_any_git_access (tests.test_snapshots.SnapshotTests.test_github_mode_read_gate_precedes_any_git_access) ... ok
+test_remote_failure_never_passes_as_fresh_cached_state (tests.test_snapshots.SnapshotTests.test_remote_failure_never_passes_as_fresh_cached_state) ... ok
+test_shared_branch_snapshot_preserves_dirty_user_checkout (tests.test_snapshots.SnapshotTests.test_shared_branch_snapshot_preserves_dirty_user_checkout) ... ok
+test_snapshot_rejects_tracked_link_without_following_target (tests.test_snapshots.SnapshotTests.test_snapshot_rejects_tracked_link_without_following_target) ... ok
+test_unreachable_commit_cannot_become_shared_material (tests.test_snapshots.SnapshotTests.test_unreachable_commit_cannot_become_shared_material) ... ok
+test_catalog_binds_actual_manifest_and_state (tests.test_dependencies.DependencyTests.test_catalog_binds_actual_manifest_and_state) ... ok
+test_catalog_rejects_identity_and_owner_divergence (tests.test_dependencies.DependencyTests.test_catalog_rejects_identity_and_owner_divergence) ... ok
+test_cycle_blocks_and_does_not_mutate_records (tests.test_dependencies.DependencyTests.test_cycle_blocks_and_does_not_mutate_records) ... ok
+test_missing_or_digest_mismatch_blocks_instead_of_latest (tests.test_dependencies.DependencyTests.test_missing_or_digest_mismatch_blocks_instead_of_latest) ... ok
+test_precise_closure_returns_dependency_before_root (tests.test_dependencies.DependencyTests.test_precise_closure_returns_dependency_before_root) ... ok
+test_all_dependencies_downloaded (tests.test_install.InstallTests.test_all_dependencies_downloaded) ... ok
+test_configured_profile_and_provenance_target_boundaries (tests.test_install.InstallTests.test_configured_profile_and_provenance_target_boundaries) ... ok
+test_corrupt_or_missing_payload_blocks (tests.test_install.InstallTests.test_corrupt_or_missing_payload_blocks) ... ok
+test_download_install_real_source_and_baseline (tests.test_install.InstallTests.test_download_install_real_source_and_baseline) ... ok
+test_first_install_receipt_failure_restores_empty_target_and_allows_retry (tests.test_install.InstallTests.test_first_install_receipt_failure_restores_empty_target_and_allows_retry) ... ok
+test_forged_source_commit_cannot_receive_install_receipt (tests.test_install.InstallTests.test_forged_source_commit_cannot_receive_install_receipt) ... ok
+test_install_binding_failure_restores_target_without_success_receipt (tests.test_install.InstallTests.test_install_binding_failure_restores_target_without_success_receipt) ... ok
+test_nested_install_cannot_mutate_download (tests.test_install.InstallTests.test_nested_install_cannot_mutate_download) ... ok
+test_offline_install_is_blocked_without_success_receipt (tests.test_install.InstallTests.test_offline_install_is_blocked_without_success_receipt) ... ok
+test_symlink_target_is_blocked (tests.test_install.InstallTests.test_symlink_target_is_blocked) ... ok
+test_two_dependency_versions_competing_for_capability_position_blocked (tests.test_install.InstallTests.test_two_dependency_versions_competing_for_capability_position_blocked) ... ok
+test_unknown_target_preserved (tests.test_install.InstallTests.test_unknown_target_preserved) ... ok
+test_withdraw_after_download_blocks_install (tests.test_install.InstallTests.test_withdraw_after_download_blocks_install) ... ok
+test_dependency_withdrawal_blocks (tests.test_reuse.ReuseTests.test_dependency_withdrawal_blocks) ... ok
+test_malformed_current_revocations_fail_closed_controlled (tests.test_reuse.ReuseTests.test_malformed_current_revocations_fail_closed_controlled) ... ok
+test_offline_never_cached_success (tests.test_reuse.ReuseTests.test_offline_never_cached_success) ... ok
+test_receipt_actual_change_blocked (tests.test_reuse.ReuseTests.test_receipt_actual_change_blocked) ... ok
+test_receipt_reuse_rejects_target_rebinding (tests.test_reuse.ReuseTests.test_receipt_reuse_rejects_target_rebinding) ... ok
+test_receipt_unmodified_passes (tests.test_reuse.ReuseTests.test_receipt_unmodified_passes) ... ok
+test_scope_environment_authorization_fail_closed (tests.test_reuse.ReuseTests.test_scope_environment_authorization_fail_closed) ... ok
+test_source_sha_revocation_blocks (tests.test_reuse.ReuseTests.test_source_sha_revocation_blocks) ... ok
+test_temporary_reuse_does_not_install (tests.test_reuse.ReuseTests.test_temporary_reuse_does_not_install) ... ok
+test_transitive_material_changed_blocked (tests.test_reuse.ReuseTests.test_transitive_material_changed_blocked) ... ok
+test_binary_conflict (tests.test_updates.AppliedUpdateTests.test_binary_conflict) ... ok
+test_consecutive_updates_preserve_local_changes_and_upstream_baseline (tests.test_updates.AppliedUpdateTests.test_consecutive_updates_preserve_local_changes_and_upstream_baseline) ... ok
+test_cross_volume_receipt_failure_rollback_preserves_original (tests.test_updates.AppliedUpdateTests.test_cross_volume_receipt_failure_rollback_preserves_original) ... ok
+test_failed_receipt_write_rolls_back_target_and_receipt (tests.test_updates.AppliedUpdateTests.test_failed_receipt_write_rolls_back_target_and_receipt) ... ok
+test_overlap_is_blocked_without_creating_candidate_in_original (tests.test_updates.AppliedUpdateTests.test_overlap_is_blocked_without_creating_candidate_in_original) ... ok
+test_receipt_target_alone_cannot_rebind_unmanaged_or_provenance_directory (tests.test_updates.AppliedUpdateTests.test_receipt_target_alone_cannot_rebind_unmanaged_or_provenance_directory) ... ok
+test_update_final_candidate_and_rollback_are_on_target_parent (tests.test_updates.AppliedUpdateTests.test_update_final_candidate_and_rollback_are_on_target_parent) ... ok
+test_both_changed_keeps_original (tests.test_updates.UpdateTests.test_both_changed_keeps_original) ... ok
+test_local_and_upstream_separate_changes_preserved (tests.test_updates.UpdateTests.test_local_and_upstream_separate_changes_preserved) ... ok
+test_symlink_rejected (tests.test_updates.UpdateTests.test_symlink_rejected) ... ok
+test_upstream_delete_local_modify_conflict (tests.test_updates.UpdateTests.test_upstream_delete_local_modify_conflict) ... ok
+test_actual_inventory_and_outbound_secret_block_before_push (tests.test_publish.PublishTests.test_actual_inventory_and_outbound_secret_block_before_push) ... ok
+test_changed_proposal_head_and_offline_merged_status_are_unverified (tests.test_publish.PublishTests.test_changed_proposal_head_and_offline_merged_status_are_unverified) ... ok
+test_created_request_head_is_verified_before_returning_success (tests.test_publish.PublishTests.test_created_request_head_is_verified_before_returning_success) ... ok
+test_current_maintainer_can_propose_state_only_without_config_role (tests.test_publish.PublishTests.test_current_maintainer_can_propose_state_only_without_config_role) ... ok
+test_freshness_retry_has_two_refreshes_maximum (tests.test_publish.PublishTests.test_freshness_retry_has_two_refreshes_maximum) ... ok
+test_git_content_normalization_cannot_change_verified_material (tests.test_publish.PublishTests.test_git_content_normalization_cannot_change_verified_material) ... ok
+test_merge_commit_must_contain_expected_material_not_only_current_shared (tests.test_publish.PublishTests.test_merge_commit_must_contain_expected_material_not_only_current_shared) ... ok
+test_missing_original_review_binding_cannot_be_adopted_from_current_api (tests.test_publish.PublishTests.test_missing_original_review_binding_cannot_be_adopted_from_current_api) ... ok
+test_offline_status_preserves_known_submitted_state (tests.test_publish.PublishTests.test_offline_status_preserves_known_submitted_state) ... ok
+test_proposal_retry_keeps_original_review_binding_after_body_changed (tests.test_publish.PublishTests.test_proposal_retry_keeps_original_review_binding_after_body_changed) ... ok
+test_proposal_sanitized_single_commit_and_repeat (tests.test_publish.PublishTests.test_proposal_sanitized_single_commit_and_repeat) ... ok
+test_published_status_binds_original_body_title_author_and_request (tests.test_publish.PublishTests.test_published_status_binds_original_body_title_author_and_request) ... ok
+test_published_version_is_immutable_and_self_reported_role_denied (tests.test_publish.PublishTests.test_published_version_is_immutable_and_self_reported_role_denied) ... ok
+test_push_completed_but_remote_confirmation_failed_stays_prepared (tests.test_publish.PublishTests.test_push_completed_but_remote_confirmation_failed_stays_prepared) ... ok
+test_request_unmerged_and_merged_material_mismatch (tests.test_publish.PublishTests.test_request_unmerged_and_merged_material_mismatch) ... ok
+test_request_wrong_base_and_changed_proposal_are_not_published (tests.test_publish.PublishTests.test_request_wrong_base_and_changed_proposal_are_not_published) ... ok
+test_trusted_base_checker_rejection_blocks_push (tests.test_publish.PublishTests.test_trusted_base_checker_rejection_blocks_push) ... ok
+test_user_old_history_and_payload_are_not_executed_or_uploaded (tests.test_publish.PublishTests.test_user_old_history_and_payload_are_not_executed_or_uploaded) ... ok
+test_actual_private_auth_and_protection_are_required (tests.test_platform.PlatformTests.test_actual_private_auth_and_protection_are_required) ... ok
+test_ambiguous_or_revoked_trusted_mapping_is_denied (tests.test_platform.PlatformTests.test_ambiguous_or_revoked_trusted_mapping_is_denied) ... ok
+test_body_is_locked_before_external_create (tests.test_platform.PlatformTests.test_body_is_locked_before_external_create) ... ok
+test_create_failure_preserves_prepared_without_secret_stderr (tests.test_platform.PlatformTests.test_create_failure_preserves_prepared_without_secret_stderr) ... ok
+test_create_succeeded_but_followup_query_failed_stays_prepared (tests.test_platform.PlatformTests.test_create_succeeded_but_followup_query_failed_stays_prepared) ... ok
+test_get_request_returns_review_digests_without_raw_body_for_readonly_user (tests.test_platform.PlatformTests.test_get_request_returns_review_digests_without_raw_body_for_readonly_user) ... ok
+test_governance_issue_idempotency_and_read (tests.test_platform.PlatformTests.test_governance_issue_idempotency_and_read) ... ok
+test_governance_same_operation_different_payload_is_conflict (tests.test_platform.PlatformTests.test_governance_same_operation_different_payload_is_conflict) ... ok
+test_governance_unknown_payload_field_blocks_share (tests.test_platform.PlatformTests.test_governance_unknown_payload_field_blocks_share) ... ok
+test_read_gate_needs_private_personal_membership_and_pull_only (tests.test_platform.PlatformTests.test_read_gate_needs_private_personal_membership_and_pull_only) ... ok
+test_read_gate_rejects_bot_even_with_matching_membership (tests.test_platform.PlatformTests.test_read_gate_rejects_bot_even_with_matching_membership) ... ok
+test_request_ids_do_not_accept_command_or_foreign_url (tests.test_platform.PlatformTests.test_request_ids_do_not_accept_command_or_foreign_url) ... ok
+test_request_query_before_retry_and_submission_truth (tests.test_platform.PlatformTests.test_request_query_before_retry_and_submission_truth) ... ok
+test_request_same_operation_with_changed_body_is_conflict (tests.test_platform.PlatformTests.test_request_same_operation_with_changed_body_is_conflict) ... ok
+test_secret_title_or_issue_body_blocks_before_remote_write (tests.test_platform.PlatformTests.test_secret_title_or_issue_body_blocks_before_remote_write) ... ok
+test_unconfigured_and_local_cannot_claim_connected_security (tests.test_platform.PlatformTests.test_unconfigured_and_local_cannot_claim_connected_security) ... ok
+
+======================================================================
+FAIL: test_export_attributes_cannot_hide_or_transform_tracked_bytes (tests.test_snapshots.SnapshotTests.test_export_attributes_cannot_hide_or_transform_tracked_bytes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_snapshots.py", line 68, in test_export_attributes_cannot_hide_or_transform_tracked_bytes
+    self.assertEqual((tree/'hidden.txt').read_bytes(),b'all tracked material must be reviewed\r\n')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: b'all tracked material must be reviewed\n' != b'all tracked material must be reviewed\r\n'
+
+----------------------------------------------------------------------
+Ran 125 tests in 32.049s
+
+FAILED (failures=1)

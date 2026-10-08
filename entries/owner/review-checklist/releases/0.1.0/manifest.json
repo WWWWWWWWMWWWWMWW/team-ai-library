@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "id": "owner/review-checklist",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/SKILL.md"
+  ],
+  "scope": {
+    "inputs": [
+      "any"
+    ],
+    "outputs": [
+      "any"
+    ],
+    "includes": [
+      "any"
+    ],
+    "excludes": [
+      "production-change",
+      "external-send",
+      "unrequested-upload"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "any"
+    ],
+    "runtimes": {},
+    "tools": [],
+    "capabilities": [
+      "filesystem.read"
+    ]
+  },
+  "effects": [
+    "read_only"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "cbb080b6a8c26122b2d0b232f58dda6ff5f164015cf6281aebc71e16de400678",
+      "size": 369
+    },
+    {
+      "path": "payload/SKILL.md",
+      "sha256": "c0320cd223bf47cd129251d8d6d411d22a66ff8ff953eb6578d0ebfeb6394eb0",
+      "size": 548
+    }
+  ]
+}

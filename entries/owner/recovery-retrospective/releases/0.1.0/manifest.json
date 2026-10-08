@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "id": "owner/recovery-retrospective",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/instructions.md"
+  ],
+  "scope": {
+    "inputs": [
+      "恢复记录"
+    ],
+    "outputs": [
+      "复盘摘要"
+    ],
+    "includes": [
+      "recovery-review"
+    ],
+    "excludes": [
+      "production-change",
+      "external-send",
+      "unrequested-upload"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "any"
+    ],
+    "runtimes": {},
+    "tools": [],
+    "capabilities": [
+      "filesystem.read"
+    ]
+  },
+  "effects": [
+    "read_only"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "9b7c05c47e90658a83aedd0638461d892354c85c152ac7dd6e2d22b1bf4dd400",
+      "size": 382
+    },
+    {
+      "path": "payload/instructions.md",
+      "sha256": "ccb3b30068815d9fea2655141e49716aa04f013c7476b364477a696fc70a4411",
+      "size": 468
+    }
+  ]
+}

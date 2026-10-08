@@ -1,0 +1,113 @@
+test_actual_private_auth_and_protection_are_required (tests.test_platform.PlatformTests.test_actual_private_auth_and_protection_are_required) ... ERROR
+test_create_failure_preserves_prepared_without_secret_stderr (tests.test_platform.PlatformTests.test_create_failure_preserves_prepared_without_secret_stderr) ... ERROR
+test_governance_issue_idempotency_and_read (tests.test_platform.PlatformTests.test_governance_issue_idempotency_and_read) ... ERROR
+test_request_ids_do_not_accept_command_or_foreign_url (tests.test_platform.PlatformTests.test_request_ids_do_not_accept_command_or_foreign_url) ... ERROR
+test_request_query_before_retry_and_submission_truth (tests.test_platform.PlatformTests.test_request_query_before_retry_and_submission_truth) ... ERROR
+test_secret_title_or_issue_body_blocks_before_remote_write (tests.test_platform.PlatformTests.test_secret_title_or_issue_body_blocks_before_remote_write) ... ERROR
+test_unconfigured_and_local_cannot_claim_connected_security (tests.test_platform.PlatformTests.test_unconfigured_and_local_cannot_claim_connected_security) ... ERROR
+test_actual_inventory_and_outbound_secret_block_before_push (tests.test_publish.PublishTests.test_actual_inventory_and_outbound_secret_block_before_push) ... ERROR
+test_proposal_sanitized_single_commit_and_repeat (tests.test_publish.PublishTests.test_proposal_sanitized_single_commit_and_repeat) ... ERROR
+test_published_version_is_immutable_and_self_reported_role_denied (tests.test_publish.PublishTests.test_published_version_is_immutable_and_self_reported_role_denied) ... ERROR
+test_request_unmerged_and_merged_material_mismatch (tests.test_publish.PublishTests.test_request_unmerged_and_merged_material_mismatch) ... ERROR
+test_request_wrong_base_and_changed_proposal_are_not_published (tests.test_publish.PublishTests.test_request_wrong_base_and_changed_proposal_are_not_published) ... ERROR
+
+======================================================================
+ERROR: test_actual_private_auth_and_protection_are_required (tests.test_platform.PlatformTests.test_actual_private_auth_and_protection_are_required)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_platform.py", line 14, in setUp
+    from tools.teamlib import platform
+ImportError: cannot import name 'platform' from 'tools.teamlib' (/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tools/teamlib/__init__.py)
+
+======================================================================
+ERROR: test_create_failure_preserves_prepared_without_secret_stderr (tests.test_platform.PlatformTests.test_create_failure_preserves_prepared_without_secret_stderr)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_platform.py", line 14, in setUp
+    from tools.teamlib import platform
+ImportError: cannot import name 'platform' from 'tools.teamlib' (/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tools/teamlib/__init__.py)
+
+======================================================================
+ERROR: test_governance_issue_idempotency_and_read (tests.test_platform.PlatformTests.test_governance_issue_idempotency_and_read)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_platform.py", line 14, in setUp
+    from tools.teamlib import platform
+ImportError: cannot import name 'platform' from 'tools.teamlib' (/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tools/teamlib/__init__.py)
+
+======================================================================
+ERROR: test_request_ids_do_not_accept_command_or_foreign_url (tests.test_platform.PlatformTests.test_request_ids_do_not_accept_command_or_foreign_url)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_platform.py", line 14, in setUp
+    from tools.teamlib import platform
+ImportError: cannot import name 'platform' from 'tools.teamlib' (/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tools/teamlib/__init__.py)
+
+======================================================================
+ERROR: test_request_query_before_retry_and_submission_truth (tests.test_platform.PlatformTests.test_request_query_before_retry_and_submission_truth)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_platform.py", line 14, in setUp
+    from tools.teamlib import platform
+ImportError: cannot import name 'platform' from 'tools.teamlib' (/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tools/teamlib/__init__.py)
+
+======================================================================
+ERROR: test_secret_title_or_issue_body_blocks_before_remote_write (tests.test_platform.PlatformTests.test_secret_title_or_issue_body_blocks_before_remote_write)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_platform.py", line 14, in setUp
+    from tools.teamlib import platform
+ImportError: cannot import name 'platform' from 'tools.teamlib' (/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tools/teamlib/__init__.py)
+
+======================================================================
+ERROR: test_unconfigured_and_local_cannot_claim_connected_security (tests.test_platform.PlatformTests.test_unconfigured_and_local_cannot_claim_connected_security)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_platform.py", line 14, in setUp
+    from tools.teamlib import platform
+ImportError: cannot import name 'platform' from 'tools.teamlib' (/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tools/teamlib/__init__.py)
+
+======================================================================
+ERROR: test_actual_inventory_and_outbound_secret_block_before_push (tests.test_publish.PublishTests.test_actual_inventory_and_outbound_secret_block_before_push)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_publish.py", line 15, in setUp
+    from tools.teamlib import publish, platform
+ImportError: cannot import name 'publish' from 'tools.teamlib' (/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tools/teamlib/__init__.py)
+
+======================================================================
+ERROR: test_proposal_sanitized_single_commit_and_repeat (tests.test_publish.PublishTests.test_proposal_sanitized_single_commit_and_repeat)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_publish.py", line 15, in setUp
+    from tools.teamlib import publish, platform
+ImportError: cannot import name 'publish' from 'tools.teamlib' (/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tools/teamlib/__init__.py)
+
+======================================================================
+ERROR: test_published_version_is_immutable_and_self_reported_role_denied (tests.test_publish.PublishTests.test_published_version_is_immutable_and_self_reported_role_denied)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_publish.py", line 15, in setUp
+    from tools.teamlib import publish, platform
+ImportError: cannot import name 'publish' from 'tools.teamlib' (/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tools/teamlib/__init__.py)
+
+======================================================================
+ERROR: test_request_unmerged_and_merged_material_mismatch (tests.test_publish.PublishTests.test_request_unmerged_and_merged_material_mismatch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_publish.py", line 15, in setUp
+    from tools.teamlib import publish, platform
+ImportError: cannot import name 'publish' from 'tools.teamlib' (/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tools/teamlib/__init__.py)
+
+======================================================================
+ERROR: test_request_wrong_base_and_changed_proposal_are_not_published (tests.test_publish.PublishTests.test_request_wrong_base_and_changed_proposal_are_not_published)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_publish.py", line 15, in setUp
+    from tools.teamlib import publish, platform
+ImportError: cannot import name 'publish' from 'tools.teamlib' (/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tools/teamlib/__init__.py)
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.001s
+
+FAILED (errors=12)

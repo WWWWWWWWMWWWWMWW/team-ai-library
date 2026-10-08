@@ -1,0 +1,176 @@
+test_inventory_portable_and_digest_constraints (tests.test_contracts.ContractTests.test_inventory_portable_and_digest_constraints) ... ERROR
+test_json_atomic_roundtrip_and_no_symlinks (tests.test_contracts.ContractTests.test_json_atomic_roundtrip_and_no_symlinks) ... ERROR
+test_required_shapes_unknown_fields_and_binding (tests.test_contracts.ContractTests.test_required_shapes_unknown_fields_and_binding) ... ERROR
+test_valid_version_and_leading_zero_rejected (tests.test_contracts.ContractTests.test_valid_version_and_leading_zero_rejected) ... ERROR
+test_reject_missing_insecure_workspace_credentials_and_modes (tests.test_config.ConfigTests.test_reject_missing_insecure_workspace_credentials_and_modes) ... ERROR
+test_unconfigured_is_explicit_and_runtime_paths (tests.test_config.ConfigTests.test_unconfigured_is_explicit_and_runtime_paths) ... ERROR
+test_manifest_not_self_hashed (tests.test_package.PackageTests.test_manifest_not_self_hashed) ... ERROR
+test_omitted_missing_hash_and_case_collisions (tests.test_package.PackageTests.test_omitted_missing_hash_and_case_collisions) ... ERROR
+test_opaque_content_unapproved_and_clean_share (tests.test_package.PackageTests.test_opaque_content_unapproved_and_clean_share) ... ERROR
+test_outbound_scans_meta_body_message_and_no_secret_echo (tests.test_package.PackageTests.test_outbound_scans_meta_body_message_and_no_secret_echo) ... ERROR
+test_symlink_and_nested_symlink_rejected (tests.test_package.PackageTests.test_symlink_and_nested_symlink_rejected) ... ERROR
+test_contributor_state_blocked_and_maintainer_governance_allowed (tests.test_policy.PolicyTests.test_contributor_state_blocked_and_maintainer_governance_allowed) ... ERROR
+test_fake_actor_paths_and_role_do_not_grant_access (tests.test_policy.PolicyTests.test_fake_actor_paths_and_role_do_not_grant_access) ... ERROR
+test_new_namespace_impersonation_and_review_commit_binding (tests.test_policy.PolicyTests.test_new_namespace_impersonation_and_review_commit_binding) ... ERROR
+test_new_version_and_strict_first_state (tests.test_policy.PolicyTests.test_new_version_and_strict_first_state) ... ERROR
+test_owner_transfer_then_new_owner_uses_original_id (tests.test_policy.PolicyTests.test_owner_transfer_then_new_owner_uses_original_id) ... ERROR
+test_release_immutable_even_for_maintainer (tests.test_policy.PolicyTests.test_release_immutable_even_for_maintainer) ... ERROR
+
+======================================================================
+ERROR: test_inventory_portable_and_digest_constraints (tests.test_contracts.ContractTests.test_inventory_portable_and_digest_constraints)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 47, in test_inventory_portable_and_digest_constraints
+    from tools.teamlib.contracts import validate_record, TeamLibError
+ModuleNotFoundError: No module named 'tools.teamlib.contracts'
+
+======================================================================
+ERROR: test_json_atomic_roundtrip_and_no_symlinks (tests.test_contracts.ContractTests.test_json_atomic_roundtrip_and_no_symlinks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 34, in test_json_atomic_roundtrip_and_no_symlinks
+    from tools.teamlib.contracts import read_json, write_json, hash_file, TeamLibError
+ModuleNotFoundError: No module named 'tools.teamlib.contracts'
+
+======================================================================
+ERROR: test_required_shapes_unknown_fields_and_binding (tests.test_contracts.ContractTests.test_required_shapes_unknown_fields_and_binding)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 17, in test_required_shapes_unknown_fields_and_binding
+    from tools.teamlib.contracts import validate_record, TeamLibError
+ModuleNotFoundError: No module named 'tools.teamlib.contracts'
+
+======================================================================
+ERROR: test_valid_version_and_leading_zero_rejected (tests.test_contracts.ContractTests.test_valid_version_and_leading_zero_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 10, in test_valid_version_and_leading_zero_rejected
+    from tools.teamlib.contracts import validate_version, TeamLibError
+ModuleNotFoundError: No module named 'tools.teamlib.contracts'
+
+======================================================================
+ERROR: test_reject_missing_insecure_workspace_credentials_and_modes (tests.test_config.ConfigTests.test_reject_missing_insecure_workspace_credentials_and_modes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_config.py", line 19, in test_reject_missing_insecure_workspace_credentials_and_modes
+    from tools.teamlib.config import load_config
+ModuleNotFoundError: No module named 'tools.teamlib.config'
+
+======================================================================
+ERROR: test_unconfigured_is_explicit_and_runtime_paths (tests.test_config.ConfigTests.test_unconfigured_is_explicit_and_runtime_paths)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_config.py", line 12, in test_unconfigured_is_explicit_and_runtime_paths
+    from tools.teamlib.config import load_config
+ModuleNotFoundError: No module named 'tools.teamlib.config'
+
+======================================================================
+ERROR: test_manifest_not_self_hashed (tests.test_package.PackageTests.test_manifest_not_self_hashed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_package.py", line 10, in test_manifest_not_self_hashed
+    from tools.teamlib.package import build_inventory, validate_release
+ModuleNotFoundError: No module named 'tools.teamlib.package'
+
+======================================================================
+ERROR: test_omitted_missing_hash_and_case_collisions (tests.test_package.PackageTests.test_omitted_missing_hash_and_case_collisions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_package.py", line 17, in test_omitted_missing_hash_and_case_collisions
+    from tools.teamlib.package import validate_release
+ModuleNotFoundError: No module named 'tools.teamlib.package'
+
+======================================================================
+ERROR: test_opaque_content_unapproved_and_clean_share (tests.test_package.PackageTests.test_opaque_content_unapproved_and_clean_share)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_package.py", line 55, in test_opaque_content_unapproved_and_clean_share
+    from tools.teamlib.package import validate_outbound
+ModuleNotFoundError: No module named 'tools.teamlib.package'
+
+======================================================================
+ERROR: test_outbound_scans_meta_body_message_and_no_secret_echo (tests.test_package.PackageTests.test_outbound_scans_meta_body_message_and_no_secret_echo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_package.py", line 40, in test_outbound_scans_meta_body_message_and_no_secret_echo
+    from tools.teamlib.package import validate_outbound
+ModuleNotFoundError: No module named 'tools.teamlib.package'
+
+======================================================================
+ERROR: test_symlink_and_nested_symlink_rejected (tests.test_package.PackageTests.test_symlink_and_nested_symlink_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_package.py", line 30, in test_symlink_and_nested_symlink_rejected
+    from tools.teamlib.package import build_inventory
+ModuleNotFoundError: No module named 'tools.teamlib.package'
+
+======================================================================
+ERROR: test_contributor_state_blocked_and_maintainer_governance_allowed (tests.test_policy.PolicyTests.test_contributor_state_blocked_and_maintainer_governance_allowed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 53, in test_contributor_state_blocked_and_maintainer_governance_allowed
+    self.assertFalse(self.check()['allowed'])
+                     ~~~~~~~~~~^^
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 17, in check
+    from tools.teamlib.policy import check_change
+ModuleNotFoundError: No module named 'tools.teamlib.policy'
+
+======================================================================
+ERROR: test_fake_actor_paths_and_role_do_not_grant_access (tests.test_policy.PolicyTests.test_fake_actor_paths_and_role_do_not_grant_access)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 31, in test_fake_actor_paths_and_role_do_not_grant_access
+    self.context['changed_paths']=[]; self.assertFalse(self.check()['allowed'])
+                                                       ~~~~~~~~~~^^
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 17, in check
+    from tools.teamlib.policy import check_change
+ModuleNotFoundError: No module named 'tools.teamlib.policy'
+
+======================================================================
+ERROR: test_new_namespace_impersonation_and_review_commit_binding (tests.test_policy.PolicyTests.test_new_namespace_impersonation_and_review_commit_binding)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 61, in test_new_namespace_impersonation_and_review_commit_binding
+    self.assertFalse(self.check()['allowed']); shutil.rmtree(self.candidate/'entries'/'bob')
+                     ~~~~~~~~~~^^
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 17, in check
+    from tools.teamlib.policy import check_change
+ModuleNotFoundError: No module named 'tools.teamlib.policy'
+
+======================================================================
+ERROR: test_new_version_and_strict_first_state (tests.test_policy.PolicyTests.test_new_version_and_strict_first_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 22, in test_new_version_and_strict_first_state
+    self.assertTrue(self.check()['allowed'])
+                    ~~~~~~~~~~^^
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 17, in check
+    from tools.teamlib.policy import check_change
+ModuleNotFoundError: No module named 'tools.teamlib.policy'
+
+======================================================================
+ERROR: test_owner_transfer_then_new_owner_uses_original_id (tests.test_policy.PolicyTests.test_owner_transfer_then_new_owner_uses_original_id)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 47, in test_owner_transfer_then_new_owner_uses_original_id
+    self.assertFalse(self.check()['allowed'])
+                     ~~~~~~~~~~^^
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 17, in check
+    from tools.teamlib.policy import check_change
+ModuleNotFoundError: No module named 'tools.teamlib.policy'
+
+======================================================================
+ERROR: test_release_immutable_even_for_maintainer (tests.test_policy.PolicyTests.test_release_immutable_even_for_maintainer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 40, in test_release_immutable_even_for_maintainer
+    self.assertFalse(self.check()['allowed'])
+                     ~~~~~~~~~~^^
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 17, in check
+    from tools.teamlib.policy import check_change
+ModuleNotFoundError: No module named 'tools.teamlib.policy'
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.032s
+
+FAILED (errors=17)

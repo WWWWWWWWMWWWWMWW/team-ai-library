@@ -1,0 +1,548 @@
+test_archive_magic_cannot_be_hidden_by_filename (tests.test_package.PackageTests.test_archive_magic_cannot_be_hidden_by_filename) ... ok
+test_binary_embedded_secret_cannot_be_approved (tests.test_package.PackageTests.test_binary_embedded_secret_cannot_be_approved) ... ok
+test_json_key_value_assignment_and_markdown_body_are_decoded (tests.test_package.PackageTests.test_json_key_value_assignment_and_markdown_body_are_decoded) ... FAIL
+test_manifest_not_self_hashed (tests.test_package.PackageTests.test_manifest_not_self_hashed) ... ok
+test_missing_manifest_returns_controlled_error (tests.test_package.PackageTests.test_missing_manifest_returns_controlled_error) ... ok
+test_nonregular_json_is_rejected_without_blocking (tests.test_package.PackageTests.test_nonregular_json_is_rejected_without_blocking) ... ok
+test_omitted_missing_hash_and_case_collisions (tests.test_package.PackageTests.test_omitted_missing_hash_and_case_collisions) ... ok
+test_opaque_content_unapproved_and_clean_share (tests.test_package.PackageTests.test_opaque_content_unapproved_and_clean_share) ... ok
+test_outbound_scans_meta_body_message_and_no_secret_echo (tests.test_package.PackageTests.test_outbound_scans_meta_body_message_and_no_secret_echo) ... ok
+test_release_budgets_apply_to_inventory (tests.test_package.PackageTests.test_release_budgets_apply_to_inventory) ... ok
+test_successful_outbound_result_contains_no_decoded_material (tests.test_package.PackageTests.test_successful_outbound_result_contains_no_decoded_material) ... FAIL
+test_symlink_and_nested_symlink_rejected (tests.test_package.PackageTests.test_symlink_and_nested_symlink_rejected) ... ok
+test_unicode_escaped_json_secrets_are_blocked_without_echo (tests.test_package.PackageTests.test_unicode_escaped_json_secrets_are_blocked_without_echo) ...
+  test_unicode_escaped_json_secrets_are_blocked_without_echo (tests.test_package.PackageTests.test_unicode_escaped_json_secrets_are_blocked_without_echo) (location='meta') ... FAIL
+  test_unicode_escaped_json_secrets_are_blocked_without_echo (tests.test_package.PackageTests.test_unicode_escaped_json_secrets_are_blocked_without_echo) (location='manifest') ... FAIL
+  test_unicode_escaped_json_secrets_are_blocked_without_echo (tests.test_package.PackageTests.test_unicode_escaped_json_secrets_are_blocked_without_echo) (location='state') ... FAIL
+  test_unicode_escaped_json_secrets_are_blocked_without_echo (tests.test_package.PackageTests.test_unicode_escaped_json_secrets_are_blocked_without_echo) (location='request_value') ... FAIL
+  test_unicode_escaped_json_secrets_are_blocked_without_echo (tests.test_package.PackageTests.test_unicode_escaped_json_secrets_are_blocked_without_echo) (location='request_key') ... FAIL
+test_adaptation_requires_exact_original_binding (tests.test_contracts.ContractTests.test_adaptation_requires_exact_original_binding) ... ok
+test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) ...
+  test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (change={'evidence': []}) ... FAIL
+  test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (schema_change={'evidence': []}) ... FAIL
+  test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (change={'evidence': ['  ']}) ... FAIL
+  test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (schema_change={'evidence': ['  ']}) ... FAIL
+  test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (change={'environment': {}}) ... FAIL
+  test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (schema_change={'environment': {}}) ... FAIL
+  test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (change={'environment': {'os': ''}}) ... FAIL
+  test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (schema_change={'environment': {'os': ''}}) ... FAIL
+  test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (change={'tool': 'AI'}) ... FAIL
+  test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (schema_change={'tool': 'AI'}) ... FAIL
+  test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (change={'tool': ' '}) ... FAIL
+  test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (schema_change={'tool': ' '}) ... FAIL
+  test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (change={'date': 'yesterday'}) ... FAIL
+  test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (schema_change={'date': 'yesterday'}) ... FAIL
+  test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (change={'date': '2026-02-31'}) ... FAIL
+  test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (schema_change={'date': '2026-02-31'}) ... FAIL
+test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) ... FAIL
+test_inventory_portable_and_digest_constraints (tests.test_contracts.ContractTests.test_inventory_portable_and_digest_constraints) ... ok
+test_json_atomic_roundtrip_and_no_symlinks (tests.test_contracts.ContractTests.test_json_atomic_roundtrip_and_no_symlinks) ... ok
+test_receipt_and_run_require_accurate_material_sources (tests.test_contracts.ContractTests.test_receipt_and_run_require_accurate_material_sources) ... ok
+test_receipt_release_paths_baseline_and_lock_cannot_diverge (tests.test_contracts.ContractTests.test_receipt_release_paths_baseline_and_lock_cannot_diverge) ... ok
+test_required_shapes_unknown_fields_and_binding (tests.test_contracts.ContractTests.test_required_shapes_unknown_fields_and_binding) ... ok
+test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) ...
+  test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='../private') ... FAIL
+  test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='/private/file') ... FAIL
+  test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='payload\\file') ... FAIL
+  test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='payload/./file') ... FAIL
+  test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='payload//file') ... FAIL
+  test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='payload/C:drive') ... FAIL
+  test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='payload/CON') ... FAIL
+  test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='payload/con.md') ... FAIL
+  test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='payload/a.') ... FAIL
+  test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='payload/a ') ... FAIL
+test_valid_version_and_leading_zero_rejected (tests.test_contracts.ContractTests.test_valid_version_and_leading_zero_rejected) ... ok
+test_local_platform_remote_is_only_filesystem (tests.test_config.ConfigTests.test_local_platform_remote_is_only_filesystem) ...
+  test_local_platform_remote_is_only_filesystem (tests.test_config.ConfigTests.test_local_platform_remote_is_only_filesystem) (remote='https://github.com/example/private.git') ... FAIL
+  test_local_platform_remote_is_only_filesystem (tests.test_config.ConfigTests.test_local_platform_remote_is_only_filesystem) (remote='ssh://git@github.com/example/private.git') ... FAIL
+  test_local_platform_remote_is_only_filesystem (tests.test_config.ConfigTests.test_local_platform_remote_is_only_filesystem) (remote='git://example.org/repo') ... FAIL
+  test_local_platform_remote_is_only_filesystem (tests.test_config.ConfigTests.test_local_platform_remote_is_only_filesystem) (remote='git@github.com:example/private.git') ... FAIL
+  test_local_platform_remote_is_only_filesystem (tests.test_config.ConfigTests.test_local_platform_remote_is_only_filesystem) (remote='ext::anything') ... FAIL
+  test_local_platform_remote_is_only_filesystem (tests.test_config.ConfigTests.test_local_platform_remote_is_only_filesystem) (remote='file://example.org/repo') ... FAIL
+test_local_platform_remote_is_only_filesystem (tests.test_config.ConfigTests.test_local_platform_remote_is_only_filesystem) ... FAIL
+test_reject_missing_insecure_workspace_credentials_and_modes (tests.test_config.ConfigTests.test_reject_missing_insecure_workspace_credentials_and_modes) ... ok
+test_repo_ancestors_and_profile_layout_overlap_are_rejected (tests.test_config.ConfigTests.test_repo_ancestors_and_profile_layout_overlap_are_rejected) ...
+  test_repo_ancestors_and_profile_layout_overlap_are_rejected (tests.test_config.ConfigTests.test_repo_ancestors_and_profile_layout_overlap_are_rejected) (change={'workspace': '/private/var/folders/mm/v1q1xw4s3gz7h4hq2ntn6t340000gn/T/tmp3_mjw0yl'}) ... FAIL
+  test_repo_ancestors_and_profile_layout_overlap_are_rejected (tests.test_config.ConfigTests.test_repo_ancestors_and_profile_layout_overlap_are_rejected) (change={'target_profiles': {'a': {'path': '/private/var/folders/mm/v1q1xw4s3gz7h4hq2ntn6t340000gn/T/tmp3_mjw0yl'}}}) ... FAIL
+  test_repo_ancestors_and_profile_layout_overlap_are_rejected (tests.test_config.ConfigTests.test_repo_ancestors_and_profile_layout_overlap_are_rejected) (change={'target_profiles': {'a': {'path': '.cache/teamlib'}}}) ... FAIL
+  test_repo_ancestors_and_profile_layout_overlap_are_rejected (tests.test_config.ConfigTests.test_repo_ancestors_and_profile_layout_overlap_are_rejected) (change={'target_profiles': {'a': {'path': '.cache'}}}) ... FAIL
+  test_repo_ancestors_and_profile_layout_overlap_are_rejected (tests.test_config.ConfigTests.test_repo_ancestors_and_profile_layout_overlap_are_rejected) (change={'target_profiles': {'a': {'path': '.cache/teamlib/target'}}}) ... FAIL
+  test_repo_ancestors_and_profile_layout_overlap_are_rejected (tests.test_config.ConfigTests.test_repo_ancestors_and_profile_layout_overlap_are_rejected) (change={'target_profiles': {'a': {'path': 'installed'}, 'b': {'path': 'installed'}}}) ... FAIL
+  test_repo_ancestors_and_profile_layout_overlap_are_rejected (tests.test_config.ConfigTests.test_repo_ancestors_and_profile_layout_overlap_are_rejected) (change={'target_profiles': {'a': {'path': 'installed'}, 'b': {'path': 'installed/nested'}}}) ... FAIL
+test_unconfigured_is_explicit_and_runtime_paths (tests.test_config.ConfigTests.test_unconfigured_is_explicit_and_runtime_paths) ... ok
+test_actual_owner_transfer_governance_updates_both_copies (tests.test_policy.PolicyTests.test_actual_owner_transfer_governance_updates_both_copies) ... ok
+test_added_file_old_release_and_delete_are_immutable (tests.test_policy.PolicyTests.test_added_file_old_release_and_delete_are_immutable) ... ok
+test_contributor_state_blocked_and_maintainer_governance_allowed (tests.test_policy.PolicyTests.test_contributor_state_blocked_and_maintainer_governance_allowed) ... ok
+test_fake_actor_paths_and_role_do_not_grant_access (tests.test_policy.PolicyTests.test_fake_actor_paths_and_role_do_not_grant_access) ... ok
+test_governance_candidate_cannot_appoint_its_own_author (tests.test_policy.PolicyTests.test_governance_candidate_cannot_appoint_its_own_author) ... ok
+test_new_namespace_impersonation_and_review_commit_binding (tests.test_policy.PolicyTests.test_new_namespace_impersonation_and_review_commit_binding) ... ok
+test_new_version_and_strict_first_state (tests.test_policy.PolicyTests.test_new_version_and_strict_first_state) ... ok
+test_owner_transfer_then_new_owner_uses_original_id (tests.test_policy.PolicyTests.test_owner_transfer_then_new_owner_uses_original_id) ... ok
+test_package_limits_are_taken_from_trusted_base (tests.test_policy.PolicyTests.test_package_limits_are_taken_from_trusted_base) ... ok
+test_passed_verification_without_execution_evidence_is_denied (tests.test_policy.PolicyTests.test_passed_verification_without_execution_evidence_is_denied) ... FAIL
+test_recommended_and_verification_have_actual_version_binding (tests.test_policy.PolicyTests.test_recommended_and_verification_have_actual_version_binding) ... ok
+test_release_immutable_even_for_maintainer (tests.test_policy.PolicyTests.test_release_immutable_even_for_maintainer) ... ok
+test_unicode_escaped_metadata_secret_fails_trusted_admission (tests.test_policy.PolicyTests.test_unicode_escaped_metadata_secret_fails_trusted_admission) ... FAIL
+
+======================================================================
+FAIL: test_json_key_value_assignment_and_markdown_body_are_decoded (tests.test_package.PackageTests.test_json_key_value_assignment_and_markdown_body_are_decoded)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_package.py", line 133, in test_json_key_value_assignment_and_markdown_body_are_decoded
+    with self.assertRaises(TeamLibError) as caught: scan_text(text)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_successful_outbound_result_contains_no_decoded_material (tests.test_package.PackageTests.test_successful_outbound_result_contains_no_decoded_material)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_package.py", line 144, in test_successful_outbound_result_contains_no_decoded_material
+    self.assertEqual(set(result),{'allowed','state','checks','release_count'})
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Items in the first set but not the second:
+'releases'
+'meta'
+'entry_state'
+
+======================================================================
+FAIL: test_unicode_escaped_json_secrets_are_blocked_without_echo (tests.test_package.PackageTests.test_unicode_escaped_json_secrets_are_blocked_without_echo) (location='meta')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_package.py", line 124, in test_unicode_escaped_json_secrets_are_blocked_without_echo
+    with self.assertRaises(TeamLibError) as caught: validate_outbound(root,'Publish',body)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_unicode_escaped_json_secrets_are_blocked_without_echo (tests.test_package.PackageTests.test_unicode_escaped_json_secrets_are_blocked_without_echo) (location='manifest')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_package.py", line 124, in test_unicode_escaped_json_secrets_are_blocked_without_echo
+    with self.assertRaises(TeamLibError) as caught: validate_outbound(root,'Publish',body)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_unicode_escaped_json_secrets_are_blocked_without_echo (tests.test_package.PackageTests.test_unicode_escaped_json_secrets_are_blocked_without_echo) (location='state')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_package.py", line 124, in test_unicode_escaped_json_secrets_are_blocked_without_echo
+    with self.assertRaises(TeamLibError) as caught: validate_outbound(root,'Publish',body)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_unicode_escaped_json_secrets_are_blocked_without_echo (tests.test_package.PackageTests.test_unicode_escaped_json_secrets_are_blocked_without_echo) (location='request_value')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_package.py", line 124, in test_unicode_escaped_json_secrets_are_blocked_without_echo
+    with self.assertRaises(TeamLibError) as caught: validate_outbound(root,'Publish',body)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_unicode_escaped_json_secrets_are_blocked_without_echo (tests.test_package.PackageTests.test_unicode_escaped_json_secrets_are_blocked_without_echo) (location='request_key')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_package.py", line 124, in test_unicode_escaped_json_secrets_are_blocked_without_echo
+    with self.assertRaises(TeamLibError) as caught: validate_outbound(root,'Publish',body)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (change={'evidence': []})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 90, in test_executed_verification_requires_evidence_date_versioned_tool_and_environment
+    with self.subTest(change=change), self.assertRaises(TeamLibError): validate_record('state',broken)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (schema_change={'evidence': []})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 91, in test_executed_verification_requires_evidence_date_versioned_tool_and_environment
+    with self.subTest(schema_change=change), self.assertRaises(TeamLibError): _schema_check(schema,broken)
+                                             ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (change={'evidence': ['  ']})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 90, in test_executed_verification_requires_evidence_date_versioned_tool_and_environment
+    with self.subTest(change=change), self.assertRaises(TeamLibError): validate_record('state',broken)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (schema_change={'evidence': ['  ']})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 91, in test_executed_verification_requires_evidence_date_versioned_tool_and_environment
+    with self.subTest(schema_change=change), self.assertRaises(TeamLibError): _schema_check(schema,broken)
+                                             ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (change={'environment': {}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 90, in test_executed_verification_requires_evidence_date_versioned_tool_and_environment
+    with self.subTest(change=change), self.assertRaises(TeamLibError): validate_record('state',broken)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (schema_change={'environment': {}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 91, in test_executed_verification_requires_evidence_date_versioned_tool_and_environment
+    with self.subTest(schema_change=change), self.assertRaises(TeamLibError): _schema_check(schema,broken)
+                                             ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (change={'environment': {'os': ''}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 90, in test_executed_verification_requires_evidence_date_versioned_tool_and_environment
+    with self.subTest(change=change), self.assertRaises(TeamLibError): validate_record('state',broken)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (schema_change={'environment': {'os': ''}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 91, in test_executed_verification_requires_evidence_date_versioned_tool_and_environment
+    with self.subTest(schema_change=change), self.assertRaises(TeamLibError): _schema_check(schema,broken)
+                                             ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (change={'tool': 'AI'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 90, in test_executed_verification_requires_evidence_date_versioned_tool_and_environment
+    with self.subTest(change=change), self.assertRaises(TeamLibError): validate_record('state',broken)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (schema_change={'tool': 'AI'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 91, in test_executed_verification_requires_evidence_date_versioned_tool_and_environment
+    with self.subTest(schema_change=change), self.assertRaises(TeamLibError): _schema_check(schema,broken)
+                                             ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (change={'tool': ' '})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 90, in test_executed_verification_requires_evidence_date_versioned_tool_and_environment
+    with self.subTest(change=change), self.assertRaises(TeamLibError): validate_record('state',broken)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (schema_change={'tool': ' '})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 91, in test_executed_verification_requires_evidence_date_versioned_tool_and_environment
+    with self.subTest(schema_change=change), self.assertRaises(TeamLibError): _schema_check(schema,broken)
+                                             ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (change={'date': 'yesterday'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 90, in test_executed_verification_requires_evidence_date_versioned_tool_and_environment
+    with self.subTest(change=change), self.assertRaises(TeamLibError): validate_record('state',broken)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (schema_change={'date': 'yesterday'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 91, in test_executed_verification_requires_evidence_date_versioned_tool_and_environment
+    with self.subTest(schema_change=change), self.assertRaises(TeamLibError): _schema_check(schema,broken)
+                                             ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (change={'date': '2026-02-31'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 90, in test_executed_verification_requires_evidence_date_versioned_tool_and_environment
+    with self.subTest(change=change), self.assertRaises(TeamLibError): validate_record('state',broken)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment) (schema_change={'date': '2026-02-31'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 91, in test_executed_verification_requires_evidence_date_versioned_tool_and_environment
+    with self.subTest(schema_change=change), self.assertRaises(TeamLibError): _schema_check(schema,broken)
+                                             ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_executed_verification_requires_evidence_date_versioned_tool_and_environment (tests.test_contracts.ContractTests.test_executed_verification_requires_evidence_date_versioned_tool_and_environment)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 93, in test_executed_verification_requires_evidence_date_versioned_tool_and_environment
+    with self.assertRaises(TeamLibError): validate_record('state',failed)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='../private')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 102, in test_schema_and_runtime_agree_on_basic_portable_paths
+    with self.subTest(path=path), self.assertRaises(TeamLibError): _schema_check(schema,record)
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='/private/file')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 102, in test_schema_and_runtime_agree_on_basic_portable_paths
+    with self.subTest(path=path), self.assertRaises(TeamLibError): _schema_check(schema,record)
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='payload\\file')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 102, in test_schema_and_runtime_agree_on_basic_portable_paths
+    with self.subTest(path=path), self.assertRaises(TeamLibError): _schema_check(schema,record)
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='payload/./file')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 102, in test_schema_and_runtime_agree_on_basic_portable_paths
+    with self.subTest(path=path), self.assertRaises(TeamLibError): _schema_check(schema,record)
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='payload//file')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 102, in test_schema_and_runtime_agree_on_basic_portable_paths
+    with self.subTest(path=path), self.assertRaises(TeamLibError): _schema_check(schema,record)
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='payload/C:drive')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 102, in test_schema_and_runtime_agree_on_basic_portable_paths
+    with self.subTest(path=path), self.assertRaises(TeamLibError): _schema_check(schema,record)
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='payload/CON')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 102, in test_schema_and_runtime_agree_on_basic_portable_paths
+    with self.subTest(path=path), self.assertRaises(TeamLibError): _schema_check(schema,record)
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='payload/con.md')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 102, in test_schema_and_runtime_agree_on_basic_portable_paths
+    with self.subTest(path=path), self.assertRaises(TeamLibError): _schema_check(schema,record)
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='payload/a.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 102, in test_schema_and_runtime_agree_on_basic_portable_paths
+    with self.subTest(path=path), self.assertRaises(TeamLibError): _schema_check(schema,record)
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_schema_and_runtime_agree_on_basic_portable_paths (tests.test_contracts.ContractTests.test_schema_and_runtime_agree_on_basic_portable_paths) (path='payload/a ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_contracts.py", line 102, in test_schema_and_runtime_agree_on_basic_portable_paths
+    with self.subTest(path=path), self.assertRaises(TeamLibError): _schema_check(schema,record)
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_local_platform_remote_is_only_filesystem (tests.test_config.ConfigTests.test_local_platform_remote_is_only_filesystem) (remote='https://github.com/example/private.git')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_config.py", line 48, in test_local_platform_remote_is_only_filesystem
+    with self.subTest(remote=remote), self.assertRaises(TeamLibError): load_config(p)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_local_platform_remote_is_only_filesystem (tests.test_config.ConfigTests.test_local_platform_remote_is_only_filesystem) (remote='ssh://git@github.com/example/private.git')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_config.py", line 48, in test_local_platform_remote_is_only_filesystem
+    with self.subTest(remote=remote), self.assertRaises(TeamLibError): load_config(p)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_local_platform_remote_is_only_filesystem (tests.test_config.ConfigTests.test_local_platform_remote_is_only_filesystem) (remote='git://example.org/repo')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_config.py", line 48, in test_local_platform_remote_is_only_filesystem
+    with self.subTest(remote=remote), self.assertRaises(TeamLibError): load_config(p)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_local_platform_remote_is_only_filesystem (tests.test_config.ConfigTests.test_local_platform_remote_is_only_filesystem) (remote='git@github.com:example/private.git')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_config.py", line 48, in test_local_platform_remote_is_only_filesystem
+    with self.subTest(remote=remote), self.assertRaises(TeamLibError): load_config(p)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_local_platform_remote_is_only_filesystem (tests.test_config.ConfigTests.test_local_platform_remote_is_only_filesystem) (remote='ext::anything')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_config.py", line 48, in test_local_platform_remote_is_only_filesystem
+    with self.subTest(remote=remote), self.assertRaises(TeamLibError): load_config(p)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_local_platform_remote_is_only_filesystem (tests.test_config.ConfigTests.test_local_platform_remote_is_only_filesystem) (remote='file://example.org/repo')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_config.py", line 48, in test_local_platform_remote_is_only_filesystem
+    with self.subTest(remote=remote), self.assertRaises(TeamLibError): load_config(p)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_local_platform_remote_is_only_filesystem (tests.test_config.ConfigTests.test_local_platform_remote_is_only_filesystem)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_config.py", line 52, in test_local_platform_remote_is_only_filesystem
+    self.assertEqual(load_config(p)['remote'],str(remote))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'file:///private/var/folders/mm/v1q1xw4s3g[48 chars].git' != '/private/var/folders/mm/v1q1xw4s3gz7h4hq2[39 chars].git'
+- file:///private/var/folders/mm/v1q1xw4s3gz7h4hq2ntn6t340000gn/T/tmpvc6o556l/team%20remote.git
+? -------                                                                         ^^^
++ /private/var/folders/mm/v1q1xw4s3gz7h4hq2ntn6t340000gn/T/tmpvc6o556l/team remote.git
+?                                                                          ^
+
+
+======================================================================
+FAIL: test_repo_ancestors_and_profile_layout_overlap_are_rejected (tests.test_config.ConfigTests.test_repo_ancestors_and_profile_layout_overlap_are_rejected) (change={'workspace': '/private/var/folders/mm/v1q1xw4s3gz7h4hq2ntn6t340000gn/T/tmp3_mjw0yl'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_config.py", line 39, in test_repo_ancestors_and_profile_layout_overlap_are_rejected
+    with self.subTest(change=change), self.assertRaises(TeamLibError): load_config(p)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_repo_ancestors_and_profile_layout_overlap_are_rejected (tests.test_config.ConfigTests.test_repo_ancestors_and_profile_layout_overlap_are_rejected) (change={'target_profiles': {'a': {'path': '/private/var/folders/mm/v1q1xw4s3gz7h4hq2ntn6t340000gn/T/tmp3_mjw0yl'}}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_config.py", line 39, in test_repo_ancestors_and_profile_layout_overlap_are_rejected
+    with self.subTest(change=change), self.assertRaises(TeamLibError): load_config(p)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_repo_ancestors_and_profile_layout_overlap_are_rejected (tests.test_config.ConfigTests.test_repo_ancestors_and_profile_layout_overlap_are_rejected) (change={'target_profiles': {'a': {'path': '.cache/teamlib'}}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_config.py", line 39, in test_repo_ancestors_and_profile_layout_overlap_are_rejected
+    with self.subTest(change=change), self.assertRaises(TeamLibError): load_config(p)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_repo_ancestors_and_profile_layout_overlap_are_rejected (tests.test_config.ConfigTests.test_repo_ancestors_and_profile_layout_overlap_are_rejected) (change={'target_profiles': {'a': {'path': '.cache'}}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_config.py", line 39, in test_repo_ancestors_and_profile_layout_overlap_are_rejected
+    with self.subTest(change=change), self.assertRaises(TeamLibError): load_config(p)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_repo_ancestors_and_profile_layout_overlap_are_rejected (tests.test_config.ConfigTests.test_repo_ancestors_and_profile_layout_overlap_are_rejected) (change={'target_profiles': {'a': {'path': '.cache/teamlib/target'}}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_config.py", line 39, in test_repo_ancestors_and_profile_layout_overlap_are_rejected
+    with self.subTest(change=change), self.assertRaises(TeamLibError): load_config(p)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_repo_ancestors_and_profile_layout_overlap_are_rejected (tests.test_config.ConfigTests.test_repo_ancestors_and_profile_layout_overlap_are_rejected) (change={'target_profiles': {'a': {'path': 'installed'}, 'b': {'path': 'installed'}}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_config.py", line 39, in test_repo_ancestors_and_profile_layout_overlap_are_rejected
+    with self.subTest(change=change), self.assertRaises(TeamLibError): load_config(p)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_repo_ancestors_and_profile_layout_overlap_are_rejected (tests.test_config.ConfigTests.test_repo_ancestors_and_profile_layout_overlap_are_rejected) (change={'target_profiles': {'a': {'path': 'installed'}, 'b': {'path': 'installed/nested'}}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_config.py", line 39, in test_repo_ancestors_and_profile_layout_overlap_are_rejected
+    with self.subTest(change=change), self.assertRaises(TeamLibError): load_config(p)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_passed_verification_without_execution_evidence_is_denied (tests.test_policy.PolicyTests.test_passed_verification_without_execution_evidence_is_denied)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 110, in test_passed_verification_without_execution_evidence_is_denied
+    self.assertFalse(self.check()['allowed'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_unicode_escaped_metadata_secret_fails_trusted_admission (tests.test_policy.PolicyTests.test_unicode_escaped_metadata_secret_fails_trusted_admission)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_policy.py", line 102, in test_unicode_escaped_metadata_secret_fails_trusted_admission
+    result=self.check(); self.assertFalse(result['allowed']); self.assertNotIn(secret,json.dumps(result))
+                         ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 39 tests in 0.380s
+
+FAILED (failures=50)

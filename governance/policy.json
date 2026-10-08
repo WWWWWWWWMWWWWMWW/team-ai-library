@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "max_file_bytes": 5242880,
+  "max_release_bytes": 20971520,
+  "max_files": 500,
+  "opaque_shares": []
+}

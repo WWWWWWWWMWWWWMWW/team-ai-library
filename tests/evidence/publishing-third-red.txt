@@ -1,0 +1,60 @@
+test_actual_private_auth_and_protection_are_required (tests.test_platform.PlatformTests.test_actual_private_auth_and_protection_are_required) ... ok
+test_ambiguous_or_revoked_trusted_mapping_is_denied (tests.test_platform.PlatformTests.test_ambiguous_or_revoked_trusted_mapping_is_denied) ... ok
+test_body_is_locked_before_external_create (tests.test_platform.PlatformTests.test_body_is_locked_before_external_create) ... ERROR
+test_create_failure_preserves_prepared_without_secret_stderr (tests.test_platform.PlatformTests.test_create_failure_preserves_prepared_without_secret_stderr) ... ok
+test_governance_issue_idempotency_and_read (tests.test_platform.PlatformTests.test_governance_issue_idempotency_and_read) ... ok
+test_governance_same_operation_different_payload_is_conflict (tests.test_platform.PlatformTests.test_governance_same_operation_different_payload_is_conflict) ... ok
+test_governance_unknown_payload_field_blocks_share (tests.test_platform.PlatformTests.test_governance_unknown_payload_field_blocks_share) ... FAIL
+test_request_ids_do_not_accept_command_or_foreign_url (tests.test_platform.PlatformTests.test_request_ids_do_not_accept_command_or_foreign_url) ... ok
+test_request_query_before_retry_and_submission_truth (tests.test_platform.PlatformTests.test_request_query_before_retry_and_submission_truth) ... ok
+test_request_same_operation_with_changed_body_is_conflict (tests.test_platform.PlatformTests.test_request_same_operation_with_changed_body_is_conflict) ... FAIL
+test_secret_title_or_issue_body_blocks_before_remote_write (tests.test_platform.PlatformTests.test_secret_title_or_issue_body_blocks_before_remote_write) ... ok
+test_unconfigured_and_local_cannot_claim_connected_security (tests.test_platform.PlatformTests.test_unconfigured_and_local_cannot_claim_connected_security) ... ok
+test_actual_inventory_and_outbound_secret_block_before_push (tests.test_publish.PublishTests.test_actual_inventory_and_outbound_secret_block_before_push) ... ok
+test_changed_proposal_head_and_offline_merged_status_are_unverified (tests.test_publish.PublishTests.test_changed_proposal_head_and_offline_merged_status_are_unverified) ... ok
+test_current_maintainer_can_propose_state_only_without_config_role (tests.test_publish.PublishTests.test_current_maintainer_can_propose_state_only_without_config_role) ... ok
+test_freshness_retry_has_two_refreshes_maximum (tests.test_publish.PublishTests.test_freshness_retry_has_two_refreshes_maximum) ... ok
+test_proposal_sanitized_single_commit_and_repeat (tests.test_publish.PublishTests.test_proposal_sanitized_single_commit_and_repeat) ... ok
+test_published_version_is_immutable_and_self_reported_role_denied (tests.test_publish.PublishTests.test_published_version_is_immutable_and_self_reported_role_denied) ... ok
+test_request_unmerged_and_merged_material_mismatch (tests.test_publish.PublishTests.test_request_unmerged_and_merged_material_mismatch) ... ok
+test_request_wrong_base_and_changed_proposal_are_not_published (tests.test_publish.PublishTests.test_request_wrong_base_and_changed_proposal_are_not_published) ... ok
+test_trusted_base_checker_rejection_blocks_push (tests.test_publish.PublishTests.test_trusted_base_checker_rejection_blocks_push) ... ok
+test_user_old_history_and_payload_are_not_executed_or_uploaded (tests.test_publish.PublishTests.test_user_old_history_and_payload_are_not_executed_or_uploaded) ... ok
+
+======================================================================
+ERROR: test_body_is_locked_before_external_create (tests.test_platform.PlatformTests.test_body_is_locked_before_external_create)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_platform.py", line 102, in test_body_is_locked_before_external_create
+    result = self.platform.create_request(config(), 'teamlib/' + 'a' * 32, 'Safe title', self.body)
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tools/teamlib/platform.py", line 185, in create_request
+    existing = _find_pr(repo, source_branch, operation_id, config['shared_branch'], doctor['login'])
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tools/teamlib/platform.py", line 163, in _find_pr
+    if row.get('baseRefName') != shared_branch or row.get('author', {}).get('login', '').lower() != login.lower() or _operation(row.get('body') or '') != operation_id:
+                                                                                                                     ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tools/teamlib/platform.py", line 122, in _operation
+    raise TeamLibError('INVALID_PACKAGE', 'A unique operation marker is required.')
+tools.teamlib.contracts.TeamLibError: A unique operation marker is required.
+
+======================================================================
+FAIL: test_governance_unknown_payload_field_blocks_share (tests.test_platform.PlatformTests.test_governance_unknown_payload_field_blocks_share)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_platform.py", line 109, in test_governance_unknown_payload_field_blocks_share
+    with self.assertRaises(TeamLibError): self.platform.create_governance_request(config(), 'withdrawal', payload)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+======================================================================
+FAIL: test_request_same_operation_with_changed_body_is_conflict (tests.test_platform.PlatformTests.test_request_same_operation_with_changed_body_is_conflict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_platform.py", line 91, in test_request_same_operation_with_changed_body_is_conflict
+    with self.assertRaises(TeamLibError): self.platform.create_request(config(), branch, 'Safe title', self.body)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+----------------------------------------------------------------------
+Ran 22 tests in 3.432s
+
+FAILED (failures=2, errors=1)

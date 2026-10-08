@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "id": "owner/design-review",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/instructions.md"
+  ],
+  "scope": {
+    "inputs": [
+      "策划案"
+    ],
+    "outputs": [
+      "审查报告"
+    ],
+    "includes": [
+      "planning-review"
+    ],
+    "excludes": [
+      "production-change",
+      "external-send",
+      "unrequested-upload"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "any"
+    ],
+    "runtimes": {},
+    "tools": [],
+    "capabilities": [
+      "filesystem.read"
+    ]
+  },
+  "effects": [
+    "read_only"
+  ],
+  "dependencies": [
+    {
+      "id": "owner/review-checklist",
+      "version": "0.1.0",
+      "manifest_sha256": "012da7879f0cc55bb7e00611de6cdb677416fbf91bb38435d465622d5e6b46a4"
+    }
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "a7033fbee6032cbaca808700b77ff0e5843d11db9074d24f2627bd4c8ce93231",
+      "size": 371
+    },
+    {
+      "path": "payload/instructions.md",
+      "sha256": "c180aae20a2add4f4d6f5dab9913032fdac4ce274c2446b136a894690c1e96b9",
+      "size": 428
+    }
+  ]
+}

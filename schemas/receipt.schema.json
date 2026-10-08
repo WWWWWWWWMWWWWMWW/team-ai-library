@@ -1,0 +1,194 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "receipt",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "installation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "repository": {
+      "type": "string",
+      "minLength": 1
+    },
+    "shared_branch": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_commit": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40})(?![\\s\\S])"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^(?:[a-z0-9][a-z0-9_-]*/[a-z0-9][a-z0-9_-]*)(?![\\s\\S])"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(?:(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*))(?![\\s\\S])"
+    },
+    "manifest_sha256": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{64})(?![\\s\\S])"
+    },
+    "dependency_lock": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^(?:[a-z0-9][a-z0-9_-]*/[a-z0-9][a-z0-9_-]*)(?![\\s\\S])"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^(?:(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*))(?![\\s\\S])"
+          },
+          "manifest_sha256": {
+            "type": "string",
+            "pattern": "^(?:[0-9a-f]{64})(?![\\s\\S])"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "manifest_sha256"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "target": {
+      "type": "string",
+      "minLength": 1
+    },
+    "baseline": {
+      "type": "string",
+      "minLength": 1
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?:(?!(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM][1-9]|[lL][pP][tT][1-9])(?:\\.|/|$))[^/\\\\:\\x00-\\x1f]*[^/\\\\:\\x00-\\x1f .])(?:/(?!(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM][1-9]|[lL][pP][tT][1-9])(?:\\.|/|$))[^/\\\\:\\x00-\\x1f]*[^/\\\\:\\x00-\\x1f .])*(?![\\s\\S])"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^(?:[0-9a-f]{64})(?![\\s\\S])"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "path",
+          "sha256",
+          "size"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "local_changes": {
+      "type": "array"
+    },
+    "installed_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "receipt_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "releases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^(?:[a-z0-9][a-z0-9_-]*/[a-z0-9][a-z0-9_-]*)(?![\\s\\S])"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^(?:(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*))(?![\\s\\S])"
+          },
+          "manifest_sha256": {
+            "type": "string",
+            "pattern": "^(?:[0-9a-f]{64})(?![\\s\\S])"
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?:(?!(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM][1-9]|[lL][pP][tT][1-9])(?:\\.|/|$))[^/\\\\:\\x00-\\x1f]*[^/\\\\:\\x00-\\x1f .])(?:/(?!(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM][1-9]|[lL][pP][tT][1-9])(?:\\.|/|$))[^/\\\\:\\x00-\\x1f]*[^/\\\\:\\x00-\\x1f .])*(?![\\s\\S])"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "manifest_sha256",
+          "path"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "baseline_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?:(?!(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM][1-9]|[lL][pP][tT][1-9])(?:\\.|/|$))[^/\\\\:\\x00-\\x1f]*[^/\\\\:\\x00-\\x1f .])(?:/(?!(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM][1-9]|[lL][pP][tT][1-9])(?:\\.|/|$))[^/\\\\:\\x00-\\x1f]*[^/\\\\:\\x00-\\x1f .])*(?![\\s\\S])"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^(?:[0-9a-f]{64})(?![\\s\\S])"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "path",
+          "sha256",
+          "size"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "recovery_backup": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "schema_version",
+    "installation_id",
+    "repository",
+    "shared_branch",
+    "source_commit",
+    "id",
+    "version",
+    "manifest_sha256",
+    "dependency_lock",
+    "target",
+    "baseline",
+    "files",
+    "local_changes",
+    "installed_at",
+    "receipt_path",
+    "releases",
+    "baseline_files"
+  ],
+  "additionalProperties": false
+}

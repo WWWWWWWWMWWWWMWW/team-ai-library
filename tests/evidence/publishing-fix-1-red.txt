@@ -1,0 +1,120 @@
+test_actual_private_auth_and_protection_are_required (tests.test_platform.PlatformTests.test_actual_private_auth_and_protection_are_required) ... ok
+test_ambiguous_or_revoked_trusted_mapping_is_denied (tests.test_platform.PlatformTests.test_ambiguous_or_revoked_trusted_mapping_is_denied) ... ok
+test_body_is_locked_before_external_create (tests.test_platform.PlatformTests.test_body_is_locked_before_external_create) ... ok
+test_create_failure_preserves_prepared_without_secret_stderr (tests.test_platform.PlatformTests.test_create_failure_preserves_prepared_without_secret_stderr) ... ok
+test_create_succeeded_but_followup_query_failed_stays_prepared (tests.test_platform.PlatformTests.test_create_succeeded_but_followup_query_failed_stays_prepared) ... ok
+test_get_request_returns_review_digests_without_raw_body_for_readonly_user (tests.test_platform.PlatformTests.test_get_request_returns_review_digests_without_raw_body_for_readonly_user) ... ERROR
+test_governance_issue_idempotency_and_read (tests.test_platform.PlatformTests.test_governance_issue_idempotency_and_read) ... ok
+test_governance_same_operation_different_payload_is_conflict (tests.test_platform.PlatformTests.test_governance_same_operation_different_payload_is_conflict) ... ok
+test_governance_unknown_payload_field_blocks_share (tests.test_platform.PlatformTests.test_governance_unknown_payload_field_blocks_share) ... ok
+test_read_gate_needs_private_personal_membership_and_pull_only (tests.test_platform.PlatformTests.test_read_gate_needs_private_personal_membership_and_pull_only) ... ERROR
+test_read_gate_rejects_bot_even_with_matching_membership (tests.test_platform.PlatformTests.test_read_gate_rejects_bot_even_with_matching_membership) ... ERROR
+test_request_ids_do_not_accept_command_or_foreign_url (tests.test_platform.PlatformTests.test_request_ids_do_not_accept_command_or_foreign_url) ... ok
+test_request_query_before_retry_and_submission_truth (tests.test_platform.PlatformTests.test_request_query_before_retry_and_submission_truth) ... ok
+test_request_same_operation_with_changed_body_is_conflict (tests.test_platform.PlatformTests.test_request_same_operation_with_changed_body_is_conflict) ... ok
+test_secret_title_or_issue_body_blocks_before_remote_write (tests.test_platform.PlatformTests.test_secret_title_or_issue_body_blocks_before_remote_write) ... ok
+test_unconfigured_and_local_cannot_claim_connected_security (tests.test_platform.PlatformTests.test_unconfigured_and_local_cannot_claim_connected_security) ... ok
+test_actual_inventory_and_outbound_secret_block_before_push (tests.test_publish.PublishTests.test_actual_inventory_and_outbound_secret_block_before_push) ... ok
+test_changed_proposal_head_and_offline_merged_status_are_unverified (tests.test_publish.PublishTests.test_changed_proposal_head_and_offline_merged_status_are_unverified) ... ok
+test_created_request_head_is_verified_before_returning_success (tests.test_publish.PublishTests.test_created_request_head_is_verified_before_returning_success) ... ok
+test_current_maintainer_can_propose_state_only_without_config_role (tests.test_publish.PublishTests.test_current_maintainer_can_propose_state_only_without_config_role) ... ok
+test_freshness_retry_has_two_refreshes_maximum (tests.test_publish.PublishTests.test_freshness_retry_has_two_refreshes_maximum) ... ok
+test_git_content_normalization_cannot_change_verified_material (tests.test_publish.PublishTests.test_git_content_normalization_cannot_change_verified_material) ... ok
+test_missing_original_review_binding_cannot_be_adopted_from_current_api (tests.test_publish.PublishTests.test_missing_original_review_binding_cannot_be_adopted_from_current_api) ... FAIL
+test_offline_status_preserves_known_submitted_state (tests.test_publish.PublishTests.test_offline_status_preserves_known_submitted_state) ... ok
+test_proposal_sanitized_single_commit_and_repeat (tests.test_publish.PublishTests.test_proposal_sanitized_single_commit_and_repeat) ... ok
+test_published_status_binds_original_body_title_author_and_request (tests.test_publish.PublishTests.test_published_status_binds_original_body_title_author_and_request) ...
+  test_published_status_binds_original_body_title_author_and_request (tests.test_publish.PublishTests.test_published_status_binds_original_body_title_author_and_request) (field='body') ... FAIL
+  test_published_status_binds_original_body_title_author_and_request (tests.test_publish.PublishTests.test_published_status_binds_original_body_title_author_and_request) (field='title') ... FAIL
+  test_published_status_binds_original_body_title_author_and_request (tests.test_publish.PublishTests.test_published_status_binds_original_body_title_author_and_request) (field='author') ... FAIL
+test_published_status_binds_original_body_title_author_and_request (tests.test_publish.PublishTests.test_published_status_binds_original_body_title_author_and_request) ... FAIL
+test_published_version_is_immutable_and_self_reported_role_denied (tests.test_publish.PublishTests.test_published_version_is_immutable_and_self_reported_role_denied) ... ok
+test_push_completed_but_remote_confirmation_failed_stays_prepared (tests.test_publish.PublishTests.test_push_completed_but_remote_confirmation_failed_stays_prepared) ... ok
+test_request_unmerged_and_merged_material_mismatch (tests.test_publish.PublishTests.test_request_unmerged_and_merged_material_mismatch) ... ok
+test_request_wrong_base_and_changed_proposal_are_not_published (tests.test_publish.PublishTests.test_request_wrong_base_and_changed_proposal_are_not_published) ... ok
+test_trusted_base_checker_rejection_blocks_push (tests.test_publish.PublishTests.test_trusted_base_checker_rejection_blocks_push) ... ok
+test_user_old_history_and_payload_are_not_executed_or_uploaded (tests.test_publish.PublishTests.test_user_old_history_and_payload_are_not_executed_or_uploaded) ... ok
+
+======================================================================
+ERROR: test_get_request_returns_review_digests_without_raw_body_for_readonly_user (tests.test_platform.PlatformTests.test_get_request_returns_review_digests_without_raw_body_for_readonly_user)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_platform.py", line 160, in test_get_request_returns_review_digests_without_raw_body_for_readonly_user
+    checked = self.platform.get_request(config(), created['request_id'])
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tools/teamlib/platform.py", line 151, in get_request
+    repo = repository_name(config); doctor_platform(config)
+                                    ~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tools/teamlib/platform.py", line 83, in doctor_platform
+    raise TeamLibError('SCOPE_DENIED', 'The configured shared branch is not verified protected.')
+tools.teamlib.contracts.TeamLibError: The configured shared branch is not verified protected.
+
+======================================================================
+ERROR: test_read_gate_needs_private_personal_membership_and_pull_only (tests.test_platform.PlatformTests.test_read_gate_needs_private_personal_membership_and_pull_only)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_platform.py", line 132, in test_read_gate_needs_private_personal_membership_and_pull_only
+    checked = self.platform.doctor_read(config())
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'tools.teamlib.platform' has no attribute 'doctor_read'
+
+======================================================================
+ERROR: test_read_gate_rejects_bot_even_with_matching_membership (tests.test_platform.PlatformTests.test_read_gate_rejects_bot_even_with_matching_membership)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_platform.py", line 154, in test_read_gate_rejects_bot_even_with_matching_membership
+    with self.assertRaises(TeamLibError): self.platform.doctor_read(config())
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'tools.teamlib.platform' has no attribute 'doctor_read'
+
+======================================================================
+FAIL: test_missing_original_review_binding_cannot_be_adopted_from_current_api (tests.test_publish.PublishTests.test_missing_original_review_binding_cannot_be_adopted_from_current_api)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_publish.py", line 217, in test_missing_original_review_binding_cannot_be_adopted_from_current_api
+    self.assertEqual(checked['code'], 'STATUS_UNVERIFIED')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'OK' != 'STATUS_UNVERIFIED'
+- OK
++ STATUS_UNVERIFIED
+
+
+======================================================================
+FAIL: test_published_status_binds_original_body_title_author_and_request (tests.test_publish.PublishTests.test_published_status_binds_original_body_title_author_and_request) (field='body')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_publish.py", line 204, in test_published_status_binds_original_body_title_author_and_request
+    self.assertNotEqual(checked['state'], 'published')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'published' == 'published'
+
+======================================================================
+FAIL: test_published_status_binds_original_body_title_author_and_request (tests.test_publish.PublishTests.test_published_status_binds_original_body_title_author_and_request) (field='title')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_publish.py", line 204, in test_published_status_binds_original_body_title_author_and_request
+    self.assertNotEqual(checked['state'], 'published')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'published' == 'published'
+
+======================================================================
+FAIL: test_published_status_binds_original_body_title_author_and_request (tests.test_publish.PublishTests.test_published_status_binds_original_body_title_author_and_request) (field='author')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_publish.py", line 204, in test_published_status_binds_original_body_title_author_and_request
+    self.assertNotEqual(checked['state'], 'published')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'published' == 'published'
+
+======================================================================
+FAIL: test_published_status_binds_original_body_title_author_and_request (tests.test_publish.PublishTests.test_published_status_binds_original_body_title_author_and_request)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/hcm-b0263/Documents/Codex/2026-09-30/w/team-ai-library/tests/test_publish.py", line 210, in test_published_status_binds_original_body_title_author_and_request
+    with self.assertRaises(TeamLibError): self.publish.verify_request(self.cfg, '2', result)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: TeamLibError not raised
+
+----------------------------------------------------------------------
+Ran 32 tests in 8.425s
+
+FAILED (failures=5, errors=3)

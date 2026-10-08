@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "owner/design-review",
+  "title": "策划案 AI 审查流程",
+  "kind": "workflow",
+  "summary": "内置示例：策划案 AI 审查流程。未验证真实策划业务，供试用与改编。",
+  "tags": [
+    "内置示例",
+    "workflow"
+  ],
+  "aliases": [
+    "审策划案"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "本次平台实现生成的内置示例；非既有团队实绩或真实业务资料。"
+  }
+}
