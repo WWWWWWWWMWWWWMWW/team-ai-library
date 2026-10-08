@@ -56,6 +56,46 @@ class PublishTests(unittest.TestCase):
         second = self.publish.propose_entry(self.cfg, self.source, self.workspace)
         self.assertEqual(second['operation_id'], result['operation_id']); self.assertEqual(len(self.service.requests), 1)
 
+    def test_automatic_proposal_publishes_real_git_material_and_retry_is_idempotent(self):
+        from tests.platform_helpers import owner_trial_config
+        from tools.teamlib.snapshots import export_tree
+        automatic=owner_trial_config(self.service)
+        self.service.members['members'][0]['actor_key']='alice'
+        automatic.update(review_mode='automatic',auto_merge=True)
+        self.cfg.update(automatic)
+        self.service.shared_config=dict(automatic)
+        dump(self.base/'library.json',automatic)
+        dump(self.base/'governance/members.json',self.service.members)
+        self.git('-C',str(self.base),'add','.')
+        self.git('-C',str(self.base),'-c','user.name=Fixture','-c','user.email=fixture@example.invalid','commit','-m','automatic baseline')
+        self.git('-C',str(self.base),'push',str(self.remote),'HEAD:main')
+        self.commit=self.git('-C',str(self.base),'rev-parse','HEAD').strip()
+        self.service.head=self.commit; self.snapshot['source_commit']=self.commit
+        original=self.service._gh
+        merges=[]
+        def gh(args):
+            if args[1]=='api' and '/check-runs' in args[2]:
+                return {'total_count':1,'check_runs':[{'name':'team-library-policy','status':'completed','conclusion':'success','app':{'slug':'github-actions'},'details_url':'https://github.com/acme/library/actions/runs/7/job/8'}]}
+            if args[1]=='api' and '/actions/runs/7' in args[2]:
+                return {'event':'pull_request_target','path':'.github/workflows/check-submission.yml','head_sha':self.service.proposal_head,'status':'completed','conclusion':'success','repository':{'full_name':'acme/library'}}
+            if args[1:3]==['pr','merge']:
+                request=self.service.requests[0]
+                self.assertEqual(args[args.index('--match-head-commit')+1],request['headRefOid'])
+                self.git('--git-dir='+str(self.remote),'update-ref','refs/heads/main',request['headRefOid'])
+                shared=self.root/('shared-'+str(len(merges)));export_tree(self.remote,request['headRefOid'],shared)
+                self.snapshot.update(root=str(shared),source_commit=request['headRefOid'])
+                self.service.head=request['headRefOid']
+                request.update(state='MERGED',mergedAt='2026-10-08T00:00:00Z',mergeCommit={'oid':request['headRefOid']})
+                merges.append(True);return ''
+            return original(args)
+        self.service._gh=gh
+        first=self.publish.propose_entry(self.cfg,self.source,self.workspace)
+        self.assertEqual(first['state'],'published');self.assertFalse(first['manual_review_required'])
+        second=self.publish.propose_entry(self.cfg,self.source,self.workspace)
+        self.assertEqual(second['state'],'published');self.assertEqual(len(merges),1)
+        self.assertEqual(first['files'],second['files'])
+        self.assertEqual(self.git('--git-dir='+str(self.remote),'rev-parse','main').strip(),first['head_commit'])
+
     def test_published_version_is_immutable_and_self_reported_role_denied(self):
         existing = entry(self.base / 'entries/alice/demo')
         self.git('-C', str(self.base), 'add', '.'); self.git('-C', str(self.base), '-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-m', 'publish')

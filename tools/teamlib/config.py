@@ -5,7 +5,18 @@ from urllib.parse import urlsplit, unquote
 from .contracts import TeamLibError, read_json, ensure_no_symlinks, validate_record
 
 CONFIG_KEYS = {'schema_version','remote','shared_branch','platform','workspace','publish_mode','auto_merge','target_profiles'}
-OPTIONAL_CONFIG_KEYS = {'deployment_mode'}
+OPTIONAL_CONFIG_KEYS = {'deployment_mode', 'review_mode'}
+
+
+def automatic_publication(config):
+    mode = config.get('review_mode')
+    if mode == 'manual':
+        return False
+    if mode == 'automatic':
+        return config.get('auto_merge') is True
+    # The first private owner-trial baseline predates explicit policy fields.
+    # Its trusted deployment is automatic; protected deployments stay manual.
+    return config.get('deployment_mode') == 'owner_trial'
 
 
 def deployment_mode(config):
@@ -85,8 +96,19 @@ def validate_config_fields(config):
     if not CONFIG_KEYS <= config.keys() or set(config) - CONFIG_KEYS - OPTIONAL_CONFIG_KEYS or type(config.get('schema_version')) is not int or config['schema_version'] != 1:
         raise TeamLibError('CONFIG_MISSING', 'Library configuration fields are missing or unsupported.')
     deployment_mode(config)
-    if config['publish_mode'] != 'request' or config['auto_merge'] is not False:
-        raise TeamLibError('CONFIG_MISSING', 'Publication requires reviewed requests with automatic merging disabled.')
+    if config['publish_mode'] != 'request' or type(config['auto_merge']) is not bool:
+        raise TeamLibError('CONFIG_MISSING', 'Publication requires requests and an explicit merge policy.')
+    automatic = automatic_publication(config)
+    if config.get('review_mode') is not None and config.get('review_mode') not in {'manual', 'automatic'}:
+        raise TeamLibError('CONFIG_MISSING', 'Review and merge policies must agree.')
+    if config.get('review_mode') == 'automatic' and config['auto_merge'] is not True:
+        raise TeamLibError('CONFIG_MISSING', 'Explicit automatic review mode requires auto_merge=true.')
+    if config.get('review_mode') == 'manual' and config['auto_merge'] is not False:
+        raise TeamLibError('CONFIG_MISSING', 'Manual review mode requires auto_merge=false.')
+    if config['auto_merge'] is True and not automatic:
+        raise TeamLibError('CONFIG_MISSING', 'Automatic merging requires the owner-trial automatic policy.')
+    if automatic and (config['platform'] != 'github' or deployment_mode(config) != 'owner_trial'):
+        raise TeamLibError('CONFIG_MISSING', 'Automatic publication currently supports the private owner trial only.')
     if config['platform'] not in {'github','local','unconfigured'}:
         raise TeamLibError('CONFIG_MISSING', 'Platform configuration is unsupported.')
     if not isinstance(config['remote'], str) or not isinstance(config['shared_branch'], str):

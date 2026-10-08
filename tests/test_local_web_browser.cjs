@@ -101,7 +101,7 @@ const checks=[];
     const row=rows().filter({hasText:'多版本测试能力'}); const text=await row.innerText(); assert.ok(!text.includes('尚无推荐版本')); assert.ok(text.includes('2.0.0')); assert.ok(text.includes('1.0.0'));
     await row.getByTestId('view-detail').click(); assert.equal(await page.getByTestId('version-select').inputValue(),'1.0.0'); await closeDetail();
   });
-  await check('待审核与维护请求单列，不计入已共享能力',async()=>{
+  await check('处理中与维护请求单列，不计入已共享能力',async()=>{
     await go(path.join(fixtures,'versions.html')); const count=await rows().count(); await page.getByTestId('pending-nav').click();
     const text=await page.locator('#pending-list').innerText(); assert.ok(text.includes('能力投稿')); assert.ok(text.includes('指南维护')); assert.ok(text.includes('bob/pending'));
     await page.getByTestId('find-nav').click(); assert.equal(await rows().count(),count);
@@ -110,7 +110,7 @@ const checks=[];
   await check('沉淀三入口与首次接入、更新指令遵循真实操作边界',async()=>{
     await go(html); await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:()=>Promise.reject(new Error('synthetic denial'))}}));
     await page.getByTestId('contribute-nav').click();
-    for(const [testid,required] of [['task-codex',['CODEX_HOME','不上传','元数据','中文草稿']],['task-organize',['不上传','保留原件']],['task-share',['待审核','中文','不直接推共享分支或自动合并']]]){
+    for(const [testid,required] of [['task-codex',['CODEX_HOME','不上传','元数据','中文草稿']],['task-organize',['不上传','保留原件']],['task-share',['自动检查','中文','不直接推共享分支','自动合并']]]){
       await page.getByTestId(testid).click(); await page.getByTestId('copy-dialog').waitFor(); const text=await page.getByTestId('copy-text').inputValue(); for(const term of required)assert.ok(text.includes(term),term); await page.keyboard.press('Escape');
     }
     await page.getByTestId('help-nav').click(); await page.locator('#setup-button').click(); await page.getByTestId('copy-dialog').waitFor(); assert.ok((await page.getByTestId('copy-text').inputValue()).includes('doctor')); await page.keyboard.press('Escape');

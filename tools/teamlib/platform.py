@@ -10,7 +10,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 from .contracts import TeamLibError, read_json, validate_id, validate_version, _pairs
-from .config import deployment_mode, validate_config_fields
+from .config import deployment_mode, validate_config_fields, automatic_publication
 
 run_command = subprocess.run
 _OPERATION = re.compile(r'<!-- teamlib-operation: ([0-9a-f]{32}) -->')
@@ -59,8 +59,8 @@ def repository_name(config):
     branch = config.get('shared_branch')
     if not match or not isinstance(branch, str) or not branch or branch.startswith('-') or any(x in branch for x in ('..', '~', '^', ':', '?', '*', '[', '\\', '@{')) or any(c.isspace() or ord(c) < 32 for c in branch):
         raise TeamLibError('CONFIG_MISSING', 'An explicit credential-free GitHub remote and safe shared branch are required.')
-    if config.get('publish_mode', 'request') != 'request' or config.get('auto_merge', False):
-        raise TeamLibError('SCOPE_DENIED', 'Only reviewed requests without automatic merge are supported.')
+    if config.get('publish_mode', 'request') != 'request' or (config.get('auto_merge', False) is not False and not automatic_publication(config)):
+        raise TeamLibError('SCOPE_DENIED', 'Only requests under a consistent publication policy are supported.')
     return match.group(1)
 
 
@@ -170,8 +170,12 @@ def _owner_trial(config, identity, repository):
     scan_json(shared, location='trusted library configuration')
     if shared.get('deployment_mode') != 'owner_trial' or any(shared.get(key) != config.get(key) for key in ('remote', 'shared_branch', 'platform', 'publish_mode', 'auto_merge', 'deployment_mode')):
         raise TeamLibError('SCOPE_DENIED', 'Owner trial configuration must exactly match the trusted shared baseline.')
+    if shared.get('review_mode', 'manual') != config.get('review_mode', 'manual'):
+        raise TeamLibError('SCOPE_DENIED', 'Review policy must match the trusted shared baseline.')
     return dict(identity, deployment_mode='owner_trial', owner_trial=True,
-                approval_required=False, hard_gate_enforced=False, manual_review_required=True)
+                approval_required=False, hard_gate_enforced=False,
+                manual_review_required=not automatic_publication(shared),
+                auto_merge=automatic_publication(shared))
 
 
 def doctor_platform(config):
@@ -201,7 +205,7 @@ def doctor_platform(config):
     check_sources = [{'context': r.get('context'), 'app_id': r.get('app_id')} for r in check_rows if r.get('context') == 'team-library-policy']
     return dict(identity, deployment_mode='protected', owner_trial=False, approval_required=True, base_owned_checker=True,
                 workflow_uses_base_event='pull_request_target' in workflow, required_check_sources=check_sources,
-                hard_gate_enforced=False, manual_review_required=True)
+                hard_gate_enforced=False, manual_review_required=True, auto_merge=False)
 
 
 def _request_number(repo, request_id, kind):
@@ -258,6 +262,42 @@ def get_request(config, request_id):
     return result
 
 
+def merge_checked_request(config, expected):
+    """Merge only the exact original request after its base-owned CI succeeds."""
+    doctor = doctor_platform(config)
+    if doctor['manual_review_required'] or doctor['role'] != 'maintainer' or not automatic_publication(config):
+        raise TeamLibError('SCOPE_DENIED', 'Automatic publication is not enabled for this authenticated maintainer.')
+    repo = repository_name(config)
+    number = _request_number(repo, expected.get('request_id', ''), 'pull')
+    def bound_request():
+        request = get_request(config, number)
+        if request.get('baseRefName') != config['shared_branch'] or request.get('headRefName') != expected.get('source_branch') or request.get('headRefOid') != expected.get('head_commit') or request.get('operation_id') != expected.get('operation_id') or request.get('author_login') != doctor['login'] or any(request.get(k) != expected.get(k) or not isinstance(expected.get(k), str) for k in ('body_sha256', 'title_sha256')):
+            raise TeamLibError('STATUS_UNVERIFIED', 'Request changed; original material and checks cannot authorize merging.')
+        return request
+    request = bound_request()
+    if request['platform_state'] == 'MERGED': return _write_status(request, doctor)
+    if request['platform_state'] != 'OPEN':
+        raise TeamLibError('CONFLICT', 'Only an open request can be automatically published.')
+    head = request['headRefOid']
+    checks = _api(repo, '/commits/' + head + '/check-runs?per_page=100')
+    rows = checks.get('check_runs') if isinstance(checks, dict) else None
+    if not isinstance(rows, list) or checks.get('total_count') != len(rows) or not rows:
+        raise TeamLibError('STATUS_UNVERIFIED', 'Complete current checks are not available yet.')
+    trusted = [r for r in rows if isinstance(r, dict) and r.get('name') == 'team-library-policy' and (r.get('app') or {}).get('slug') == 'github-actions']
+    if len(trusted) != 1 or any(not isinstance(r,dict) or r.get('status') != 'completed' or r.get('conclusion') != 'success' for r in rows):
+        raise TeamLibError('STATUS_UNVERIFIED', 'Automatic checks are pending or failed; no merge was attempted.')
+    match = re.fullmatch(r'https://github\.com/' + re.escape(repo) + r'/actions/runs/([0-9]+)/job/[0-9]+', trusted[0].get('details_url',''))
+    if not match: raise TeamLibError('STATUS_UNVERIFIED', 'Admission check source cannot be verified.')
+    run = _api(repo, '/actions/runs/' + match.group(1))
+    if not isinstance(run,dict) or run.get('event') != 'pull_request_target' or run.get('path') != '.github/workflows/check-submission.yml' or run.get('head_sha') != head or run.get('status') != 'completed' or run.get('conclusion') != 'success' or (run.get('repository') or {}).get('full_name') != repo:
+        raise TeamLibError('STATUS_UNVERIFIED', 'Admission check is not the trusted base workflow for this head.')
+    # Never enable GitHub deferred auto-merge or use an admin bypass.
+    doctor = doctor_platform(config)
+    bound_request()
+    _run(['gh','pr','merge',number,'--repo',repo,'--squash','--match-head-commit',head])
+    return _write_status(bound_request(), doctor)
+
+
 def _find_pr(repo, branch, operation_id, shared_branch, login, expected_body=None, expected_title=None):
     rows = _json(['gh', 'pr', 'list', '--repo', repo, '--state', 'all', '--head', branch, '--limit', '100', '--json', _PR_FIELDS])
     if len(rows) > 1:
@@ -283,7 +323,7 @@ def create_request(config, source_branch, title, body_file):
 def _write_status(result, doctor):
     """Keep the verified deployment limits visible on fresh and retried writes."""
     return dict(result, **{key: doctor[key] for key in ('deployment_mode', 'owner_trial', 'protected',
-                                                      'approval_required', 'hard_gate_enforced', 'manual_review_required')})
+                                                      'approval_required', 'hard_gate_enforced', 'manual_review_required', 'auto_merge')})
 
 
 def _create_request_locked(config, source_branch, title, body_file):
@@ -295,7 +335,8 @@ def _create_request_locked(config, source_branch, title, body_file):
     if not doctor['permissions']['push']:
         raise TeamLibError('SCOPE_DENIED', 'The authenticated account cannot submit a branch.')
     existing = _find_pr(repo, source_branch, operation_id, config['shared_branch'], doctor['login'], body, title)
-    if existing: return _write_status(existing, doctor)
+    if existing:
+        return _write_status(existing, doctor)
     try:
         _scan(title, body_file)
         _run(['gh', 'pr', 'create', '--repo', repo, '--base', config['shared_branch'], '--head', source_branch, '--title', title, '--body-file', str(body_file)])
@@ -303,7 +344,8 @@ def _create_request_locked(config, source_branch, title, body_file):
         pass
     try:
         existing = _find_pr(repo, source_branch, operation_id, config['shared_branch'], doctor['login'], body, title)
-        if existing: return _write_status(existing, doctor)
+        if existing:
+            return _write_status(existing, doctor)
     except TeamLibError as exc:
         if exc.code == 'CONFLICT': raise
     return _write_status({'state': 'prepared', 'code': 'REMOTE_FAILED', 'operation_id': operation_id,

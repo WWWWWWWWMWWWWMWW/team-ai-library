@@ -4,7 +4,7 @@
   "source": {
     "repository": "https://github.com/WWWWWWWWMWWWWMWW/team-ai-library.git",
     "branch": "main",
-    "commit": "5f63a343a7b663b9d5dc80074518705d4cadf469"
+    "commit": "3ac0c10eb376626f896e13eed9f5f56da78d15f6"
   },
   "capability_count": 6,
   "version_count": 6,
@@ -380,13 +380,6 @@
       ],
       "head_commit": "e879c4150593b2db88879d1f31643a5a23979f11",
       "url": "https://github.com/WWWWWWWWMWWWWMWW/team-ai-library/pull/1"
-    },
-    {
-      "number": 2,
-      "kind": "maintenance",
-      "ids": [],
-      "head_commit": "46d63b9a82e2d38b9c63a5aecafe4e7388086389",
-      "url": "https://github.com/WWWWWWWWMWWWWMWW/team-ai-library/pull/2"
     }
   ]
 }

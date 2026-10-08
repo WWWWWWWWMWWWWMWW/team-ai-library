@@ -107,7 +107,7 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(record['capability_count'],1)
         self.assertEqual(record['pending_requests'],[request])
         self.assertNotIn('bob/new',{r['id'] for r in record['releases']})
-        self.assertIn('待审核',self.module().render_markdown(record))
+        self.assertIn('处理中请求',self.module().render_markdown(record))
 
     def test_unavailable_pending_list_is_not_reported_as_empty(self):
         record=self.build(pending_status='unavailable')
