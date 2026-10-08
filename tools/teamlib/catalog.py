@@ -162,23 +162,33 @@ def collect_pending(config):
     return rows
 
 
-def write_catalog(record, directory):
+def write_catalog(record, directory, *, web_html=None):
     directory=ensure_no_symlinks(Path(directory).absolute())
     markdown=render_markdown(record)
     encoded=json.dumps(record,ensure_ascii=False,indent=2)+'\n'
     scan_text(markdown,'catalog_markdown'); scan_text(encoded,'catalog_json')
     targets=[(directory/'CATALOG.md',markdown),(directory/'catalog.json',encoded)]
+    if web_html is not None:
+        from .local_web import MARKER as WEB_MARKER
+        if not web_html.startswith(WEB_MARKER):
+            raise TeamLibError('INVALID_PACKAGE','Local web output lacks its generated marker.')
+        targets.append((directory/'local-library.html',web_html))
     for target,_ in targets:
         ensure_no_symlinks(target)
         if target.exists():
-            valid=target.read_text(encoding='utf-8').startswith(MARKER) if target.suffix=='.md' else read_json(target).get('generator')=='teamlib-catalog'
+            valid=(target.read_text(encoding='utf-8').startswith(WEB_MARKER) if target.suffix=='.html' else
+                   target.read_text(encoding='utf-8').startswith(MARKER) if target.suffix=='.md' else
+                   read_json(target).get('generator')=='teamlib-catalog')
             if not valid: raise TeamLibError('CONFLICT','Existing manual directory must be preserved.')
     directory.mkdir(parents=True,exist_ok=True)
     for target,content in targets:
         fd, staging=tempfile.mkstemp(prefix='.teamlib-catalog-',dir=directory)
         try:
-            with os.fdopen(fd,'w',encoding='utf-8') as stream: stream.write(content)
+            with os.fdopen(fd,'w',encoding='utf-8') as stream:
+                stream.write(content); stream.flush(); os.fsync(stream.fileno())
             ensure_no_symlinks(target); os.replace(staging,target)
         finally:
             if os.path.exists(staging): os.unlink(staging)
-    return {'markdown':str(targets[0][0]),'json':str(targets[1][0])}
+    paths={'markdown':str(targets[0][0]),'json':str(targets[1][0])}
+    if web_html is not None: paths['html']=str(targets[2][0])
+    return paths

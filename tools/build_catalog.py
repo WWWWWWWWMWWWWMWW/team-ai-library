@@ -11,6 +11,7 @@ from tools.teamlib.catalog import build_catalog, collect_pending, write_catalog
 from tools.teamlib.config import load_config
 from tools.teamlib.contracts import TeamLibError
 from tools.teamlib.snapshots import open_snapshot
+from tools.teamlib.local_web import build_web_record, render_web
 
 
 def main():
@@ -29,7 +30,8 @@ def main():
             except TeamLibError:
                 pending_status='unavailable'
         record=build_catalog(snapshot,pending=pending,pending_status=pending_status)
-        paths=write_catalog(record,args.output_dir)
+        web_html=render_web(build_web_record(snapshot,record))
+        paths=write_catalog(record,args.output_dir,web_html=web_html)
         print(json.dumps({'state':'prepared','code':'OK','capability_count':record['capability_count'],
                           'version_count':record['version_count'],'source_commit':snapshot['source_commit'],
                           'pending_status':pending_status,'outputs':paths},ensure_ascii=False))

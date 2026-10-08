@@ -4,7 +4,9 @@
 
 实际仓库：[WWWWWWWWMWWWWMWW/team-ai-library](https://github.com/WWWWWWWWMWWWWMWW/team-ai-library)，共享分支 `main`。本地 `library.json` 已配置该地址、专用工作区和 `local_materials` 材料安装目标。
 
-**浏览入口：[团队能力总目录](docs/CATALOG.md)**。按七类能力查看用途、输入产物、固定版本、验证状态、依赖与使用入口；待审核材料另列。目录由 AI 从已入库内容生成。
+**本地网页：[双击打开团队能力库](docs/local-library.html)**。搜索、查看具体版本、复制任务指令给自己的 AI；无需启动服务。网页是生成时快照，使用前由 AI 检查最新状态。操作见 [网页使用说明](docs/LOCAL_WEB.md)。
+
+**文字目录：[团队能力总目录](docs/CATALOG.md)**。按七类能力查看用途、输入产物、固定版本、验证状态、依赖与使用入口；待审核材料另列。目录由 AI 从已入库内容生成。
 
 策划只需复制 [一段简化提示词](docs/MEMBER_PROMPT.md)，然后直接说本次业务需求。复杂流程写在 [AI 自动操作手册](docs/AI_OPERATIONS.md) 中，由 AI 自动读取；环境检查、资源整理、中文说明和 Git 操作均由 AI 处理。
 
@@ -64,7 +66,10 @@ python3 tools/library.py fetch --id owner/design-review --version 0.1.0 --dest .
 |---|---|
 | [团队能力总目录](docs/CATALOG.md) | 按分类浏览已入库能力、版本、范围、依赖和待审核材料 |
 | [目录维护指南](docs/CATALOG_GUIDE.md) | AI 自动生成与维护目录的规则 |
-| [本地网页设计规划](docs/LOCAL_WEB_PLAN.md) | 页面结构、交互、视觉与验收安排；建议方案，网页尚未实现 |
+| [本地能力库网页](docs/local-library.html) | 可离线打开的单文件搜索、详情与 AI 任务入口 |
+| [网页使用说明](docs/LOCAL_WEB.md) | 打开、复制、版本、更新与当前边界 |
+| [网页验收记录](docs/LOCAL_WEB_VERIFICATION.md) | 本机实际测试范围与未验证项 |
+| [本地网页设计规划](docs/LOCAL_WEB_PLAN.md) | 已批准的页面结构、交互、视觉与实施安排 |
 | [机器索引](docs/catalog.json) | 与人读目录同源的结构化导航，使用前仍核对实时状态 |
 | [策划简化提示词](docs/MEMBER_PROMPT.md) | 一次复制，之后直接描述本次需求 |
 | [AI 自动操作手册](docs/AI_OPERATIONS.md) | AI 自行读取的接入、整理、复用、上传与治理流程 |
