@@ -44,6 +44,8 @@
 
 ## 完成标准
 
+能力导航见 docs/CATALOG.md，同源结构化索引见 docs/catalog.json。目录只用于筛选候选，使用前仍核对当前状态；维护者 AI 在能力入库或治理生效后按 docs/CATALOG_GUIDE.md 从新鲜共享快照刷新目录。普通投稿不修改公共目录，待审核材料不列作已共享能力。
+
 prepared=本地材料完成；submitted=请求已创建待处理；published=共享分支已核实目标材料。downloaded、installed、reused 分别以实际完成阶段报告，published 不等于业务验证。
 
 给策划简短结果、条目 ID/版本或请求位置、必要下一步。只有业务范围、覆盖行为或结果实质不明确时问一个问题，Git 细节由 AI 处理。

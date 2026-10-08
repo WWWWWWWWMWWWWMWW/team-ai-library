@@ -4,6 +4,8 @@
 
 实际仓库：[WWWWWWWWMWWWWMWW/team-ai-library](https://github.com/WWWWWWWWMWWWWMWW/team-ai-library)，共享分支 `main`。本地 `library.json` 已配置该地址、专用工作区和 `local_materials` 材料安装目标。
 
+**浏览入口：[团队能力总目录](docs/CATALOG.md)**。按七类能力查看用途、输入产物、固定版本、验证状态、依赖与使用入口；待审核材料另列。目录由 AI 从已入库内容生成。
+
 策划只需复制 [一段简化提示词](docs/MEMBER_PROMPT.md)，然后直接说本次业务需求。复杂流程写在 [AI 自动操作手册](docs/AI_OPERATIONS.md) 中，由 AI 自动读取；环境检查、资源整理、中文说明和 Git 操作均由 AI 处理。
 
 想全面整理本地可沉淀内容，可直接复制 [全面整理提示词](docs/LOCAL_CAPTURE_PROMPT.md)，由 AI 产出完整盘点、详细中文能力草稿、缺项与建议上传清单。
@@ -27,11 +29,11 @@
 
 **已确认：** 当前账号为仓库 owner，只有一名维护者。私有库分支保护设置请求返回 403，提示需要 GitHub Pro；共享分支硬门禁尚未生效。当前采用仅仓库 owner 的 `owner_trial` 试用方案，不购买 Pro、不公开仓库、不邀请其他成员。
 
-**待验证：** 试用配置须先由维护者部署到可信共享 `main`，再核对真实私有库、owner 身份及唯一协作者、无待处理邀请等条件。部署并验证后，owner 可让 AI 整理材料并创建 PR；AI 不自动合并，具体 PR 由人核验并明确授权合并。当前真实试用投稿与合并验收仍待完成，不能称正式团队门禁已生效。
+**已确认：** `owner_trial` 配置已部署到可信共享 `main`；当前 owner 的真实接入检查通过，读取与投稿可用。已有能力试用投稿请求，尚待审核入库。AI 不自动合并，具体请求由人核验并明确授权合并；成功创建请求不能称正式团队门禁已生效。
 
 **已确认：** 2026-10-08 源码、配置、指南与六个示例已初始化到远端 `main`，初始化提交为 `8cfd19c84e6b0275c16f5d5d5e8b3aef055f31a3`。
 
-**待验证：** 真实试用投稿与发布、撤回治理闭环、真实业务复用、另一种 AI/目标工具。多人协作暂不开放；新增任何协作者或邀请都会阻断试用写入，切回 `protected` 并重测正式门禁后才能团队化。
+**待验证：** 能力投稿合并后的发布验收、撤回治理闭环、真实业务复用、另一种 AI/目标工具。多人协作暂不开放；新增任何协作者或邀请都会阻断试用写入，切回 `protected` 并重测正式门禁后才能团队化。
 
 **已确认：** 独立 AI 上下文从远端新 clone，仅按指南实际完成搜索、完整依赖下载、check-reuse、合成策划稿审查与本地 record-run。合成文档审查通过，真实游戏 runtime 未验证；此次同机器、同账号、同工具，不替代第二人或第二工具验收。
 
@@ -39,16 +41,7 @@
 
 ## 已有示例
 
-以下六项已共享内置示例均为 `0.1.0`，**真实业务未验证**；不代表既有团队实绩。可按准确 ID 查找和下载。
-
-| ID | 用途 |
-|---|---|
-| `owner/design-review` | 策划案审查流程 |
-| `owner/meeting-summary` | 会议记录整理提示词 |
-| `owner/review-checklist` | 工作成果检查清单 Skill 材料 |
-| `owner/experience-case` | 可复用经验沉淀模板 |
-| `owner/reference-evaluation` | AI 工具资料核查框架 |
-| `owner/recovery-retrospective` | 误上传恢复复盘模板 |
+内置示例的用途、准确 ID 与版本见 [能力总目录](docs/CATALOG.md)。这些示例**真实业务未验证**，不代表既有团队实绩；目录中仅列真实共享版本，待审核投稿不计入已入库能力。
 
 ## 开始使用
 
@@ -69,6 +62,9 @@ python3 tools/library.py fetch --id owner/design-review --version 0.1.0 --dest .
 
 | 文件 | 用途 |
 |---|---|
+| [团队能力总目录](docs/CATALOG.md) | 按分类浏览已入库能力、版本、范围、依赖和待审核材料 |
+| [目录维护指南](docs/CATALOG_GUIDE.md) | AI 自动生成与维护目录的规则 |
+| [机器索引](docs/catalog.json) | 与人读目录同源的结构化导航，使用前仍核对实时状态 |
 | [策划简化提示词](docs/MEMBER_PROMPT.md) | 一次复制，之后直接描述本次需求 |
 | [AI 自动操作手册](docs/AI_OPERATIONS.md) | AI 自行读取的接入、整理、复用、上传与治理流程 |
 | [本地全面整理提示词](docs/LOCAL_CAPTURE_PROMPT.md) | 让 AI 全面盘点并详细整理本地可沉淀内容 |

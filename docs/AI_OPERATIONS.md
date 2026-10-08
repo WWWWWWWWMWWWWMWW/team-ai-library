@@ -50,6 +50,8 @@
 
 ## 查找、下载与复用
 
+可先读 [能力总目录](CATALOG.md) 或 [同源机器索引](catalog.json) 筛选候选；目录是生成时快照，不能替代下述实时查找和使用前检查。目录生成与刷新由维护者按 [目录维护指南](CATALOG_GUIDE.md) 处理。
+
 1. 用中文用途、同义词、输入输出和场景执行 search，不只按文件名查找。没有结果就说明没找到；有多个候选优先给最相关的1—3项，说明解决什么问题、适用条件和未验证范围。
 2. 选定可用的明确 ID 和版本，执行 fetch。下载到新的专用目录，取得全部精确依赖；不要自动选 latest，不把未合并投稿当共享能力。查找不等于下载，下载不等于安装。
 3. 使用前按真实任务填写 selection/context JSON。selection 选择实际 download_path 或 receipt_path；context 写实际 task_scope、environment、effects_authorized，格式从指南获取。不能伪造范围、工具能力或授权来让检查通过。
