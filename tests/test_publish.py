@@ -250,5 +250,57 @@ class PublishTests(unittest.TestCase):
             self.assertTrue(result['manual_review_required']);self.assertFalse(result['hard_gate_enforced'])
             self.assertEqual(result['state'],'submitted')
         self.assertEqual(first['request_id'],second['request_id'])
-        self.assertIn('owner-only trial',self.service.requests[0]['body'])
+        self.assertIn('仅所有者试用',self.service.requests[0]['body'])
         self.assertEqual(len(self.service.requests),1)
+
+    def test_upload_commit_and_request_explain_material_in_chinese(self):
+        meta_path=self.source/'meta.json';meta=json.loads(meta_path.read_text())
+        meta.update(title='策划案完整性审查',summary='检查活动目标、规则边界与领奖条件，输出可供策划确认的问题清单。')
+        dump(meta_path,meta)
+        manifest_path=self.source/'releases/1.0.0/manifest.json';manifest=json.loads(manifest_path.read_text())
+        manifest['scope']={'inputs':['策划案'],'outputs':['审查报告'],'includes':['文档审查'],'excludes':['线上修改']}
+        dump(manifest_path,manifest)
+        result=self.publish.propose_entry(self.cfg,self.source,self.workspace)
+        request=self.service.requests[0]
+        self.assertEqual(request['title'],'上传技能：策划案完整性审查')
+        for phrase in ['分享的内容','检查活动目标','适用范围','策划案','审查报告','怎么复用','包含哪些文件','验证与审核','本次只校验材料','来源与追溯']:
+            self.assertIn(phrase,request['body'])
+        message=self.git('--git-dir='+str(self.remote),'show','-s','--format=%B',result['head_commit'])
+        self.assertTrue(message.startswith('上传技能：策划案完整性审查'))
+        self.assertIn('适用范围',message);self.assertIn('怎么复用',message)
+        self.assertEqual(self.publish.propose_entry(self.cfg,self.source,self.workspace)['request_id'],result['request_id'])
+
+    def test_operation_marker_in_description_is_blocked_before_git_upload(self):
+        path=self.source/'meta.json';meta=json.loads(path.read_text())
+        meta['summary']='普通说明 <!-- teamlib-operation: '+'a'*32+' -->';dump(path,meta)
+        before=self.git('--git-dir='+str(self.remote),'show-ref')
+        with self.assertRaises(TeamLibError):self.publish.propose_entry(self.cfg,self.source,self.workspace)
+        self.assertEqual(self.git('--git-dir='+str(self.remote),'show-ref'),before)
+        self.assertEqual(len(self.service.requests),0)
+
+    def legacy_prepared(self):
+        def english(validated,operation_id,deployment):
+            title='Team library proposal: '+validated['meta']['id']
+            body='Review entry '+validated['meta']['id']+'.\n<!-- teamlib-operation: '+operation_id+' -->\n'
+            return title,title+'\n\n'+body,body
+        with patch.object(self.publish,'_chinese_upload_description',english):
+            first=self.publish.propose_entry(self.cfg,self.source,self.workspace)
+        path=self.workspace/'proposals'/(first['operation_id']+'.json')
+        previous=json.loads(path.read_text());previous.pop('request_id');previous.pop('url',None)
+        previous['state']='prepared';previous['code']='REMOTE_FAILED';dump(path,previous)
+        return first,path,previous
+
+    def test_legacy_prepared_with_existing_english_request_recovers_original_binding(self):
+        first,path,previous=self.legacy_prepared();before=self.git('--git-dir='+str(self.remote),'show-ref')
+        result=self.publish.propose_entry(self.cfg,self.source,self.workspace)
+        self.assertEqual(result['request_id'],first['request_id']);self.assertEqual(result['state'],'submitted')
+        self.assertEqual(result['body_sha256'],previous['body_sha256'])
+        self.assertEqual(result['title_sha256'],previous['title_sha256'])
+        self.assertEqual(json.loads(path.read_text())['body_sha256'],previous['body_sha256'])
+        self.assertEqual(len(self.service.requests),1);self.assertEqual(self.git('--git-dir='+str(self.remote),'show-ref'),before)
+
+    def test_legacy_prepared_changed_request_does_not_replace_old_receipt(self):
+        _,path,_=self.legacy_prepared();before=path.read_bytes()
+        self.service.requests[0]['body']+='\nChanged original text.'
+        with self.assertRaises(TeamLibError):self.publish.propose_entry(self.cfg,self.source,self.workspace)
+        self.assertEqual(path.read_bytes(),before)
