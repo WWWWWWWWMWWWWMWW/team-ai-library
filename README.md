@@ -8,6 +8,8 @@
 
 想全面整理本地可沉淀内容，可直接复制 [全面整理提示词](docs/LOCAL_CAPTURE_PROMPT.md)，由 AI 产出完整盘点、详细中文能力草稿、缺项与建议上传清单。
 
+盘点自己在 Codex 积累的能力，直接用 [Codex 自动盘点提示词](docs/CODEX_CAPTURE_PROMPT.md)。AI 自动定位本机素材，先建立清单再详细整理，不要求先提供业务项目路径；无 GitHub 登录也可完成本地整理。
+
 日常可以直接说：
 
 - 安装接入这套能力库，检查能不能用。
@@ -71,6 +73,8 @@ python3 tools/library.py fetch --id owner/design-review --version 0.1.0 --dest .
 | [AI 自动操作手册](docs/AI_OPERATIONS.md) | AI 自行读取的接入、整理、复用、上传与治理流程 |
 | [本地全面整理提示词](docs/LOCAL_CAPTURE_PROMPT.md) | 让 AI 全面盘点并详细整理本地可沉淀内容 |
 | [LOCAL_CAPTURE.md](docs/LOCAL_CAPTURE.md) | 完整检查清单、分类、来源、草稿、进度与交付要求 |
+| [Codex 自动盘点提示词](docs/CODEX_CAPTURE_PROMPT.md) | 自动识别本机 Codex 素材，无需业务项目路径 |
+| [CODEX_CAPTURE.md](docs/CODEX_CAPTURE.md) | Codex 来源发现、任务经验提炼与实际整理规则 |
 | [AGENTS.md](AGENTS.md) | AI 操作边界与完成标准 |
 | [ONBOARDING.md](docs/ONBOARDING.md) | 接入前提、实际配置、当前门禁缺项 |
 | [AI_GUIDE.md](docs/AI_GUIDE.md) | 可直接运行的命令与 JSON 示例 |
