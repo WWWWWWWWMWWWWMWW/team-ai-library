@@ -64,6 +64,7 @@ python3 tools/library.py fetch --id owner/design-review --version 0.1.0 --dest .
 |---|---|
 | [团队能力总目录](docs/CATALOG.md) | 按分类浏览已入库能力、版本、范围、依赖和待审核材料 |
 | [目录维护指南](docs/CATALOG_GUIDE.md) | AI 自动生成与维护目录的规则 |
+| [本地网页设计规划](docs/LOCAL_WEB_PLAN.md) | 页面结构、交互、视觉与验收安排；建议方案，网页尚未实现 |
 | [机器索引](docs/catalog.json) | 与人读目录同源的结构化导航，使用前仍核对实时状态 |
 | [策划简化提示词](docs/MEMBER_PROMPT.md) | 一次复制，之后直接描述本次需求 |
 | [AI 自动操作手册](docs/AI_OPERATIONS.md) | AI 自行读取的接入、整理、复用、上传与治理流程 |
