@@ -39,6 +39,8 @@ python3 tools/library.py --config library.local.json search --query '策划案'
 
 `doctor` 包含发布条件，所以当前保护缺失可能得到 `blocked/SCOPE_DENIED`；读取通过时仍保留 `data.readable=true`、`can_publish=false` 和 `publishing_failure`，按具体诊断处理。读取流程独立校验个人登录、private/pull权限、可信共享成员映射及 main；不通过这些读取条件时仍须停止。不要用 local 平台模式绕过真实 GitHub 发布限制。主分支尚无初始化材料时，不把本地未提交内容当共享条目。
 
+工具代码来自当前 clone；能力材料从独立工作区新鲜获取共享分支，因而 `clone HEAD` 可以与下载/复用的 `source_commit` 不同。以工具实际来源锁为准，不将仓库提交变化自动视为能力版本升级。更新工具指南时先保护本机改动，再由 AI 核对已批准共享分支。
+
 每个命令 stdout 为一个 JSON 结果：protocol_version、operation_id、operation、state、code、message、data、checks、next_action。`code=OK` 的成功退出码为0；受控阻断为2，内部错误为1。每一步先看退出码及状态，再进行依赖它的下一步。
 
 ## 下载与临时复用示例
@@ -87,7 +89,7 @@ python3 tools/library.py check-reuse --selection .teamlib-workspace/selection.js
 
 确认 `code=OK`、`state=prepared`，逐项阅读 `data.checks` 和 `data.sources`。核验包括完整实际材料/传递依赖、固定来源、fresh 撤回/作废、范围、环境、已授权 effects。`business_verified=false`、`execution_authorized=false` 不会因检查成功变成 true。
 
-通过后，读取下载包 `releases/owner/design-review/0.1.0/README.md`、manifest 的入口 `payload/instructions.md`，以及依赖 `releases/owner/review-checklist/0.1.0/payload/SKILL.md`，在当前任务授权内执行审查。不要自动运行包内脚本、安装 npm/pip 依赖、修改原稿或发送报告。实际任务需要写文件/改项目/远程发送时，须使用适用范围和 effects 都覆盖的能力，并获得对应用户授权，不能把这份只读示例扩大使用。
+通过后，读取下载包 `releases/owner/design-review/0.1.0/README.md`、manifest 的入口 `payload/instructions.md`，以及依赖 `releases/owner/review-checklist/0.1.0/payload/SKILL.md`，在当前任务授权内执行审查。不要自动运行包内脚本、安装 npm/pip 依赖、修改原稿或发送报告。此示例 `read_only` 描述对业务输入及项目的作用；在当前用户授权下生成本地审查报告、下载记录与工具证据属于本地输出，不能据此取得修改原稿或远端发送权限。实际任务需要写文件/改项目/远程发送时，须使用适用范围和 effects 都覆盖的能力，并获得对应用户授权，不能把这份只读示例扩大使用。
 
 换条目或版本时重新填写实际 scope/environment/effects；不能沿用其他版本的业务证据。材料被本地改动会阻断原版复用，不能改 receipt/download.json 的摘要让它冒充原版。
 
@@ -159,6 +161,8 @@ PY
 ```sh
 python3 tools/library.py record-run --sources .teamlib-workspace/sources.json --summary .teamlib-workspace/run-summary.json
 ```
+
+当前 run 的 started_at/finished_at 是记录时刻，不记录或证明实际任务耗时；需要业务执行时长时须另收集实际证据。
 
 记录在本地 workspace/runs；`reused` 表示记录成功，不会替你执行任务或证明任务 passed。不自动上传经验。
 
