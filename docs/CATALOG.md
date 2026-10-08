@@ -111,6 +111,7 @@
 | 请求 | 材料类别 | 涉及能力 | 阶段 |
 |---|---|---|---|
 | [处理请求 #1](https://github.com/WWWWWWWWMWWWWMWW/team-ai-library/pull/1) | 能力投稿 | owner/cold-start-reuse-case | 处理中 |
+| [处理请求 #3](https://github.com/WWWWWWWWMWWWWMWW/team-ai-library/pull/3) | 工具与规则维护 | 仓库维护材料 | 处理中 |
 
 ## 目录来源与时效
 

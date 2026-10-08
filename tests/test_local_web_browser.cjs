@@ -25,6 +25,12 @@ const checks=[];
     assert.equal(await rows().count(),6); assert.deepEqual(network,[]);
     await page.screenshot({path:path.join(output,'desktop.png'),fullPage:true}); await page.screenshot({path:path.join(output,'preview.png')});
   });
+  await check('首页先显示四个易懂主题和总览数量',async()=>{
+    await go(html); assert.equal(await page.locator('[data-testid="overview-grid"] .overview-card').count(),4);
+    const overview=await page.locator('#overview-summary').innerText(); assert.ok(overview.includes('6 项能力')); assert.ok(overview.includes('4 个主题'));
+    await page.locator('[data-testid="overview-grid"] .overview-card').filter({hasText:'方法与流程'}).click(); assert.equal(await rows().count(),2);
+    await page.locator('#reset-filters').click(); assert.equal(await rows().count(),6);
+  });
   await check('中文别名与多词搜索定位实际版本',async()=>{
     for(const [query,id] of [['审策划案','owner/design-review'],['整理会议','owner/meeting-summary'],['查漏项','owner/review-checklist'],['策划案 审查','owner/design-review']]){
       await page.getByTestId('search').fill(query); assert.equal(await rows().count(),1); assert.equal(await rows().first().getAttribute('data-id'),id);
@@ -43,6 +49,7 @@ const checks=[];
     await page.getByTestId('search').fill('审策划案'); await rows().first().getByTestId('view-detail').click();
     const detail=page.getByTestId('detail-dialog'); await detail.getByText(/^入口材料 ·/).click(); assert.ok((await detail.innerText()).includes('先阅读实际策划案'));
     assert.equal(await page.getByTestId('version-select').inputValue(),'0.1.0');
+    const detailText=await detail.innerText(); assert.ok(detailText.includes('作者')); assert.ok(detailText.includes('来源'));
     assert.equal(await detail.getByTestId('dependency-link').count(),1);
     await closeDetail(); assert.equal(await page.evaluate(()=>document.activeElement.tagName),'BUTTON');
   });
