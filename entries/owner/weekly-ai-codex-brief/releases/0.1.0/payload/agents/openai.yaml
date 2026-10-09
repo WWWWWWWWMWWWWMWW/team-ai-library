@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI 与 Codex 周报"
+  short_description: "检索、核实并整理每周 AI 与 Codex 高价值动态"
+  default_prompt: "使用 $weekly-ai-codex-brief 执行本周 AI 与 Codex 中文简报。"

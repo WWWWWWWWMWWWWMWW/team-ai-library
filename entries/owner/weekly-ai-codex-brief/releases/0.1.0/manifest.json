@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "id": "owner/weekly-ai-codex-brief",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/SKILL.md"
+  ],
+  "scope": {
+    "inputs": [
+      "日期范围",
+      "上一期简报",
+      "公开来源"
+    ],
+    "outputs": [
+      "带原链的中文简报",
+      "官方/社区/风险分类"
+    ],
+    "includes": [
+      "周期性研究",
+      "产品动态跟踪",
+      "工具选择参考"
+    ],
+    "excludes": [
+      "无法核验来源",
+      "把传闻写成事实"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "macos"
+    ],
+    "runtimes": {},
+    "tools": [
+      "Codex",
+      "网络浏览器"
+    ],
+    "capabilities": [
+      "filesystem.read",
+      "network.read",
+      "local_generate"
+    ]
+  },
+  "effects": [
+    "read_only",
+    "local_generate"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "3225a1ee15449879c3144b2314d91270dc5497f7dff9207336bdacb117ae909d",
+      "size": 2423
+    },
+    {
+      "path": "payload/SKILL.md",
+      "sha256": "b93eb0819f48483c08df200ab0d94d0178a6b63bd55852f08a2591700e84b539",
+      "size": 3316
+    },
+    {
+      "path": "payload/agents/openai.yaml",
+      "sha256": "018ddb8cd22b40b604047b8ce285be888d4134cf4e4a1cfd65933b4f4264868f",
+      "size": 224
+    }
+  ]
+}

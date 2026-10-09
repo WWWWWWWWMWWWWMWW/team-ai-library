@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "owner/weekly-ai-codex-brief",
+  "title": "AI 与 Codex 一周简报",
+  "kind": "skill",
+  "summary": "按时间窗口检索并核验 AI/Codex 动态，优先官方来源，区分官方确认、社区经验和风险信息。",
+  "tags": [
+    "研究",
+    "AI资讯",
+    "Codex"
+  ],
+  "aliases": [
+    "AI周报",
+    "Codex周报"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "本机 Codex 自定义技能：/Users/hcm-b0263/.codex/skills/weekly-ai-codex-brief；团队内部能力整理，本版本按原技能材料生成。"
+  }
+}
