@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "id": "owner/mergeserver-rules-trace",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/instructions.md"
+  ],
+  "scope": {
+    "inputs": [
+      "服务端源码/配置、客户端调用和测试证据"
+    ],
+    "outputs": [
+      "模块规则说明、待确认项、验证建议"
+    ],
+    "includes": [
+      "服务端规则反查",
+      "跨模块联动排查"
+    ],
+    "excludes": [
+      "未核对当前部署版本",
+      "把历史会话推断当线上事实"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "macos"
+    ],
+    "runtimes": {},
+    "tools": [
+      "Codex",
+      "filesystem.read",
+      "服务端开发工具"
+    ],
+    "capabilities": [
+      "filesystem.read",
+      "local_generate"
+    ]
+  },
+  "effects": [
+    "read_only",
+    "local_generate"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "a5ef51af5e788c8bd2d9d48c3df342ee556a463a57e511d925bc27c4d6b6d05f",
+      "size": 1617
+    },
+    {
+      "path": "payload/instructions.md",
+      "sha256": "16b819cd21ecfb92984c0b513a316470651e45d32b83a85a86eddb45089eb23f",
+      "size": 1769
+    }
+  ]
+}
