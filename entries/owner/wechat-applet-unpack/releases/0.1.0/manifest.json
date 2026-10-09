@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "id": "owner/wechat-applet-unpack",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/SKILL.md"
+  ],
+  "scope": {
+    "inputs": [
+      "合法 wx ID",
+      "macOS 固定缓存路径",
+      "授权缓存"
+    ],
+    "outputs": [
+      "解包目录",
+      "Lua 提取结果",
+      "summary 统计"
+    ],
+    "includes": [
+      "本地授权研究",
+      "Unity+xLua 资源分析",
+      "版本对比"
+    ],
+    "excludes": [
+      "越界搜索",
+      "覆盖既有结果",
+      "无授权采集"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "macos"
+    ],
+    "runtimes": {},
+    "tools": [
+      "Codex",
+      "macOS shell",
+      "Python 3",
+      "Node.js"
+    ],
+    "capabilities": [
+      "filesystem.read",
+      "filesystem.write",
+      "process.execute"
+    ]
+  },
+  "effects": [
+    "read_only",
+    "local_generate"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "6b76ebe0dba2e1dbbafb09c09786b923bf52017c447f86034ebd5aa633caabcb",
+      "size": 2524
+    },
+    {
+      "path": "payload/SKILL.md",
+      "sha256": "1da0ffcf46d6311315c40541237bef9285e35607c5fe786cb5cda46cbf53dbbc",
+      "size": 4090
+    },
+    {
+      "path": "payload/agents/openai.yaml",
+      "sha256": "1e8826fca399f93b4ad60794b2a023e241a687961cca9044c25aaa86edbde13b",
+      "size": 292
+    },
+    {
+      "path": "payload/scripts/collect-and-unpack.sh",
+      "sha256": "382dde6dcceee38d254e1d154c379845fd1da9c616d8415b48e6e6daa1492155",
+      "size": 2818
+    },
+    {
+      "path": "payload/scripts/decompile-unity-lua.sh",
+      "sha256": "c0b362130ab216ca715911dd444cbcc357f09d313fa29695b3a894580e9232a0",
+      "size": 1820
+    },
+    {
+      "path": "payload/scripts/extract-and-decompile-lua.py",
+      "sha256": "48d500b293a6896bba6729dc2399c2a0e007d90a09c9d37df88123a5c23cca7e",
+      "size": 18488
+    },
+    {
+      "path": "payload/unpack.sh",
+      "sha256": "b44a7e73aefb047e7b051b5ac7499c01851ab2c5cbd0bbb216b5ca4d41bc1127",
+      "size": 2852
+    }
+  ]
+}

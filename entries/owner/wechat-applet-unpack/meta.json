@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "owner/wechat-applet-unpack",
+  "title": "微信小程序本地包研究",
+  "kind": "skill",
+  "summary": "在 macOS 固定缓存路径内，对获得授权的小程序缓存进行收集、解包和 Lua 提取，保留版本范围与质量统计。",
+  "tags": [
+    "小程序",
+    "解包",
+    "Lua研究"
+  ],
+  "aliases": [
+    "小程序解包",
+    "wxapkg分析"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "本机 Codex 自定义技能：/Users/hcm-b0263/.codex/skills/wechat-applet-unpack；团队内部能力整理，本版本按原技能材料生成。"
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "微信小程序代码解包"
+  short_description: "从 macOS 微信采集并解包小程序，支持 Unity Lua 反编译"
+  default_prompt: "使用 $wechat-applet-unpack 提取指定微信小程序 ID 的本地包，并在 Unity+Lua 项目中恢复 Lua 代码。"
