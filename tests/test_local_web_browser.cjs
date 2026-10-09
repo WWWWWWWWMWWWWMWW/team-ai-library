@@ -108,11 +108,10 @@ const checks=[];
     const row=rows().filter({hasText:'多版本测试能力'}); const text=await row.innerText(); assert.ok(!text.includes('尚无推荐版本')); assert.ok(text.includes('2.0.0')); assert.ok(text.includes('1.0.0'));
     await row.getByTestId('view-detail').click(); assert.equal(await page.getByTestId('version-select').inputValue(),'1.0.0'); await closeDetail();
   });
-  await check('处理中与维护请求单列，不计入已共享能力',async()=>{
-    await go(path.join(fixtures,'versions.html')); const count=await rows().count(); await page.getByTestId('pending-nav').click();
-    const text=await page.locator('#pending-list').innerText(); assert.ok(text.includes('能力投稿')); assert.ok(text.includes('指南维护')); assert.ok(text.includes('bob/pending'));
-    await page.getByTestId('find-nav').click(); assert.equal(await rows().count(),count);
-    await go(path.join(fixtures,'pending-unavailable.html')); await page.getByTestId('pending-nav').click(); assert.ok((await page.locator('#pending-list').innerText()).includes('不代表没有'));
+  await check('网页移除处理中入口，能力列表仍正常显示',async()=>{
+    await go(path.join(fixtures,'versions.html')); assert.ok(await rows().count()>0);
+    assert.equal(await page.getByTestId('pending-nav').count(),0);
+    assert.equal(await page.locator('#view-pending').count(),0);
   });
   await check('沉淀三入口与首次接入、更新指令遵循真实操作边界',async()=>{
     await go(html); await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:()=>Promise.reject(new Error('synthetic denial'))}}));

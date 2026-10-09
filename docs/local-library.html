@@ -28,7 +28,6 @@
 <aside class="sidebar" aria-label="能力库导航">
   <button class="nav-button active" data-view="browse" data-testid="find-nav">能力总览 <span aria-hidden="true">↗</span></button>
   <button class="nav-button" data-view="contribute" data-testid="contribute-nav">沉淀我的能力 <span aria-hidden="true">＋</span></button>
-  <button class="nav-button" data-view="pending" data-testid="pending-nav">处理中请求 <span class="nav-count" id="pending-count"></span></button>
   <button class="nav-button" data-view="help" data-testid="help-nav">第一次使用</button>
 </aside>
 <main class="main">
@@ -65,9 +64,6 @@
     <article class="task-card"><div class="task-number">03</div><h2>分享本次成果</h2><p>把明确选中的成果脱敏、补齐中文说明并自动检查。检查通过后由 AI 直接入库，内容变化或检查失败会暂停。</p><button class="btn" data-task="share" data-testid="task-share">复制分享指令</button></article>
   </div>
   <div class="panel"><label for="contribute-context"><strong>可选：补充这次要整理或分享的内容</strong></label><p class="small">例如“整理当前项目的活动配置检查方法”。没有选定资料时，由 AI 在对话里确认；这段内容只留在本次页面内存。</p><textarea id="contribute-context" class="task-input" placeholder="写一句目标即可，不需要填写分支、提交或合并信息。"></textarea><p class="small">复制指令不等于已整理或已上传。不要把令牌、个人配置或完整原始聊天当作分享材料。</p></div>
-</section>
-<section id="view-pending" class="view" aria-labelledby="pending-title">
-  <div class="eyebrow">处理中 · 共享之前先核对</div><h1 id="pending-title">处理中请求</h1><p class="intro">这里记录生成页面时仍待处理的请求，与已共享能力分开。自动检查或治理状态发生变化时，交给 AI 核对最新进度。</p><div class="panel" id="pending-list" data-testid="pending-list"></div><p class="page-note">请求关闭不代表已经入库。以共享分支中的实际材料和状态为准；维护与治理请求也不会计入能力数量。</p>
 </section>
 <section id="view-help" class="view" aria-labelledby="help-title">
   <div class="eyebrow">第一次使用 · 不需要学 Git</div><h1 id="help-title">选一个任务，交给你的 AI</h1><p class="intro">网页负责让你看得懂、找得到；真正的接入、下载、执行和投稿，由具备文件与终端能力的 AI 完成。</p>
@@ -106,7 +102,6 @@
   const groups=new Map();releases.forEach(r=>{if(!groups.has(r.id))groups.set(r.id,[]);groups.get(r.id).push(r);});
   const state={view:'browse',collection:'team',query:'',kind:'all',verification:'all',history:false,detailId:null,detailVersion:null,detailMatchedVersion:null};
   const availability={active:'可按规则使用',withdrawn:'已撤回',revoked:'已作废',blocked_dependency:'依赖已停用'};
-  const pendingKinds={publication:'能力投稿',maintenance:'库工具与指南维护',governance:'权限与治理',mixed:'混合变更，须核对范围',withdrawal:'撤回请求'};
   let composing=false,detailReturn=null,copyReturn=null,toastTimer;
   const node=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=String(text);if(cls)n.className=cls;return n;};
   const append=(parent,...children)=>{children.filter(Boolean).forEach(c=>parent.appendChild(c));return parent;};
@@ -254,11 +249,8 @@
   ['copy-close','copy-done'].forEach(id=>$(id).addEventListener('click',()=>$('copy-dialog').close()));
   $('copy-select').addEventListener('click',()=>{$('copy-text').focus();$('copy-text').select();});
   $('copy-dialog').addEventListener('close',()=>{if(copyReturn&&copyReturn.isConnected)copyReturn.focus();});
-  function pendingRender(){const pending=DATA.pending_requests||[];$('pending-count').textContent=DATA.pending_status==='available'?String(pending.length):'未核对';if(DATA.pending_status!=='available'){paragraph($('pending-list'),DATA.pending_status==='unavailable'?'生成时无法读取处理中请求。这个状态不代表没有处理中材料。':'这份快照未查询处理中请求。');const check=node('button','让 AI 核对处理进度','btn');check.addEventListener('click',()=>copyPrompt(foundation()+'\n请查询真实平台的处理中投稿、维护与治理请求，核对权限、当前请求头、自动检查和共享实际状态。不要把关闭请求当作发布或撤回生效；本次只查进度，不修改或合并治理状态。'));append($('pending-list'),check);return;}
-    if(!pending.length){paragraph($('pending-list'),'生成页面时没有查到处理中请求。实际新进度请让 AI 核对。');return;}
-    pending.forEach(req=>{const row=node('article',undefined,'pending-row'),head=node('div',undefined,'pending-head');append(head,node('h3','请求 #'+req.number+' · '+(pendingKinds[req.kind]||'须核对请求类型')),badged('处理中快照','warn'));append(row,head,node('p',(req.ids||[]).length?'涉及能力：'+req.ids.join('、'):'此请求未标注能力条目；检查库工具、规则或真实变更范围。','pending-body'));const actions=node('div',undefined,'pending-actions');try{const url=new URL(req.url),source=new URL(repo.replace(/\.git$/,''));if(url.protocol==='https:'&&url.origin===source.origin&&url.pathname.startsWith(source.pathname+'/')){const a=node('a','查看平台请求');a.href=url.href;a.target='_blank';a.rel='noopener noreferrer';append(actions,a);}}catch(error){/* Unknown URLs are not links. */}const b=node('button','让 AI 核对处理进度','btn');b.addEventListener('click',()=>copyPrompt(foundation()+`\n请只读核对平台请求 #${req.number}，本快照分类为“${pendingKinds[req.kind]||req.kind}”，地址 ${req.url||'未提供'}，生成时请求头 ${req.head_commit||'未提供'}。按实际 PR/issue 等请求类型查询，核对当前头、自动检查和共享实际材料；不要把关闭请求当作发布或撤回生效。不修改、合并或自动发送消息。给我中文进度和实际受阻项。`));append(actions,b);append(row,actions);append($('pending-list'),row);});}
   [['生成时间',displayDate(DATA.generated_at)],['来源仓库',repo],['共享分支',branch],['内容提交',DATA.source?.commit||'未提供'],['内容数量',groups.size+' 项能力 / '+releases.length+' 个版本']].forEach(([label,value])=>append($('source-info'),node('dt',label),node('dd',value,label==='内容提交'?'mono':undefined)));
-  pendingRender();renderResults();
+  renderResults();
   function readHash(){const q=new URLSearchParams(location.hash.slice(1)),id=q.get('capability'),version=q.get('version');if(id&&groups.has(id)){const valid=version&&(groups.get(id)||[]).some(r=>r.version===version);openDetail(id,valid?version:null,null);}}
   readHash();window.addEventListener('hashchange',()=>{if(!location.hash&&$('detail-dialog').open)closeDetail();else readHash();});
   Object.defineProperty(window,'teamlibDebug',{value:Object.freeze({getState:()=>Object.freeze({...state}),search:()=>searchResults().map(x=>Object.freeze({id:x.id,version:x.version,matchedVersion:x.matchedVersion,recommendedVersion:x.recommendedVersion,hits:[...x.hits],historical:x.historical,noRecommendation:x.noRecommendation}))}),writable:false,configurable:false});
