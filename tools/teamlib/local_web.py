@@ -25,6 +25,10 @@ def build_web_record(snapshot, catalog):
     record['generated_at']=datetime.now(timezone.utc).isoformat(timespec='seconds')
     record['kinds']=dict(KINDS); record['labels']=dict(LABELS)
     root=ensure_no_symlinks(Path(snapshot['root']))
+    members=read_json(root/'governance/members.json').get('members',[])
+    record['member_labels']={row['actor_key']:row['github_login'] for row in members
+                             if isinstance(row,dict) and isinstance(row.get('actor_key'),str)
+                             and isinstance(row.get('github_login'),str)}
     policy=read_json(root/'governance/policy.json')
     for row in record['releases']:
         prefix=f"entries/{row['id']}/releases/{row['version']}/"
