@@ -4,10 +4,10 @@
   "source": {
     "repository": "https://github.com/WWWWWWWWMWWWWMWW/team-ai-library.git",
     "branch": "main",
-    "commit": "509090e2798ddc7a85586daf40daac251b947b42"
+    "commit": "ee35de264a2071cbe74e23bad7c28d19e2d6374a"
   },
-  "capability_count": 6,
-  "version_count": 6,
+  "capability_count": 22,
+  "version_count": 22,
   "releases": [
     {
       "id": "owner/design-review",
@@ -75,6 +75,150 @@
       ]
     },
     {
+      "id": "owner/dlt-reliable-analysis",
+      "title": "大乐透可靠查询与统计分析",
+      "summary": "基于官方数据源和白名单镜像，完成开奖查询、历史统计、对奖核验和固定种子娱乐样本，不将统计包装成预测。",
+      "kind": "skill",
+      "tags": [
+        "数据分析",
+        "来源核验",
+        "彩票统计"
+      ],
+      "aliases": [
+        "大乐透分析",
+        "开奖统计"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本机 Codex 自定义技能：/Users/hcm-b0263/.codex/skills/dlt-reliable-analysis；团队内部能力整理，本版本按原技能材料生成。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "2d022cdd13bc1dc7342e6e4982f966bb2ff6550b958459404ceb32958981ba38",
+      "recommended": false,
+      "availability": "withdrawn",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "期号或历史数据",
+          "官方/白名单数据源",
+          "分析窗口"
+        ],
+        "outputs": [
+          "来源核验",
+          "统计结果",
+          "对奖报告或娱乐样本"
+        ],
+        "includes": [
+          "公开数据分析",
+          "来源冲突检查",
+          "号码范围核验"
+        ],
+        "excludes": [
+          "预测中奖率",
+          "绕过官方来源",
+          "付费或自动下注"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "macos"
+        ],
+        "runtimes": {},
+        "tools": [
+          "Codex",
+          "Python 3",
+          "网络访问"
+        ],
+        "capabilities": [
+          "filesystem.read",
+          "network.read",
+          "local_generate"
+        ]
+      },
+      "effects": [
+        "read_only",
+        "local_generate"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/dlt-reliable-analysis/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/dlt-reliable-analysis/releases/0.1.0/payload/SKILL.md"
+      ]
+    },
+    {
+      "id": "owner/evidence-debugging",
+      "title": "证据驱动调试与验证门禁",
+      "summary": "把失败现象拆成证据链，区分确认、观察、推断和待验证项，完成最小修复并逐层验证。",
+      "kind": "workflow",
+      "tags": [
+        "debugging",
+        "verification",
+        "evidence"
+      ],
+      "aliases": [
+        "debugging",
+        "verification"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本机 Codex 历史任务中的团队内部工作方法；已整理为可复用流程，未复制原始聊天。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "2530b53cd89e87b5057bbf4d71822fe4528ff57de3ec0fd0b31b48e529681b67",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "证据、相关源码或配置、当前失败现象"
+        ],
+        "outputs": [
+          "定位结论、最小改动、回归结果、未验证项"
+        ],
+        "includes": [
+          "跨模块 bug 定位",
+          "运行时问题追踪",
+          "发布前检查"
+        ],
+        "excludes": [
+          "无运行证据直接下结论",
+          "未经授权扩大修改范围"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "macos"
+        ],
+        "runtimes": {},
+        "tools": [
+          "Codex",
+          "filesystem.read",
+          "filesystem.write"
+        ],
+        "capabilities": [
+          "filesystem.read",
+          "filesystem.write",
+          "process.execute"
+        ]
+      },
+      "effects": [
+        "read_only",
+        "local_generate",
+        "project_write"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/evidence-debugging/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/evidence-debugging/releases/0.1.0/payload/instructions.md"
+      ]
+    },
+    {
       "id": "owner/experience-case",
       "title": "可复用经验沉淀模板",
       "summary": "内置示例：可复用经验沉淀模板。未验证真实策划业务，供试用与改编。",
@@ -134,6 +278,215 @@
       ]
     },
     {
+      "id": "owner/foodstreet-order-prefab",
+      "title": "Food Street 订单规则与 Prefab 迁移案例",
+      "summary": "从订单源码区分随机、配置和 fallback 选择逻辑，并独立完成 Prefab 迁移的静态引用检查，明确运行时接入缺口。",
+      "kind": "case",
+      "tags": [
+        "FoodStreet",
+        "订单规则",
+        "Prefab迁移"
+      ],
+      "aliases": [
+        "FoodStreet",
+        "订单规则"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本机 Codex 历史任务中的团队内部工作方法；已整理为可复用流程，未复制原始聊天。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "8667028b5dc599504864965a341a7db352714caeb0cc273a1b4ff797ecd35436",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "订单源码、Prefab 文件、UUID 和引用清单"
+        ],
+        "outputs": [
+          "规则说明、迁移清单、静态检查和运行时缺口"
+        ],
+        "includes": [
+          "规则反查",
+          "资源迁移案例"
+        ],
+        "excludes": [
+          "把静态导入当作运行时完成",
+          "覆盖不明时宣称通过"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "macos"
+        ],
+        "runtimes": {},
+        "tools": [
+          "Codex",
+          "filesystem.read",
+          "项目资源工具"
+        ],
+        "capabilities": [
+          "filesystem.read",
+          "local_generate"
+        ]
+      },
+      "effects": [
+        "read_only",
+        "local_generate"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/foodstreet-order-prefab/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/foodstreet-order-prefab/releases/0.1.0/payload/instructions.md"
+      ]
+    },
+    {
+      "id": "owner/game-billing-batch",
+      "title": "游戏计费点批量生成",
+      "summary": "根据商品 ID、中文名和 Cash 价格，按已有后台模板生成华为、国服 GM、港澳台 GM 的计费点批量文件，并执行重复 ID 与字段回读检查。",
+      "kind": "skill",
+      "tags": [
+        "计费点",
+        "批量生成",
+        "运营工具"
+      ],
+      "aliases": [
+        "计费批量生成",
+        "商品批量导入"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本机 Codex 自定义技能：/Users/hcm-b0263/.codex/skills/game-billing-batch；团队内部能力整理，本版本按原技能材料生成。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "0d2a4315c31554bfe2d15c971730b47b877efddc1dbb7a7d61a2e64f4e96b4bc",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "商品 ID、名称和 Cash 价格",
+          "后台导出模板"
+        ],
+        "outputs": [
+          "批量导入文件",
+          "ID/行数/字段核对结果"
+        ],
+        "includes": [
+          "新增商品批量准备",
+          "同价模板复制",
+          "多后台格式转换"
+        ],
+        "excludes": [
+          "修改已有商品",
+          "缺少模板",
+          "直接操作后台"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "macos"
+        ],
+        "runtimes": {},
+        "tools": [
+          "Codex",
+          "Python 3"
+        ],
+        "capabilities": [
+          "filesystem.read",
+          "filesystem.write",
+          "process.execute"
+        ]
+      },
+      "effects": [
+        "read_only",
+        "local_generate"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/game-billing-batch/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/game-billing-batch/releases/0.1.0/payload/SKILL.md"
+      ]
+    },
+    {
+      "id": "owner/game-design-grill",
+      "title": "玩法方案逐层拷问",
+      "summary": "以玩家体验、规则闭环和证据为基础，逐个解决最影响方向的玩法歧义，形成可验收的设计方案。",
+      "kind": "skill",
+      "tags": [
+        "游戏策划",
+        "玩法设计",
+        "方案评审"
+      ],
+      "aliases": [
+        "玩法拷问",
+        "拷问方案"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本机 Codex 自定义技能：/Users/hcm-b0263/.codex/skills/game-design-grill；团队内部能力整理，本版本按原技能材料生成。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "73206fddf08ec4863205a91b9af9227959e664c6d817a2ad5a0f9e443363ad88",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "策划方案",
+          "规则草稿",
+          "配置或代码证据"
+        ],
+        "outputs": [
+          "拷问记录",
+          "确认问题",
+          "修订建议"
+        ],
+        "includes": [
+          "玩法方案评审",
+          "活动与赛事设计",
+          "奖励和对手规则"
+        ],
+        "excludes": [
+          "直接改生产代码",
+          "未经授权发布"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "macos"
+        ],
+        "runtimes": {},
+        "tools": [
+          "Codex",
+          "filesystem.read"
+        ],
+        "capabilities": [
+          "filesystem.read",
+          "filesystem.write"
+        ]
+      },
+      "effects": [
+        "read_only",
+        "local_generate"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/game-design-grill/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/game-design-grill/releases/0.1.0/payload/SKILL.md"
+      ]
+    },
+    {
       "id": "owner/meeting-summary",
       "title": "会议记录整理提示词",
       "summary": "内置示例：会议记录整理提示词。未验证真实策划业务，供试用与改编。",
@@ -190,6 +543,283 @@
       "readme": "entries/owner/meeting-summary/releases/0.1.0/README.md",
       "entrypoints": [
         "entries/owner/meeting-summary/releases/0.1.0/payload/instructions.md"
+      ]
+    },
+    {
+      "id": "owner/mergeclient-runtime-trace",
+      "title": "MergeClient 源码到运行时追踪",
+      "summary": "将截图或录屏沿请求、客户端调用、服务端分支、配置和资源链追到实际运行时行为。",
+      "kind": "workflow",
+      "tags": [
+        "mergeclient",
+        "运行时追踪",
+        "配置排查"
+      ],
+      "aliases": [
+        "mergeclient",
+        "运行时追踪"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本机 Codex 历史任务中的团队内部工作方法；已整理为可复用流程，未复制原始聊天。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "29084857245aec440c0b9dd3e080d31ad4a4f2b5253603ea61eff199a4860786",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "截图/录屏、请求信息、源码路径、配置和资源"
+        ],
+        "outputs": [
+          "证据链、影响字段、运行时验证计划"
+        ],
+        "includes": [
+          "活动配置",
+          "Prefab/资源排查",
+          "客户端服务端联动"
+        ],
+        "excludes": [
+          "只看截图下结论",
+          "把单项目规则外推"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "macos"
+        ],
+        "runtimes": {},
+        "tools": [
+          "Codex",
+          "filesystem.read",
+          "项目工具"
+        ],
+        "capabilities": [
+          "filesystem.read",
+          "local_generate"
+        ]
+      },
+      "effects": [
+        "read_only",
+        "local_generate"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/mergeclient-runtime-trace/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/mergeclient-runtime-trace/releases/0.1.0/payload/instructions.md"
+      ]
+    },
+    {
+      "id": "owner/mergeclient-ui-concept",
+      "title": "MergeClient 活动 UI 概念设计",
+      "summary": "从少量风格参考建立页面结构，生成活动 UI 概念方案，并用质量量表复审；结果用于概念沟通，不代替 Prefab 或正式切图。",
+      "kind": "skill",
+      "tags": [
+        "UI设计",
+        "活动页面",
+        "概念图"
+      ],
+      "aliases": [
+        "活动UI概念",
+        "MergeClient UI方案"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本机 Codex 自定义技能：/Users/hcm-b0263/.codex/skills/mergeclient-ui-concept；团队内部能力整理，本版本按原技能材料生成。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "b86203ca69354ad87daddeaadbc3f409517c573bbb20486e8c4f56a57125302e",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "活动目标、行为和页面类型",
+          "风格参考",
+          "尺寸与禁用内容"
+        ],
+        "outputs": [
+          "页面结构",
+          "概念图说明",
+          "评分与迭代记录"
+        ],
+        "includes": [
+          "活动页概念阶段",
+          "页面结构讨论",
+          "视觉风格复审"
+        ],
+        "excludes": [
+          "直接当作运行时 Prefab",
+          "未授权使用二进制素材"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "macos"
+        ],
+        "runtimes": {},
+        "tools": [
+          "Codex",
+          "Python 3",
+          "图像生成工具"
+        ],
+        "capabilities": [
+          "filesystem.read",
+          "filesystem.write",
+          "network.read"
+        ]
+      },
+      "effects": [
+        "read_only",
+        "local_generate"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/mergeclient-ui-concept/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/mergeclient-ui-concept/releases/0.1.0/payload/SKILL.md"
+      ]
+    },
+    {
+      "id": "owner/mergeserver-rules-trace",
+      "title": "MergeServer 赛事与邮件规则反查案例",
+      "summary": "围绕 tournament、oneVsOne、robotRank 和 email 模块，记录服务端规则、关键字段和客户端联动验证项。",
+      "kind": "case",
+      "tags": [
+        "mergeServer",
+        "服务端规则",
+        "运行时证据"
+      ],
+      "aliases": [
+        "mergeServer",
+        "服务端规则"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本机 Codex 历史任务中的团队内部工作方法；已整理为可复用流程，未复制原始聊天。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "84703f1c3fdfc7052986ada213134cab36504eee62d724059c23008c241f35ae",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "服务端源码/配置、客户端调用和测试证据"
+        ],
+        "outputs": [
+          "模块规则说明、待确认项、验证建议"
+        ],
+        "includes": [
+          "服务端规则反查",
+          "跨模块联动排查"
+        ],
+        "excludes": [
+          "未核对当前部署版本",
+          "把历史会话推断当线上事实"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "macos"
+        ],
+        "runtimes": {},
+        "tools": [
+          "Codex",
+          "filesystem.read",
+          "服务端开发工具"
+        ],
+        "capabilities": [
+          "filesystem.read",
+          "local_generate"
+        ]
+      },
+      "effects": [
+        "read_only",
+        "local_generate"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/mergeserver-rules-trace/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/mergeserver-rules-trace/releases/0.1.0/payload/instructions.md"
+      ]
+    },
+    {
+      "id": "owner/prompt-assistant-delivery",
+      "title": "提示助手修复与本地交付",
+      "summary": "围绕本机提示助手完成问题定位、聚焦回归、构建、签名、安装和健康检查，并记录 UI 或宿主缺口。",
+      "kind": "workflow",
+      "tags": [
+        "提示助手",
+        "回归",
+        "安装验证"
+      ],
+      "aliases": [
+        "提示助手",
+        "回归"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本机 Codex 历史任务中的团队内部工作方法；已整理为可复用流程，未复制原始聊天。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "669131efe2273b50e4fa25a14d493489959bed7001563d3d7e75d58982e686cc",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "失败证据、源码、测试入口"
+        ],
+        "outputs": [
+          "修复补丁、测试/构建/签名/安装记录"
+        ],
+        "includes": [
+          "本机应用修复",
+          "可逆本地交付"
+        ],
+        "excludes": [
+          "发布、推送、生产部署",
+          "无证据重构"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "macos"
+        ],
+        "runtimes": {},
+        "tools": [
+          "Codex",
+          "macOS",
+          "Xcode/本机构建工具"
+        ],
+        "capabilities": [
+          "filesystem.read",
+          "filesystem.write",
+          "process.execute"
+        ]
+      },
+      "effects": [
+        "read_only",
+        "project_write",
+        "local_generate"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/prompt-assistant-delivery/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/prompt-assistant-delivery/releases/0.1.0/payload/instructions.md"
       ]
     },
     {
@@ -368,6 +998,511 @@
       "entrypoints": [
         "entries/owner/review-checklist/releases/0.1.0/payload/SKILL.md"
       ]
+    },
+    {
+      "id": "owner/safe-cache-cleanup",
+      "title": "安全清理与可再生缓存边界",
+      "summary": "在保留 Git/LFS 和用户材料的前提下，确认进程与缓存状态，只清理可再生目录并做前后复核。",
+      "kind": "lesson",
+      "tags": [
+        "缓存清理",
+        "LFS",
+        "磁盘维护"
+      ],
+      "aliases": [
+        "缓存清理",
+        "LFS"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本机 Codex 历史任务中的团队内部工作方法；已整理为可复用流程，未复制原始聊天。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "41db3f3d5c0c5499438c6074b6ac05f985cb199ce4bc8f65e07840d259b682f8",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "HEAD/status、进程、目录大小、远端校验结果"
+        ],
+        "outputs": [
+          "清理前后证据、保留项、风险和复核结果"
+        ],
+        "includes": [
+          "本机磁盘维护",
+          "可再生缓存清理"
+        ],
+        "excludes": [
+          "直接删除 .git/lfs",
+          "删除模型或源码",
+          "未验证远端就清理"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "macos"
+        ],
+        "runtimes": {},
+        "tools": [
+          "Codex",
+          "Git",
+          "git-lfs",
+          "macOS shell"
+        ],
+        "capabilities": [
+          "filesystem.read",
+          "filesystem.write",
+          "process.execute"
+        ]
+      },
+      "effects": [
+        "read_only",
+        "project_write",
+        "local_generate"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/safe-cache-cleanup/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/safe-cache-cleanup/releases/0.1.0/payload/instructions.md"
+      ]
+    },
+    {
+      "id": "owner/season-card-config",
+      "title": "赛季相册配置与运行验收",
+      "summary": "串联赛季相册源表、卡牌/入口/徽章/Spine 资源、导出检查和运行时验收，降低配置遗漏与资源错配。",
+      "kind": "skill",
+      "tags": [
+        "游戏配置",
+        "赛季相册",
+        "资源验收"
+      ],
+      "aliases": [
+        "赛季卡配置",
+        "相册配置验收"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本机 Codex 自定义技能：/Users/hcm-b0263/.codex/skills/season-card-config；团队内部能力整理，本版本按原技能材料生成。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "3770df9a64cff0c00923eba6d1a1ba8a1ee958589d2005b5fc856c6c888a729d",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "地区、赛季和编号范围",
+          "XLSX 页签",
+          "资源文件"
+        ],
+        "outputs": [
+          "字段映射",
+          "资源/UUID 检查结果",
+          "运行时验收清单"
+        ],
+        "includes": [
+          "赛季相册配置",
+          "卡牌和徽章资源检查",
+          "入口与奖励验收"
+        ],
+        "excludes": [
+          "没有源表或资源证据",
+          "未经授权导表"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "macos"
+        ],
+        "runtimes": {},
+        "tools": [
+          "Codex",
+          "Node.js",
+          "XLSX/OOXML 工具"
+        ],
+        "capabilities": [
+          "filesystem.read",
+          "filesystem.write",
+          "process.execute"
+        ]
+      },
+      "effects": [
+        "read_only",
+        "local_generate",
+        "project_write"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/season-card-config/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/season-card-config/releases/0.1.0/payload/SKILL.md"
+      ]
+    },
+    {
+      "id": "owner/task-handoff",
+      "title": "任务交接与承接",
+      "summary": "在任务暂停、换人或继续前，生成可审计的交接材料，记录目标、状态、证据、剩余工作和恢复入口。",
+      "kind": "skill",
+      "tags": [
+        "任务交接",
+        "承接",
+        "可审计"
+      ],
+      "aliases": [
+        "写交接",
+        "恢复任务"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本机 Codex 自定义技能：/Users/hcm-b0263/.codex/skills/task-handoff；团队内部能力整理，本版本按原技能材料生成。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "5366e5560ddaf808188e7b6e7a2f086fc56dacb8f3da9f4ba9d96995106e811d",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "任务目标",
+          "当前状态",
+          "文件和验证证据"
+        ],
+        "outputs": [
+          "HANDOFF 文档",
+          "承接检查清单",
+          "恢复建议"
+        ],
+        "includes": [
+          "任务交接",
+          "跨会话承接",
+          "阶段性冻结"
+        ],
+        "excludes": [
+          "自行创建新任务",
+          "自行提交或发布"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "macos"
+        ],
+        "runtimes": {},
+        "tools": [
+          "Codex",
+          "filesystem.read",
+          "filesystem.write"
+        ],
+        "capabilities": [
+          "filesystem.read",
+          "filesystem.write"
+        ]
+      },
+      "effects": [
+        "read_only",
+        "local_generate"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/task-handoff/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/task-handoff/releases/0.1.0/payload/SKILL.md"
+      ]
+    },
+    {
+      "id": "owner/teamlib-local-capture",
+      "title": "团队能力库本地捕获",
+      "summary": "按共享指南完成独立取库、环境和权限检查、元数据盘点、内容提炼和本地草稿，保留上传边界。",
+      "kind": "workflow",
+      "tags": [
+        "team-library",
+        "capture",
+        "audit"
+      ],
+      "aliases": [
+        "team-library",
+        "capture"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本机 Codex 历史任务中的团队内部工作方法；已整理为可复用流程，未复制原始聊天。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "f20e4fed083646c071fec74bf0186a7b2ac0ba0b922e6d7ae45c11ff7f7a02e0",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "共享仓库、Codex 素材位置、允许读取的材料"
+        ],
+        "outputs": [
+          "来源清单、能力草稿、进度和阻塞报告"
+        ],
+        "includes": [
+          "能力库接入",
+          "本地能力盘点",
+          "上传前准备"
+        ],
+        "excludes": [
+          "未经授权上传",
+          "读取凭据或完整聊天"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "macos"
+        ],
+        "runtimes": {},
+        "tools": [
+          "Codex",
+          "Git",
+          "Python 3"
+        ],
+        "capabilities": [
+          "filesystem.read",
+          "filesystem.write",
+          "process.execute"
+        ]
+      },
+      "effects": [
+        "read_only",
+        "local_generate"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/teamlib-local-capture/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/teamlib-local-capture/releases/0.1.0/payload/instructions.md"
+      ]
+    },
+    {
+      "id": "owner/wechat-applet-unpack",
+      "title": "微信小程序本地包研究",
+      "summary": "在 macOS 固定缓存路径内，对获得授权的小程序缓存进行收集、解包和 Lua 提取，保留版本范围与质量统计。",
+      "kind": "skill",
+      "tags": [
+        "小程序",
+        "解包",
+        "Lua研究"
+      ],
+      "aliases": [
+        "小程序解包",
+        "wxapkg分析"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本机 Codex 自定义技能：/Users/hcm-b0263/.codex/skills/wechat-applet-unpack；团队内部能力整理，本版本按原技能材料生成。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "377b34129a751cf7aaa0938924683c9c6299e57698f7c25bef39bce44a563efe",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "合法 wx ID",
+          "macOS 固定缓存路径",
+          "授权缓存"
+        ],
+        "outputs": [
+          "解包目录",
+          "Lua 提取结果",
+          "summary 统计"
+        ],
+        "includes": [
+          "本地授权研究",
+          "Unity+xLua 资源分析",
+          "版本对比"
+        ],
+        "excludes": [
+          "越界搜索",
+          "覆盖既有结果",
+          "无授权采集"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "macos"
+        ],
+        "runtimes": {},
+        "tools": [
+          "Codex",
+          "macOS shell",
+          "Python 3",
+          "Node.js"
+        ],
+        "capabilities": [
+          "filesystem.read",
+          "filesystem.write",
+          "process.execute"
+        ]
+      },
+      "effects": [
+        "read_only",
+        "local_generate"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/wechat-applet-unpack/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/wechat-applet-unpack/releases/0.1.0/payload/SKILL.md"
+      ]
+    },
+    {
+      "id": "owner/weekly-ai-codex-brief",
+      "title": "AI 与 Codex 一周简报",
+      "summary": "按时间窗口检索并核验 AI/Codex 动态，优先官方来源，区分官方确认、社区经验和风险信息。",
+      "kind": "skill",
+      "tags": [
+        "研究",
+        "AI资讯",
+        "Codex"
+      ],
+      "aliases": [
+        "AI周报",
+        "Codex周报"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本机 Codex 自定义技能：/Users/hcm-b0263/.codex/skills/weekly-ai-codex-brief；团队内部能力整理，本版本按原技能材料生成。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "c546d628eeb61e1e7184e8c0fc9754b720549f07588b66fc91bd4f24e3d961c5",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "日期范围",
+          "上一期简报",
+          "公开来源"
+        ],
+        "outputs": [
+          "带原链的中文简报",
+          "官方/社区/风险分类"
+        ],
+        "includes": [
+          "周期性研究",
+          "产品动态跟踪",
+          "工具选择参考"
+        ],
+        "excludes": [
+          "无法核验来源",
+          "把传闻写成事实"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "macos"
+        ],
+        "runtimes": {},
+        "tools": [
+          "Codex",
+          "网络浏览器"
+        ],
+        "capabilities": [
+          "filesystem.read",
+          "network.read",
+          "local_generate"
+        ]
+      },
+      "effects": [
+        "read_only",
+        "local_generate"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/weekly-ai-codex-brief/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/weekly-ai-codex-brief/releases/0.1.0/payload/SKILL.md"
+      ]
+    },
+    {
+      "id": "owner/work-knowledge",
+      "title": "工作知识库检索与单向收录",
+      "summary": "从明确项目和来源检索工作知识，保留来源和指纹，经 prepare/apply 流程单向收录到知识库。",
+      "kind": "skill",
+      "tags": [
+        "知识库",
+        "Obsidian",
+        "来源追溯"
+      ],
+      "aliases": [
+        "工作知识库",
+        "知识收录"
+      ],
+      "author_key": "owner",
+      "owner_key": "owner",
+      "source": {
+        "type": "original",
+        "reference": "本机 Codex 自定义技能：/Users/hcm-b0263/.codex/skills/work-knowledge；团队内部能力整理，本版本按原技能材料生成。"
+      },
+      "version": "0.1.0",
+      "manifest_sha256": "e33d720f437e2303703341acf74c945b2fe40eef7983928b6dfa4eaaec928697",
+      "recommended": true,
+      "availability": "active",
+      "verification": [],
+      "verification_label": "未验证",
+      "scope": {
+        "inputs": [
+          "项目或主题",
+          "知识库配置和来源文档"
+        ],
+        "outputs": [
+          "检索结果",
+          "来源指纹",
+          "候选收录记录"
+        ],
+        "includes": [
+          "工作知识检索",
+          "知识条目更新",
+          "来源追溯"
+        ],
+        "excludes": [
+          "直接修改数据库",
+          "未授权改写原始知识"
+        ]
+      },
+      "compatibility": {
+        "os": [
+          "macos"
+        ],
+        "runtimes": {},
+        "tools": [
+          "Codex",
+          "Python 3",
+          "Obsidian 文件库"
+        ],
+        "capabilities": [
+          "filesystem.read",
+          "filesystem.write",
+          "process.execute"
+        ]
+      },
+      "effects": [
+        "read_only",
+        "local_generate",
+        "project_write"
+      ],
+      "dependencies": [],
+      "readme": "entries/owner/work-knowledge/releases/0.1.0/README.md",
+      "entrypoints": [
+        "entries/owner/work-knowledge/releases/0.1.0/payload/SKILL.md"
+      ]
     }
   ],
   "pending_status": "available",
@@ -380,13 +1515,6 @@
       ],
       "head_commit": "e879c4150593b2db88879d1f31643a5a23979f11",
       "url": "https://github.com/WWWWWWWWMWWWWMWW/team-ai-library/pull/1"
-    },
-    {
-      "number": 5,
-      "kind": "maintenance",
-      "ids": [],
-      "head_commit": "03a779af43447d53903858711962fe9853accd10",
-      "url": "https://github.com/WWWWWWWWMWWWWMWW/team-ai-library/pull/5"
     }
   ]
 }
