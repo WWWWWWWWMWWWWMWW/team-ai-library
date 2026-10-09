@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "id": "owner/season-card-config",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/SKILL.md"
+  ],
+  "scope": {
+    "inputs": [
+      "地区、赛季和编号范围",
+      "XLSX 页签",
+      "资源文件"
+    ],
+    "outputs": [
+      "字段映射",
+      "资源/UUID 检查结果",
+      "运行时验收清单"
+    ],
+    "includes": [
+      "赛季相册配置",
+      "卡牌和徽章资源检查",
+      "入口与奖励验收"
+    ],
+    "excludes": [
+      "没有源表或资源证据",
+      "未经授权导表"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "macos"
+    ],
+    "runtimes": {},
+    "tools": [
+      "Codex",
+      "Node.js",
+      "XLSX/OOXML 工具"
+    ],
+    "capabilities": [
+      "filesystem.read",
+      "filesystem.write",
+      "process.execute"
+    ]
+  },
+  "effects": [
+    "read_only",
+    "local_generate",
+    "project_write"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "d59e2aab793898217d77befd8466786a9a8bcc3aebd76ca911ffee11d3e08640",
+      "size": 2527
+    },
+    {
+      "path": "payload/SKILL.md",
+      "sha256": "bec3aa7b4318398d002aa49a4516aa710c2cecc1fdaa0f7994e858051087f78d",
+      "size": 9160
+    },
+    {
+      "path": "payload/references/operator-workflow.md",
+      "sha256": "57b6338e45bc04a538d0dfa3e9ecb8380c9579d40ca51cb885131d64696f6bd0",
+      "size": 10902
+    },
+    {
+      "path": "payload/references/verification.md",
+      "sha256": "8e6afbe33d073520fd1851e0fae502c03bde0788e366f592f5bb49f6baabf503",
+      "size": 4003
+    },
+    {
+      "path": "payload/scripts/verify_badge_assets.mjs",
+      "sha256": "03bdc479b6f742d737d0d11dcda5e69b5e0d7766cb1e3d4a8361fc142d03ccb5",
+      "size": 4883
+    },
+    {
+      "path": "payload/scripts/verify_season_config.mjs",
+      "sha256": "fc4994f80c3dff332e03f5d92613a31a9a19d60e9d755b000304309aae33f9fb",
+      "size": 13094
+    }
+  ]
+}

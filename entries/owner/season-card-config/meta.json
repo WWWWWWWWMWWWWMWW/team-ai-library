@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "owner/season-card-config",
+  "title": "赛季相册配置与运行验收",
+  "kind": "skill",
+  "summary": "串联赛季相册源表、卡牌/入口/徽章/Spine 资源、导出检查和运行时验收，降低配置遗漏与资源错配。",
+  "tags": [
+    "游戏配置",
+    "赛季相册",
+    "资源验收"
+  ],
+  "aliases": [
+    "赛季卡配置",
+    "相册配置验收"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "本机 Codex 自定义技能：/Users/hcm-b0263/.codex/skills/season-card-config；团队内部能力整理，本版本按原技能材料生成。"
+  }
+}
