@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "owner/mergeclient-runtime-trace",
+  "title": "MergeClient 源码到运行时追踪",
+  "kind": "workflow",
+  "summary": "将截图或录屏沿请求、客户端调用、服务端分支、配置和资源链追到实际运行时行为。",
+  "tags": [
+    "mergeclient",
+    "运行时追踪",
+    "配置排查"
+  ],
+  "aliases": [
+    "mergeclient",
+    "运行时追踪"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "本机 Codex 历史任务中的团队内部工作方法；已整理为可复用流程，未复制原始聊天。"
+  }
+}
