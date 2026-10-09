@@ -37,6 +37,7 @@ def parser():
         if name=='fetch':p.add_argument('--dest',required=True,type=Path)
         else:p.add_argument('--target',required=True)
     p=sub('propose');p.add_argument('--entry',required=True,type=Path)
+    p=sub('publish');p.add_argument('--receipt',required=True,type=Path)
     p=sub('status');p.add_argument('--request',required=True);p.add_argument('--kind',choices=['proposal','governance'],default='proposal');p.add_argument('--expected',type=Path)
     p=sub('check-reuse');p.add_argument('--selection',required=True,type=Path);p.add_argument('--context',required=True,type=Path)
     p=sub('update');p.add_argument('--receipt',required=True,type=Path);p.add_argument('--version',required=True)
@@ -106,7 +107,12 @@ def dispatch(args,operation_id):
     if args.operation=='propose':
         from tools.teamlib.publish import propose_entry
         data=propose_entry(config,args.entry,workspace)
-        return data['state'],data,'Wait for maintainer review; status checks must verify actual shared material.'
+        return data['state'],data,'Automatic checks must verify exact shared material; if checks are pending or changed, the operation remains paused.'
+    if args.operation=='publish':
+        from tools.teamlib.publish import complete_publication
+        data=complete_publication(config,read_json(args.receipt))
+        write_json(args.receipt,data)
+        return data['state'],data,'Publication requires verified shared material; business verification remains separate.'
     if args.operation=='status':
         if args.kind=='governance':
             from tools.teamlib.platform import get_governance_request

@@ -85,7 +85,7 @@ def render_markdown(record):
            '## 快速入口','',
            '- [接入能力库](MEMBER_PROMPT.md) · [盘点我的 Codex](CODEX_CAPTURE_PROMPT.md) · [整理项目素材](LOCAL_CAPTURE_PROMPT.md)',
            '- [AI 操作手册](AI_OPERATIONS.md) · [具体命令](AI_GUIDE.md) · [目录维护规则](CATALOG_GUIDE.md)',
-           '- '+' · '.join(f'[{label}](#{label})' for label in KINDS.values())+' · [待审核材料](#待审核材料)',
+           '- '+' · '.join(f'[{label}](#{label})' for label in KINDS.values())+' · [处理中请求](#处理中请求)',
            '- [供 AI 读取的同源索引](catalog.json)','',
            '## 已入库内容','',
            '“推荐”只来自条目的明确状态，停用及依赖停用的版本不标推荐。验证记录仅绑定本版材料，不外推到其他环境或任务。']
@@ -112,17 +112,17 @@ def render_markdown(record):
                     '- 来源：'+_cell(row['source']['reference'])+'；原作者：'+_cell(row['author_key'])+'；当前负责人：'+_cell(row['owner_key'])+'。']
             for evidence in row['verification']:
                 lines.append('- 验证记录：'+_cell(evidence['date'])+'，'+_cell(evidence['business_scope'])+'，'+_cell(evidence['tool'])+'，结果 '+_cell(evidence['result'])+'；证据：'+_words(evidence['evidence'])+'。')
-    lines+=['','## 待审核材料','',
-            '以下仅是生成目录时的请求快照，尚未入库，不能当已共享能力下载。具体内容、最新版本与审核状态以平台请求为准。','']
+    lines+=['','## 处理中请求','',
+            '以下仅是生成目录时的请求快照，尚未核实为已入库，不能当已共享能力下载。具体内容、最新版本与处理状态以平台请求为准。','']
     if record['pending_status']=='available':
-        if not record['pending_requests']: lines+=['生成时未发现待审核请求。']
+        if not record['pending_requests']: lines+=['生成时未发现处理中请求。']
         else:
             lines+=['| 请求 | 材料类别 | 涉及能力 | 阶段 |','|---|---|---|---|']
             kinds={'publication':'能力投稿','maintenance':'工具与规则维护','governance':'状态与权限治理','mixed':'混合变更，须核验'}
             for row in record['pending_requests']:
-                lines.append(f"| [审核请求 #{row['number']}]({row['url']}) | {kinds[row['kind']]} | {_words(row['ids']) if row['ids'] else '仓库维护材料'} | 待审核 |")
-    elif record['pending_status']=='unavailable': lines+=['未能刷新待审核列表，请查看仓库平台；不能将缺失列表理解为没有待审核材料。']
-    else: lines+=['本次未查询待审核列表，请查看仓库平台。']
+                lines.append(f"| [处理请求 #{row['number']}]({row['url']}) | {kinds[row['kind']]} | {_words(row['ids']) if row['ids'] else '仓库维护材料'} | 处理中 |")
+    elif record['pending_status']=='unavailable': lines+=['未能刷新处理中列表，请查看仓库平台；不能将缺失列表理解为没有处理中请求。']
+    else: lines+=['本次未查询处理中列表，请查看仓库平台。']
     lines+=['','## 目录来源与时效','',
             f"- 来源：{_cell(record['source']['repository'])}，共享分支 {_cell(record['source']['branch'])}。",
             f"- 固定来源提交：`{record['source']['commit']}`。",

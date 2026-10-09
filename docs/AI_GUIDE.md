@@ -39,9 +39,9 @@ python3 tools/library.py --config library.local.json search --query '策划案'
 
 `doctor` 分别核对读取条件和当前模式的投稿条件；投稿阻断时，读取通过仍保留 `data.readable=true`、`can_publish=false` 和 `publishing_failure`，按具体诊断处理。读取流程独立校验个人登录、private/pull 权限、可信共享成员映射及 main；不通过这些读取条件时仍须停止。
 
-`deployment_mode` 是可选配置，省略为 `protected`，要求可核实的正式分支保护。`owner_trial` 仅允许 GitHub 私有库的唯一 owner 试用；它必须先写入经过批准的共享基线，不能仅改 `library.local.json` 或加本机标志启用。真实写入前重新检查 owner 身份、admin/push 权限、全部分页协作者只有 owner、无待处理邀请，以及可信成员映射只有 owner 维护者。共享配置也必须为 `owner_trial`，且 remote、shared_branch、platform、publish_mode=request、auto_merge=false 与本机一致。任何一项不符即停止写入；不要换身份、改为 local 平台或跳过检查。
+`deployment_mode` 是可选配置，省略为 `protected`，要求可核实的正式分支保护。`owner_trial` 仅允许 GitHub 私有库的唯一 owner 试用；它必须先写入经过批准的共享基线，不能仅改 `library.local.json` 或加本机标志启用。真实写入前重新检查 owner 身份、admin/push 权限、全部分页协作者只有 owner、无待处理邀请，以及可信成员映射只有 owner 维护者。共享配置也必须为 `owner_trial`，且 remote、shared_branch、platform、publish_mode=request 与可信 owner_trial 自动入库策略一致。任何一项不符即停止写入；不要换身份、改为 local 平台或跳过检查。
 
-试用结果应明确 `owner_trial=true`、`hard_gate_enforced=false`、`manual_review_required=true`。这些字段说明 owner 试用和人工审核责任，不能证明服务器禁止绕过。新增任何协作者或邀请后写入即阻断，须切回 `protected` 并重测门禁才能开放多人。主分支尚无初始化材料时，不把本地未提交内容当共享条目。
+试用结果应明确 `owner_trial=true`、`hard_gate_enforced=false`、`manual_review_required=false`、`auto_merge=true（旧基线省略显式策略字段时由 owner_trial 自动启用）`。这些字段说明 owner 试用和 AI 自动检查范围，不能证明服务器禁止绕过。新增任何协作者或邀请后写入即阻断，须切回 `protected` 并重测门禁才能开放多人。主分支尚无初始化材料时，不把本地未提交内容当共享条目。
 
 工具代码来自当前 clone；能力材料从独立工作区新鲜获取共享分支，因而 `clone HEAD` 可以与下载/复用的 `source_commit` 不同。以工具实际来源锁为准，不将仓库提交变化自动视为能力版本升级。更新工具指南时先保护本机改动，再由 AI 核对已批准共享分支。
 
@@ -203,7 +203,7 @@ AI 整理材料后，先把能力名称、用途摘要、版本 README、提交�
 
 ## 投稿、查询与撤回
 
-用户可以说“把这份改进整理后分享到库里，检查通过后创建 PR，合并前让我核验”。这已授权 AI 准备包、检查出站材料并创建 PR；不代表授权合并。
+用户可以说“把这份改进整理后分享到库里，自动检查通过后入库”。这已授权 AI 准备包、检查出站材料、核对可信 CI 并自动合并。
 
 `protected` 模式需要正式门禁通过；`owner_trial` 需要可信共享部署和每次 owner 独占检查通过。满足对应条件且用户明确要求分享/撤回后可运行以下命令；不要为演示自动创建远端请求。当前真实试用 PR 验收待完成，部署前不能报告投稿已启用。
 
@@ -220,7 +220,7 @@ python3 tools/library.py propose --entry /实际待分享条目目录
 python3 tools/library.py status --request 实际PR编号或URL
 ```
 
-propose 创建请求只是 submitted。owner 试用须在结果和请求正文明确“仅 owner 试用、服务器硬门禁未生效、需要人工审核”；由人核验具体 PR 的材料与检查结果，再明确授权合并，AI 不自动 merge。status 需要原投稿收据（通常工具在 workspace/proposals 找到），也可用 `--expected /实际投稿记录.json`。只有合并后共享材料和期望摘要匹配才 published，仍不等于业务验证。超时先查原请求，不盲目重复投稿，不直推 main、不自动合并。
+propose 先创建可追溯请求。owner 试用须在结果和请求正文明确“仅 owner 试用、服务器硬门禁未生效、由 AI 自动检查后入库”；AI 核对当前请求头、可信 CI 与完整材料后自动 merge。status 需要原投稿收据（通常工具在 workspace/proposals 找到），也可用 `--expected /实际投稿记录.json`。只有合并后共享材料和期望摘要匹配才 published，仍不等于业务验证。超时先查原请求，不盲目重复投稿，不直推 main、不绕过检查。
 
 ```sh
 python3 tools/library.py withdraw --id owner/design-review --version 0.1.0 --reason '填写本次非敏感撤回原因'

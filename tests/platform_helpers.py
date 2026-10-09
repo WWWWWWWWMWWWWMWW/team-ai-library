@@ -78,7 +78,7 @@ class GithubService:
 
 
 def config():
-    return {'schema_version': 1, 'remote': 'https://github.com/acme/library.git', 'shared_branch': 'main', 'platform': 'github', 'publish_mode': 'request', 'auto_merge': False}
+    return {'schema_version': 1, 'remote': 'https://github.com/acme/library.git', 'shared_branch': 'main', 'platform': 'github', 'publish_mode': 'request', 'auto_merge': False, 'review_mode': 'manual'}
 
 
 def owner_trial_config(service):
@@ -89,6 +89,6 @@ def owner_trial_config(service):
     service.protected = False
     service.members = {'schema_version': 1, 'members': [{'actor_key': 'owner', 'github_login': 'acme', 'role': 'maintainer'}]}
     service.collaborator_pages = [[{'login': 'acme', 'type': 'User', 'permissions': dict(service.permissions)}]]
-    value = dict(config(), deployment_mode='owner_trial', workspace='.cache/teamlib', target_profiles={})
+    value = dict(config(), deployment_mode='owner_trial', review_mode='manual', workspace='.cache/teamlib', target_profiles={})
     service.shared_config = dict(value)
     return value

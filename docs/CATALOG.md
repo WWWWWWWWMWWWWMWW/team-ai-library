@@ -9,7 +9,7 @@
 
 - [接入能力库](MEMBER_PROMPT.md) · [盘点我的 Codex](CODEX_CAPTURE_PROMPT.md) · [整理项目素材](LOCAL_CAPTURE_PROMPT.md)
 - [AI 操作手册](AI_OPERATIONS.md) · [具体命令](AI_GUIDE.md) · [目录维护规则](CATALOG_GUIDE.md)
-- [技能](#技能) · [工作流](#工作流) · [提示词](#提示词) · [工具](#工具) · [案例](#案例) · [经验](#经验) · [研究资料](#研究资料) · [待审核材料](#待审核材料)
+- [技能](#技能) · [工作流](#工作流) · [提示词](#提示词) · [工具](#工具) · [案例](#案例) · [经验](#经验) · [研究资料](#研究资料) · [处理中请求](#处理中请求)
 - [供 AI 读取的同源索引](catalog.json)
 
 ## 已入库内容
@@ -104,17 +104,17 @@
 - 搜索词：内置示例、research、核对参考资料。
 - 来源：本次平台实现生成的内置示例；非既有团队实绩或真实业务资料。；原作者：owner；当前负责人：owner。
 
-## 待审核材料
+## 处理中请求
 
-以下仅是生成目录时的请求快照，尚未入库，不能当已共享能力下载。具体内容、最新版本与审核状态以平台请求为准。
+以下仅是生成目录时的请求快照，尚未核实为已入库，不能当已共享能力下载。具体内容、最新版本与处理状态以平台请求为准。
 
 | 请求 | 材料类别 | 涉及能力 | 阶段 |
 |---|---|---|---|
-| [审核请求 #1](https://github.com/WWWWWWWWMWWWWMWW/team-ai-library/pull/1) | 能力投稿 | owner/cold-start-reuse-case | 待审核 |
-| [审核请求 #2](https://github.com/WWWWWWWWMWWWWMWW/team-ai-library/pull/2) | 工具与规则维护 | 仓库维护材料 | 待审核 |
+| [处理请求 #1](https://github.com/WWWWWWWWMWWWWMWW/team-ai-library/pull/1) | 能力投稿 | owner/cold-start-reuse-case | 处理中 |
+| [处理请求 #3](https://github.com/WWWWWWWWMWWWWMWW/team-ai-library/pull/3) | 工具与规则维护 | 仓库维护材料 | 处理中 |
 
 ## 目录来源与时效
 
 - 来源：https://github.com/WWWWWWWWMWWWWMWW/team-ai-library.git，共享分支 main。
-- 固定来源提交：`5f63a343a7b663b9d5dc80074518705d4cadf469`。
+- 固定来源提交：`3ac0c10eb376626f896e13eed9f5f56da78d15f6`。
 - 目录和机器索引由同一快照生成；可能落后于后续发布、撤回与新投稿，使用前以实时查找、状态查询和使用前检查为准。

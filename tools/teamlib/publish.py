@@ -11,7 +11,8 @@ from pathlib import Path
 from .contracts import TeamLibError, ensure_no_symlinks, hash_file, read_json, write_json, validate_id
 from .package import tree_files, validate_entry, validate_outbound, scan_text
 from .policy import check_change
-from .platform import doctor_platform, create_request, get_request, repository_name, _request_number, _find_pr, _operation
+from .platform import doctor_platform, create_request, get_request, repository_name, _request_number, _find_pr, _operation, merge_checked_request
+from .config import automatic_publication
 from .snapshots import open_snapshot
 
 run_command = subprocess.run
@@ -119,12 +120,12 @@ def _chinese_upload_description(validated, operation_id, deployment):
                   f'- 版本说明：entries/{identifier}/releases/{version}/README.md','']
     lines += ['## 验证与审核','本次只校验材料、权限、依赖和分享范围，不代表已经执行能力或验证业务效果。',
               '业务验证需逐版本核对 state 中绑定的证据；没有证据的范围必须标注“未验证”，不能编造效果或节省时间。',
-              '创建请求只表示已投稿待审核，合并后核实共享材料才表示已入库。','',
+              '自动检查通过后，AI 会合入共享分支并核对实际材料；检查未完成或内容发生变化时会暂停，不会把未核对内容写入共享分支。','',
               '## 来源与追溯',meta['source']['reference'],f'- 原作者：{meta["author_key"]}；当前负责人：{meta["owner_key"]}']
     if meta['source'].get('derived_from'):
         d=meta['source']['derived_from'];lines.append(f'- 改编自：{d["repository"]}，{d["id"]}@{d["version"]}，来源提交 {d["source_commit"]}，摘要 {d["manifest_sha256"]}')
     if deployment['owner_trial']:
-        lines += ['','## 当前发布方式','仅所有者试用：GitHub 尚未强制执行审核规则，须由人审核并明确授权后入库；AI 不自动合并。']
+        lines += ['','## 当前发布方式','仅所有者试用：共享分支未启用 GitHub 强制审核；本库由 AI 完成可信基线检查、敏感内容检查和 CI 检查，全部通过后自动合入。']
     lines += ['',f'<!-- teamlib-operation: {operation_id} -->','']
     body='\n'.join(lines)
     return title,title+'\n\n'+body,body
@@ -147,7 +148,9 @@ def propose_entry(config, entry, workspace):
             if previous.get('files') != files or previous.get('repository') != config['remote']:
                 raise TeamLibError('CONFLICT', 'Stored operation does not match the proposal material.')
             if previous.get('request_id'):
-                return verify_request(config, previous['request_id'], previous)
+                result = complete_publication(config, previous)
+                write_json(record_path, result)
+                return result
             if previous.get('source_branch'):
                 branch=previous['source_branch']
                 if not re.fullmatch('teamlib/'+operation_id+r'(?:-[0-2])?',branch):
@@ -163,14 +166,15 @@ def propose_entry(config, entry, workspace):
                     if any(observed.get(key)!=previous.get(key) for key in ('body_sha256','title_sha256')) or observed.get('headRefOid')!=previous.get('head_commit') or observed.get('author_login','').casefold()!=previous.get('author_login','').casefold():
                         raise TeamLibError('CONFLICT','Original request content changed; its stored review bindings are preserved.')
                     recovered=dict(previous,request_id=observed['request_id'],url=observed['url'])
-                    result=verify_request(config,observed['request_id'],recovered)
+                    result=complete_publication(config,recovered)
                     write_json(record_path,result)
                     return result
 
         deployment={'deployment_mode':doctor.get('deployment_mode','protected'),
                     'owner_trial':doctor.get('owner_trial',False),
                     'hard_gate_enforced':doctor.get('hard_gate_enforced',False),
-                    'manual_review_required':doctor.get('manual_review_required',True)}
+                    'manual_review_required':doctor.get('manual_review_required',True),
+                    'auto_merge':doctor.get('auto_merge',False)}
         title,commit_message,body=_chinese_upload_description(validated,operation_id,deployment)
         body_file = temp / 'body.md'
         body_file.write_text(body,encoding='utf-8')
@@ -271,10 +275,24 @@ def propose_entry(config, entry, workspace):
             request = create_request(config, branch, title, body_file)
             prepared.update(request)
             if prepared.get('request_id'):
-                prepared = verify_request(config, prepared['request_id'], prepared)
+                prepared = complete_publication(config, prepared)
             write_json(record_path, prepared)
             return prepared
     raise TeamLibError('CONFLICT', 'Proposal could not acquire a fresh trusted base.')
+
+
+def complete_publication(config, expected):
+    """Finish an authorized upload without a human review step; preserve its receipt."""
+    result = verify_request(config, expected.get('request_id'), expected)
+    if result.get('state') == 'published' or result.get('code') != 'OK' or not automatic_publication(config):
+        return result
+    try:
+        merge_checked_request(config, expected)
+    except TeamLibError as exc:
+        return dict(result, code=exc.code, message=exc.message)
+    # A reported merge is insufficient: verify the original bytes in the
+    # reachable merged commit and in fresh shared material.
+    return verify_request(config, expected['request_id'], expected)
 
 
 def verify_request(config, request_id, expected):

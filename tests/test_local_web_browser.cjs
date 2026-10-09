@@ -25,6 +25,12 @@ const checks=[];
     assert.equal(await rows().count(),6); assert.deepEqual(network,[]);
     await page.screenshot({path:path.join(output,'desktop.png'),fullPage:true}); await page.screenshot({path:path.join(output,'preview.png')});
   });
+  await check('首页先显示四个易懂主题和总览数量',async()=>{
+    await go(html); assert.equal(await page.locator('[data-testid="overview-grid"] .overview-card').count(),4);
+    const overview=await page.locator('#overview-summary').innerText(); assert.ok(overview.includes('6 项能力')); assert.ok(overview.includes('4 个主题'));
+    await page.locator('[data-testid="overview-grid"] .overview-card').filter({hasText:'方法与流程'}).click(); assert.equal(await rows().count(),2);
+    await page.locator('#reset-filters').click(); assert.equal(await rows().count(),6);
+  });
   await check('中文别名与多词搜索定位实际版本',async()=>{
     for(const [query,id] of [['审策划案','owner/design-review'],['整理会议','owner/meeting-summary'],['查漏项','owner/review-checklist'],['策划案 审查','owner/design-review']]){
       await page.getByTestId('search').fill(query); assert.equal(await rows().count(),1); assert.equal(await rows().first().getAttribute('data-id'),id);
@@ -43,6 +49,7 @@ const checks=[];
     await page.getByTestId('search').fill('审策划案'); await rows().first().getByTestId('view-detail').click();
     const detail=page.getByTestId('detail-dialog'); await detail.getByText(/^入口材料 ·/).click(); assert.ok((await detail.innerText()).includes('先阅读实际策划案'));
     assert.equal(await page.getByTestId('version-select').inputValue(),'0.1.0');
+    const detailText=await detail.innerText(); assert.ok(detailText.includes('作者')); assert.ok(detailText.includes('来源'));
     assert.equal(await detail.getByTestId('dependency-link').count(),1);
     await closeDetail(); assert.equal(await page.evaluate(()=>document.activeElement.tagName),'BUTTON');
   });
@@ -101,7 +108,7 @@ const checks=[];
     const row=rows().filter({hasText:'多版本测试能力'}); const text=await row.innerText(); assert.ok(!text.includes('尚无推荐版本')); assert.ok(text.includes('2.0.0')); assert.ok(text.includes('1.0.0'));
     await row.getByTestId('view-detail').click(); assert.equal(await page.getByTestId('version-select').inputValue(),'1.0.0'); await closeDetail();
   });
-  await check('待审核与维护请求单列，不计入已共享能力',async()=>{
+  await check('处理中与维护请求单列，不计入已共享能力',async()=>{
     await go(path.join(fixtures,'versions.html')); const count=await rows().count(); await page.getByTestId('pending-nav').click();
     const text=await page.locator('#pending-list').innerText(); assert.ok(text.includes('能力投稿')); assert.ok(text.includes('指南维护')); assert.ok(text.includes('bob/pending'));
     await page.getByTestId('find-nav').click(); assert.equal(await rows().count(),count);
@@ -110,7 +117,7 @@ const checks=[];
   await check('沉淀三入口与首次接入、更新指令遵循真实操作边界',async()=>{
     await go(html); await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:()=>Promise.reject(new Error('synthetic denial'))}}));
     await page.getByTestId('contribute-nav').click();
-    for(const [testid,required] of [['task-codex',['CODEX_HOME','不上传','元数据','中文草稿']],['task-organize',['不上传','保留原件']],['task-share',['待审核','中文','不直接推共享分支或自动合并']]]){
+    for(const [testid,required] of [['task-codex',['CODEX_HOME','不上传','元数据','中文草稿']],['task-organize',['不上传','保留原件']],['task-share',['自动检查','中文','不直接推共享分支','自动合并']]]){
       await page.getByTestId(testid).click(); await page.getByTestId('copy-dialog').waitFor(); const text=await page.getByTestId('copy-text').inputValue(); for(const term of required)assert.ok(text.includes(term),term); await page.keyboard.press('Escape');
     }
     await page.getByTestId('help-nav').click(); await page.locator('#setup-button').click(); await page.getByTestId('copy-dialog').waitFor(); assert.ok((await page.getByTestId('copy-text').inputValue()).includes('doctor')); await page.keyboard.press('Escape');

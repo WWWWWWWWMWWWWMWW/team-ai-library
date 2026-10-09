@@ -20,7 +20,10 @@
       ]
     },
     "deployment_mode": {
-      "enum": ["protected", "owner_trial"]
+      "enum": [
+        "protected",
+        "owner_trial"
+      ]
     },
     "workspace": {
       "type": "string",
@@ -30,7 +33,7 @@
       "const": "request"
     },
     "auto_merge": {
-      "const": false
+      "type": "boolean"
     },
     "target_profiles": {
       "type": "object",
@@ -51,6 +54,12 @@
         ],
         "additionalProperties": false
       }
+    },
+    "review_mode": {
+      "enum": [
+        "manual",
+        "automatic"
+      ]
     }
   },
   "required": [
@@ -67,10 +76,22 @@
   "allOf": [
     {
       "if": {
-        "properties": {"deployment_mode": {"const": "owner_trial"}},
-        "required": ["deployment_mode"]
+        "properties": {
+          "deployment_mode": {
+            "const": "owner_trial"
+          }
+        },
+        "required": [
+          "deployment_mode"
+        ]
       },
-      "then": {"properties": {"platform": {"const": "github"}}}
+      "then": {
+        "properties": {
+          "platform": {
+            "const": "github"
+          }
+        }
+      }
     },
     {
       "if": {
@@ -117,6 +138,35 @@
             "const": ""
           }
         }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "auto_merge": {
+            "const": true
+          }
+        },
+        "required": [
+          "auto_merge"
+        ]
+      },
+      "then": {
+        "properties": {
+          "review_mode": {
+            "const": "automatic"
+          },
+          "deployment_mode": {
+            "const": "owner_trial"
+          },
+          "platform": {
+            "const": "github"
+          }
+        },
+        "required": [
+          "review_mode",
+          "deployment_mode"
+        ]
       }
     }
   ]
