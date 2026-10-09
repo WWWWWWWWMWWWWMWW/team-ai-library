@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "id": "owner/task-handoff",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/SKILL.md"
+  ],
+  "scope": {
+    "inputs": [
+      "任务目标",
+      "当前状态",
+      "文件和验证证据"
+    ],
+    "outputs": [
+      "HANDOFF 文档",
+      "承接检查清单",
+      "恢复建议"
+    ],
+    "includes": [
+      "任务交接",
+      "跨会话承接",
+      "阶段性冻结"
+    ],
+    "excludes": [
+      "自行创建新任务",
+      "自行提交或发布"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "macos"
+    ],
+    "runtimes": {},
+    "tools": [
+      "Codex",
+      "filesystem.read",
+      "filesystem.write"
+    ],
+    "capabilities": [
+      "filesystem.read",
+      "filesystem.write"
+    ]
+  },
+  "effects": [
+    "read_only",
+    "local_generate"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "9ae0190ccbeebbe82a37a8d8699ef97d87fc92a88720741e2c348564819e58a5",
+      "size": 2426
+    },
+    {
+      "path": "payload/SKILL.md",
+      "sha256": "37bce642ffb43b41908662fec4653812d19ab0fa2c4c844abb43820cd3228db1",
+      "size": 7669
+    },
+    {
+      "path": "payload/agents/openai.yaml",
+      "sha256": "893d6b36db5384eae9b9466449ec240b344c2a7952a547657ea2b78f10062fcd",
+      "size": 319
+    },
+    {
+      "path": "payload/references/handoff.md",
+      "sha256": "ed1d94307719a122ca03e327e34f7d4467a794cef1ff55c84c1d980a6df16f86",
+      "size": 6278
+    },
+    {
+      "path": "payload/references/resume.md",
+      "sha256": "95ee6d26ff329698619add1017517e0b4b54ec75f2a6a5ea918796d4eccb4feb",
+      "size": 2701
+    }
+  ]
+}
