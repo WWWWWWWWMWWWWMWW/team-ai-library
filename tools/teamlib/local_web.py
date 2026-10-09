@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
+import re
 from .catalog import build_catalog, KINDS, LABELS
 from .contracts import TeamLibError, ensure_no_symlinks, _open_regular, read_json
 from .package import scan_text, validate_release
@@ -26,7 +27,17 @@ def build_web_record(snapshot, catalog):
     record['kinds']=dict(KINDS); record['labels']=dict(LABELS)
     root=ensure_no_symlinks(Path(snapshot['root']))
     members=read_json(root/'governance/members.json').get('members',[])
-    record['member_labels']={row['actor_key']:row['github_login'] for row in members
+    names={}
+    names_path=root/'docs/contributor-names.json'
+    if names_path.exists():
+        registry=read_json(names_path)
+        if set(registry)!={'schema_version','names'} or registry['schema_version']!=1 or not isinstance(registry['names'],dict):
+            raise TeamLibError('INVALID_PACKAGE','Contributor display name registry is invalid.')
+        for login,name in registry['names'].items():
+            if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9-]*',login) or not isinstance(name,str) or not name.strip() or name!=name.strip() or len(name)>80 or any(ord(c)<32 for c in name) or login.casefold() in names:
+                raise TeamLibError('INVALID_PACKAGE','Contributor display name is invalid or duplicated.')
+            names[login.casefold()]=name
+    record['member_labels']={row['actor_key']:names.get(row['github_login'].casefold(),row['github_login']) for row in members
                              if isinstance(row,dict) and isinstance(row.get('actor_key'),str)
                              and isinstance(row.get('github_login'),str)}
     policy=read_json(root/'governance/policy.json')

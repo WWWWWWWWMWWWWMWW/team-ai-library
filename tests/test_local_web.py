@@ -56,6 +56,23 @@ class LocalWebTests(unittest.TestCase):
         self.assertEqual(record['member_labels']['alice'],'alice')
         self.assertNotIn('email',json.dumps(record['member_labels']))
 
+    def test_confirmed_names_follow_each_contributors_account(self):
+        dump(self.root/'docs/contributor-names.json',{'schema_version':1,'names':{
+            'Alice-GH':'李明','bob-gh':'张岚'}})
+        dump(self.root/'governance/members.json',{'schema_version':1,'members':[
+            {'actor_key':'alice','github_login':'alice-gh','role':'contributor'},
+            {'actor_key':'bob','github_login':'bob-gh','role':'maintainer'},
+            {'actor_key':'charlie','github_login':'charlie-gh','role':'contributor'}]})
+        record=self.record()
+        self.assertEqual(record['member_labels'],{
+            'alice':'李明','bob':'张岚','charlie':'charlie-gh'})
+        self.assertEqual(record['releases'][0]['author_key'],'alice')
+        self.assertEqual(record['releases'][0]['owner_key'],'alice')
+
+    def test_invalid_display_names_do_not_replace_the_last_good_page(self):
+        dump(self.root/'docs/contributor-names.json',{'schema_version':1,'names':{'alice':' '}})
+        with self.assertRaises(TeamLibError): self.record()
+
     def test_forged_catalog_or_wrong_source_cannot_supply_body(self):
         for key in ('source','releases'):
             record=build_catalog(self.snapshot)

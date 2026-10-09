@@ -49,14 +49,17 @@ const checks=[];
     await page.getByTestId('search').fill('审策划案'); await rows().first().getByTestId('view-detail').click();
     const detail=page.getByTestId('detail-dialog'); await detail.getByText(/^入口材料 ·/).click(); assert.ok((await detail.innerText()).includes('先阅读实际策划案'));
     assert.equal(await page.getByTestId('version-select').inputValue(),'0.1.0');
-    const detailText=await detail.innerText(); assert.ok(detailText.includes('作者')); assert.ok(detailText.includes('来源'));
+    const detailText=await detail.innerText(); assert.ok(detailText.includes('提交人')); assert.ok(detailText.includes('来源'));
     assert.equal(await detail.getByTestId('dependency-link').count(),1);
     await closeDetail(); assert.equal(await page.evaluate(()=>document.activeElement.tagName),'BUTTON');
   });
-  await check('详情作者显示可信 GitHub 登录名，不显示内部身份键',async()=>{
+  await check('列表与详情显示提交人的确认姓名',async()=>{
     await go(html); await page.getByTestId('team-collection').click(); await page.getByTestId('search').fill('缓存清理');
+    assert.ok((await rows().first().locator('.cap-origin').innerText()).includes('提交人：王萌'));
     await rows().first().getByTestId('view-detail').click(); const text=await page.getByTestId('detail-dialog').innerText();
-    assert.ok(text.includes('WWWWWWWWMWWWWMWW')); assert.ok(!text.includes('owner / owner')); await closeDetail();
+    const source=page.locator('#detail-content .detail-section').filter({has:page.getByRole('heading',{name:'本版变化与来源',exact:true})});
+    assert.ok((await source.innerText()).includes('王萌 / 王萌'));
+    assert.ok(!text.includes('owner / owner')); await closeDetail();
   });
   await check('真实剪贴板成功后才显示复制反馈，目标包含版本和检查规则',async()=>{
     await go(html);
