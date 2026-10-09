@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "owner/game-design-grill",
+  "title": "玩法方案逐层拷问",
+  "kind": "skill",
+  "summary": "以玩家体验、规则闭环和证据为基础，逐个解决最影响方向的玩法歧义，形成可验收的设计方案。",
+  "tags": [
+    "游戏策划",
+    "玩法设计",
+    "方案评审"
+  ],
+  "aliases": [
+    "玩法拷问",
+    "拷问方案"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "本机 Codex 自定义技能：/Users/hcm-b0263/.codex/skills/game-design-grill；团队内部能力整理，本版本按原技能材料生成。"
+  }
+}

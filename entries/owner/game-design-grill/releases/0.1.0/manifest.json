@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "id": "owner/game-design-grill",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/SKILL.md"
+  ],
+  "scope": {
+    "inputs": [
+      "策划方案",
+      "规则草稿",
+      "配置或代码证据"
+    ],
+    "outputs": [
+      "拷问记录",
+      "确认问题",
+      "修订建议"
+    ],
+    "includes": [
+      "玩法方案评审",
+      "活动与赛事设计",
+      "奖励和对手规则"
+    ],
+    "excludes": [
+      "直接改生产代码",
+      "未经授权发布"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "macos"
+    ],
+    "runtimes": {},
+    "tools": [
+      "Codex",
+      "filesystem.read"
+    ],
+    "capabilities": [
+      "filesystem.read",
+      "filesystem.write"
+    ]
+  },
+  "effects": [
+    "read_only",
+    "local_generate"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "4ed922f14295827b1a2a219e9101ac46c0345da853b0c329e72b3e7d29b336f7",
+      "size": 2421
+    },
+    {
+      "path": "payload/SKILL.md",
+      "sha256": "73b14ac7acc3924b41fd657f833b5bc1d329ea63e931f1d942aa5db5dfe94090",
+      "size": 10059
+    },
+    {
+      "path": "payload/agents/openai.yaml",
+      "sha256": "bfab0667fa2395b8480c3ad849ad2e25f447b73f3a4674b5632d03598ad6db6d",
+      "size": 269
+    },
+    {
+      "path": "payload/references/design-dimensions.md",
+      "sha256": "15b4ec9343d3e42c053f055cfdc136a6197f4f80537874aac268974c66750004",
+      "size": 4277
+    },
+    {
+      "path": "payload/references/document-templates.md",
+      "sha256": "e3bdaf0c104b9c6c7f5b2db32022672594647af6c649c2edfd57ce735b77d137",
+      "size": 2552
+    }
+  ]
+}
