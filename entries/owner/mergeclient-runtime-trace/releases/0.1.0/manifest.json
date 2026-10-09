@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "id": "owner/mergeclient-runtime-trace",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/instructions.md"
+  ],
+  "scope": {
+    "inputs": [
+      "截图/录屏、请求信息、源码路径、配置和资源"
+    ],
+    "outputs": [
+      "证据链、影响字段、运行时验证计划"
+    ],
+    "includes": [
+      "活动配置",
+      "Prefab/资源排查",
+      "客户端服务端联动"
+    ],
+    "excludes": [
+      "只看截图下结论",
+      "把单项目规则外推"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "macos"
+    ],
+    "runtimes": {},
+    "tools": [
+      "Codex",
+      "filesystem.read",
+      "项目工具"
+    ],
+    "capabilities": [
+      "filesystem.read",
+      "local_generate"
+    ]
+  },
+  "effects": [
+    "read_only",
+    "local_generate"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "ee6bcfb729a1068b87fd0ece8471db689b69670035d247c268b39bad024b2c7b",
+      "size": 1591
+    },
+    {
+      "path": "payload/instructions.md",
+      "sha256": "714569438c0fa2a1214c0c3df4e06037b859382831bb510fd485a526ffceabd5",
+      "size": 1743
+    }
+  ]
+}
