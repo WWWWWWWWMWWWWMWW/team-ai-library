@@ -15,7 +15,7 @@ const checks=[];
   const page=await context.newPage(); const errors=[]; const network=[];
   page.on('pageerror',e=>errors.push(e.message));
   page.on('request',r=>{if (/^https?:/.test(r.url())) network.push(r.url())});
-  const go=async file=>{await page.goto(pathToFileURL(file).href); await page.getByTestId('search').waitFor();};
+  const go=async file=>{await page.goto(pathToFileURL(file).href); await page.getByTestId('search').waitFor(); if(['local-library.html','standalone.html'].includes(path.basename(file))) await page.getByTestId('example-collection').click(); await page.locator('#advanced-filters').evaluate(el=>el.open=true);};
   const rows=()=>page.getByTestId('capability-row');
   const check=async(name,run)=>{await run(); checks.push(name); console.log('PASS '+name)};
   const closeDetail=async()=>{await page.keyboard.press('Escape'); await page.getByTestId('detail-dialog').waitFor({state:'hidden'})};
@@ -25,10 +25,10 @@ const checks=[];
     assert.equal(await rows().count(),6); assert.deepEqual(network,[]);
     await page.screenshot({path:path.join(output,'desktop.png'),fullPage:true}); await page.screenshot({path:path.join(output,'preview.png')});
   });
-  await check('首页先显示四个易懂主题和总览数量',async()=>{
-    await go(html); assert.equal(await page.locator('[data-testid="overview-grid"] .overview-card').count(),4);
-    const overview=await page.locator('#overview-summary').innerText(); assert.ok(overview.includes('6 项能力')); assert.ok(overview.includes('4 个主题'));
-    await page.locator('[data-testid="overview-grid"] .overview-card').filter({hasText:'方法与流程'}).click(); assert.equal(await rows().count(),2);
+  await check('首页显示五类能力和团队/示例来源切换',async()=>{
+    await go(html); assert.equal(await page.locator('[data-testid="overview-grid"] .category-button').count(),6);
+    assert.ok((await page.locator('#collection-note').innerText()).includes('示例'));
+    await page.locator('[data-testid="overview-grid"] .category-button').filter({hasText:'Skill'}).click(); assert.equal(await rows().count(),1);
     await page.locator('#reset-filters').click(); assert.equal(await rows().count(),6);
   });
   await check('中文别名与多词搜索定位实际版本',async()=>{
@@ -43,7 +43,7 @@ const checks=[];
     assert.equal(await rows().count(),1); await input.dispatchEvent('compositionend'); assert.equal(await rows().count(),0);
   });
   await check('无内容返回真实空结果',async()=>{
-    await page.getByTestId('search').fill('活动配置检查'); assert.equal(await rows().count(),0); assert.ok((await page.getByTestId('results').innerText()).includes('没有匹配'));
+    await page.getByTestId('search').fill('活动配置检查'); assert.equal(await rows().count(),0); assert.ok(/没有匹配|还没有团队上传/.test(await page.getByTestId('results').innerText()));
   });
   await check('详情绑定准确版本与依赖，键盘关闭返回焦点',async()=>{
     await page.getByTestId('search').fill('审策划案'); await rows().first().getByTestId('view-detail').click();
@@ -133,7 +133,7 @@ const checks=[];
     await page.getByTestId('dependency-link').click(); assert.ok((await page.locator('#detail-title').innerText()).includes('检查清单')); assert.ok(page.url().includes('review-checklist')); await closeDetail();
   });
   await check('无能力数据能正常浏览和交接任务',async()=>{
-    await go(path.join(fixtures,'empty.html')); assert.equal(await rows().count(),0); assert.ok((await page.getByTestId('results').innerText()).includes('没有匹配'));
+    await go(path.join(fixtures,'empty.html')); assert.equal(await rows().count(),0); assert.ok(/没有匹配|还没有团队上传/.test(await page.getByTestId('results').innerText()));
   });
   assert.deepEqual(errors,[]); assert.deepEqual(network,[]);
   const report={browser:await browser.version(),checks,passed:checks.length,page_errors:errors,network_requests:network,source_html:path.basename(html)};
