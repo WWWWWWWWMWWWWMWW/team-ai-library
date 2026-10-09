@@ -111,10 +111,10 @@
 | 请求 | 材料类别 | 涉及能力 | 阶段 |
 |---|---|---|---|
 | [处理请求 #1](https://github.com/WWWWWWWWMWWWWMWW/team-ai-library/pull/1) | 能力投稿 | owner/cold-start-reuse-case | 处理中 |
-| [处理请求 #3](https://github.com/WWWWWWWWMWWWWMWW/team-ai-library/pull/3) | 工具与规则维护 | 仓库维护材料 | 处理中 |
+| [处理请求 #5](https://github.com/WWWWWWWWMWWWWMWW/team-ai-library/pull/5) | 工具与规则维护 | 仓库维护材料 | 处理中 |
 
 ## 目录来源与时效
 
 - 来源：https://github.com/WWWWWWWWMWWWWMWW/team-ai-library.git，共享分支 main。
-- 固定来源提交：`3ac0c10eb376626f896e13eed9f5f56da78d15f6`。
+- 固定来源提交：`509090e2798ddc7a85586daf40daac251b947b42`。
 - 目录和机器索引由同一快照生成；可能落后于后续发布、撤回与新投稿，使用前以实时查找、状态查询和使用前检查为准。
