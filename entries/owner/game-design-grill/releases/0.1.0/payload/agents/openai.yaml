@@ -1,0 +1,4 @@
+interface:
+  display_name: "游戏策划拷问"
+  short_description: "逐问压测游戏玩法、规则边界与体验取舍，并沉淀确认结论"
+  default_prompt: "使用 $game-design-grill 逐问压测这个游戏方案，并只记录我明确确认的规则。"
