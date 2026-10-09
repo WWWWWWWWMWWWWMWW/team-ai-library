@@ -13,11 +13,11 @@
 1. 在新的独立目录克隆公开仓库：
    git clone --branch main https://github.com/WWWWWWWWMWWWWMWW/team-ai-library.git team-ai-library
 
-2. 进入仓库后，立即打开网页：
-   - macOS：open docs/local-library.html
-   - Windows：start docs\\local-library.html
-   - Linux：xdg-open docs/local-library.html
-   如果无法自动打开浏览器，直接返回该文件的绝对路径，让我双击打开。
+2. 进入仓库后，立即打开根目录的网页启动文件：
+   - macOS：open "00-打开团队能力库网页.html"
+   - Windows：start "00-打开团队能力库网页.html"
+   - Linux：xdg-open "00-打开团队能力库网页.html"
+   如果无法自动打开浏览器，直接返回这个文件的绝对路径，让我双击打开。
 
 3. 网页是主要入口。打开后让我浏览、搜索能力，点击“查看详情”和“复制使用指令给 AI”。
 
@@ -28,4 +28,4 @@
 6. 完成后用中文简短报告网页路径、能力 ID/版本、实际做了什么和未验证项。
 ```
 
-网页文件是 `docs/local-library.html`，无需启动服务、安装前端依赖或使用 `gh`。网页里的目录是生成时快照；真正使用某项能力时，再由 AI 按页面给出的固定版本和入口核对当前材料。
+根目录的 `00-打开团队能力库网页.html` 会自动打开 `docs/local-library.html`。无需启动服务、安装前端依赖或使用 `gh`。网页里的目录是生成时快照；真正使用某项能力时，再由 AI 按页面给出的固定版本和入口核对当前材料。
