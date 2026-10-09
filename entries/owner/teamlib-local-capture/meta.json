@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "owner/teamlib-local-capture",
+  "title": "团队能力库本地捕获",
+  "kind": "workflow",
+  "summary": "按共享指南完成独立取库、环境和权限检查、元数据盘点、内容提炼和本地草稿，保留上传边界。",
+  "tags": [
+    "team-library",
+    "capture",
+    "audit"
+  ],
+  "aliases": [
+    "team-library",
+    "capture"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "本机 Codex 历史任务中的团队内部工作方法；已整理为可复用流程，未复制原始聊天。"
+  }
+}

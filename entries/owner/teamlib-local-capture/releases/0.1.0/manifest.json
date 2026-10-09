@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "id": "owner/teamlib-local-capture",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/instructions.md"
+  ],
+  "scope": {
+    "inputs": [
+      "共享仓库、Codex 素材位置、允许读取的材料"
+    ],
+    "outputs": [
+      "来源清单、能力草稿、进度和阻塞报告"
+    ],
+    "includes": [
+      "能力库接入",
+      "本地能力盘点",
+      "上传前准备"
+    ],
+    "excludes": [
+      "未经授权上传",
+      "读取凭据或完整聊天"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "macos"
+    ],
+    "runtimes": {},
+    "tools": [
+      "Codex",
+      "Git",
+      "Python 3"
+    ],
+    "capabilities": [
+      "filesystem.read",
+      "filesystem.write",
+      "process.execute"
+    ]
+  },
+  "effects": [
+    "read_only",
+    "local_generate"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "ab832ad5aa04cf2392c25882ac5c96d45ac1c8b8ce517d8a1a44ea9f285eba3e",
+      "size": 1573
+    },
+    {
+      "path": "payload/instructions.md",
+      "sha256": "ecb80b97441b0a2a6b03872e63f41ae6f9334a00411bf5df76d78c107e2d521a",
+      "size": 1745
+    }
+  ]
+}
