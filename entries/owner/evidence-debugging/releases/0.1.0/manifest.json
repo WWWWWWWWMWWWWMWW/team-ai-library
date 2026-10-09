@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "owner/evidence-debugging",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/instructions.md"
+  ],
+  "scope": {
+    "inputs": [
+      "证据、相关源码或配置、当前失败现象"
+    ],
+    "outputs": [
+      "定位结论、最小改动、回归结果、未验证项"
+    ],
+    "includes": [
+      "跨模块 bug 定位",
+      "运行时问题追踪",
+      "发布前检查"
+    ],
+    "excludes": [
+      "无运行证据直接下结论",
+      "未经授权扩大修改范围"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "macos"
+    ],
+    "runtimes": {},
+    "tools": [
+      "Codex",
+      "filesystem.read",
+      "filesystem.write"
+    ],
+    "capabilities": [
+      "filesystem.read",
+      "filesystem.write",
+      "process.execute"
+    ]
+  },
+  "effects": [
+    "read_only",
+    "local_generate",
+    "project_write"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "7ff4afc44082d02cfa3c67818763e6b4042620cef2ae0f916272d4e51fd8e576",
+      "size": 1626
+    },
+    {
+      "path": "payload/instructions.md",
+      "sha256": "686a7b330f7a6b8bd0815ee44eb4957791ed19149f39492ae4a341eb18bf4105",
+      "size": 1798
+    }
+  ]
+}
