@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "owner/foodstreet-order-prefab",
+  "title": "Food Street 订单规则与 Prefab 迁移案例",
+  "kind": "case",
+  "summary": "从订单源码区分随机、配置和 fallback 选择逻辑，并独立完成 Prefab 迁移的静态引用检查，明确运行时接入缺口。",
+  "tags": [
+    "FoodStreet",
+    "订单规则",
+    "Prefab迁移"
+  ],
+  "aliases": [
+    "FoodStreet",
+    "订单规则"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "本机 Codex 历史任务中的团队内部工作方法；已整理为可复用流程，未复制原始聊天。"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "id": "owner/foodstreet-order-prefab",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/instructions.md"
+  ],
+  "scope": {
+    "inputs": [
+      "订单源码、Prefab 文件、UUID 和引用清单"
+    ],
+    "outputs": [
+      "规则说明、迁移清单、静态检查和运行时缺口"
+    ],
+    "includes": [
+      "规则反查",
+      "资源迁移案例"
+    ],
+    "excludes": [
+      "把静态导入当作运行时完成",
+      "覆盖不明时宣称通过"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "macos"
+    ],
+    "runtimes": {},
+    "tools": [
+      "Codex",
+      "filesystem.read",
+      "项目资源工具"
+    ],
+    "capabilities": [
+      "filesystem.read",
+      "local_generate"
+    ]
+  },
+  "effects": [
+    "read_only",
+    "local_generate"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "5af08eff7b7b0766f2e395f65aeecb96af8531d5f99622f7beea799f062cab49",
+      "size": 1633
+    },
+    {
+      "path": "payload/instructions.md",
+      "sha256": "22b3b485e090af12a8885b0efaad5fcf8e76ba2d10f6ca20b6ba677f1c2a4379",
+      "size": 1785
+    }
+  ]
+}
