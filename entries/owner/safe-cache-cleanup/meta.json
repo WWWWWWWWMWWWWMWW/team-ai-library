@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "owner/safe-cache-cleanup",
+  "title": "安全清理与可再生缓存边界",
+  "kind": "lesson",
+  "summary": "在保留 Git/LFS 和用户材料的前提下，确认进程与缓存状态，只清理可再生目录并做前后复核。",
+  "tags": [
+    "缓存清理",
+    "LFS",
+    "磁盘维护"
+  ],
+  "aliases": [
+    "缓存清理",
+    "LFS"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "本机 Codex 历史任务中的团队内部工作方法；已整理为可复用流程，未复制原始聊天。"
+  }
+}

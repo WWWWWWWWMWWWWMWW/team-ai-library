@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "id": "owner/safe-cache-cleanup",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/instructions.md"
+  ],
+  "scope": {
+    "inputs": [
+      "HEAD/status、进程、目录大小、远端校验结果"
+    ],
+    "outputs": [
+      "清理前后证据、保留项、风险和复核结果"
+    ],
+    "includes": [
+      "本机磁盘维护",
+      "可再生缓存清理"
+    ],
+    "excludes": [
+      "直接删除 .git/lfs",
+      "删除模型或源码",
+      "未验证远端就清理"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "macos"
+    ],
+    "runtimes": {},
+    "tools": [
+      "Codex",
+      "Git",
+      "git-lfs",
+      "macOS shell"
+    ],
+    "capabilities": [
+      "filesystem.read",
+      "filesystem.write",
+      "process.execute"
+    ]
+  },
+  "effects": [
+    "read_only",
+    "project_write",
+    "local_generate"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "2bc0b85df45628d9b5d81eb6d0e876f0b3ecc090a2c0c3a05a643e7903da5393",
+      "size": 1619
+    },
+    {
+      "path": "payload/instructions.md",
+      "sha256": "3092e34bfb48ed314cd157972d4bf65b1671ad115c34e890761817f8eb5a5019",
+      "size": 1791
+    }
+  ]
+}
