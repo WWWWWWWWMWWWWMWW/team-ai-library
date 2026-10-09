@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "owner/prompt-assistant-delivery",
+  "title": "提示助手修复与本地交付",
+  "kind": "workflow",
+  "summary": "围绕本机提示助手完成问题定位、聚焦回归、构建、签名、安装和健康检查，并记录 UI 或宿主缺口。",
+  "tags": [
+    "提示助手",
+    "回归",
+    "安装验证"
+  ],
+  "aliases": [
+    "提示助手",
+    "回归"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "本机 Codex 历史任务中的团队内部工作方法；已整理为可复用流程，未复制原始聊天。"
+  }
+}
