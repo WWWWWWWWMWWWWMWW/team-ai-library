@@ -7,7 +7,7 @@ from .contracts import TeamLibError, read_json, hash_file, safe_relative, ensure
 from .package import validate_entry, scan_file, scan_text
 
 
-MAINTENANCE_ROOT_FILES = frozenset({'AGENTS.md','README.md','library.json','library.example.json','.gitignore'})
+MAINTENANCE_ROOT_FILES = frozenset({'AGENTS.md','README.md','library.json','library.example.json','.gitignore','00-打开团队能力库网页.html'})
 MAINTENANCE_PREFIXES = ('docs/','tools/','schemas/','templates/','tests/','.github/')
 GOVERNANCE_FILES = frozenset({'governance/policy.json','governance/members.json','governance/revocations.json'})
 # Fixed first-release interfaces and the trusted checker must survive maintenance.
