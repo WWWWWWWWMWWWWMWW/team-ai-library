@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+SKILL_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+exec "$SKILL_DIR/.venv/bin/python" "$SKILL_DIR/scripts/knowledge.py" "$@"

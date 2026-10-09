@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "id": "owner/work-knowledge",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/SKILL.md"
+  ],
+  "scope": {
+    "inputs": [
+      "项目或主题",
+      "知识库配置和来源文档"
+    ],
+    "outputs": [
+      "检索结果",
+      "来源指纹",
+      "候选收录记录"
+    ],
+    "includes": [
+      "工作知识检索",
+      "知识条目更新",
+      "来源追溯"
+    ],
+    "excludes": [
+      "直接修改数据库",
+      "未授权改写原始知识"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "macos"
+    ],
+    "runtimes": {},
+    "tools": [
+      "Codex",
+      "Python 3",
+      "Obsidian 文件库"
+    ],
+    "capabilities": [
+      "filesystem.read",
+      "filesystem.write",
+      "process.execute"
+    ]
+  },
+  "effects": [
+    "read_only",
+    "local_generate",
+    "project_write"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "d4c366865267e2173da5b4516f7b7ab37e722f04502268ae91040f55213a85dc",
+      "size": 2486
+    },
+    {
+      "path": "payload/SKILL.md",
+      "sha256": "a62efc28c62ed92f667b27866c583e7d5a9a4a7ce2fd6036222f94e17d038bb9",
+      "size": 4397
+    },
+    {
+      "path": "payload/references/runtime.md",
+      "sha256": "1b9f3180b046acdd4fb09c0626629245ea612b2d0d08f9ab48adf008d9b6429e",
+      "size": 7434
+    },
+    {
+      "path": "payload/scripts/codex_to_obsidian_sync.py",
+      "sha256": "4531c40fc646e8ab3978d42a71714d041e8cd5b7531461870842a1d76e8d9e68",
+      "size": 10902
+    },
+    {
+      "path": "payload/scripts/knowledge",
+      "sha256": "14008878ea0ca3ce6403408c07f8e8423b97b848ea9510f5891a91959758c557",
+      "size": 150
+    },
+    {
+      "path": "payload/scripts/knowledge.py",
+      "sha256": "7dd8c90fb05a2cace15dec9d5eadc10770dd297b540046975ecb501cbf4fd43a",
+      "size": 29837
+    },
+    {
+      "path": "payload/scripts/requirements.txt",
+      "sha256": "0969da99a0bc2a1b71ed50584560f4588a37567ac63af3ddbaf3c4617ca5621a",
+      "size": 14
+    }
+  ]
+}
