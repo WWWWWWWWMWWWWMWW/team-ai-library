@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "owner/task-handoff",
+  "title": "任务交接与承接",
+  "kind": "skill",
+  "summary": "在任务暂停、换人或继续前，生成可审计的交接材料，记录目标、状态、证据、剩余工作和恢复入口。",
+  "tags": [
+    "任务交接",
+    "承接",
+    "可审计"
+  ],
+  "aliases": [
+    "写交接",
+    "恢复任务"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "本机 Codex 自定义技能：/Users/hcm-b0263/.codex/skills/task-handoff；团队内部能力整理，本版本按原技能材料生成。"
+  }
+}
