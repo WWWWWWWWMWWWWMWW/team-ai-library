@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "owner/mergeserver-rules-trace",
+  "title": "MergeServer 赛事与邮件规则反查案例",
+  "kind": "case",
+  "summary": "围绕 tournament、oneVsOne、robotRank 和 email 模块，记录服务端规则、关键字段和客户端联动验证项。",
+  "tags": [
+    "mergeServer",
+    "服务端规则",
+    "运行时证据"
+  ],
+  "aliases": [
+    "mergeServer",
+    "服务端规则"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "本机 Codex 历史任务中的团队内部工作方法；已整理为可复用流程，未复制原始聊天。"
+  }
+}
