@@ -25,10 +25,11 @@ const checks=[];
     assert.equal(await rows().count(),6); assert.deepEqual(network,[]);
     await page.screenshot({path:path.join(output,'desktop.png'),fullPage:true}); await page.screenshot({path:path.join(output,'preview.png')});
   });
-  await check('首页先显示四个易懂主题和总览数量',async()=>{
-    await go(html); assert.equal(await page.locator('[data-testid="overview-grid"] .overview-card').count(),4);
-    const overview=await page.locator('#overview-summary').innerText(); assert.ok(overview.includes('6 项能力')); assert.ok(overview.includes('4 个主题'));
-    await page.locator('[data-testid="overview-grid"] .overview-card').filter({hasText:'方法与流程'}).click(); assert.equal(await rows().count(),2);
+  await check('首页显示能力类型、使用场景和总览数量',async()=>{
+    await go(html); assert.equal(await page.locator('[data-testid="overview-grid"] .overview-card').count(),7); assert.equal(await page.locator('[data-testid="scene-list"] .scene-button').count(),4);
+    const overview=await page.locator('#overview-summary').innerText(); assert.ok(overview.includes('6 项能力')); assert.ok(overview.includes('7 种类型')); assert.ok(overview.includes('4 个场景'));
+    await page.locator('[data-testid="overview-grid"] .overview-card').filter({hasText:'Skill'}).click(); assert.equal(await rows().count(),1);
+    await page.locator('[data-testid="scene-list"] .scene-button').filter({hasText:'审查与查漏'}).click(); assert.equal(await rows().count(),2);
     await page.locator('#reset-filters').click(); assert.equal(await rows().count(),6);
   });
   await check('中文别名与多词搜索定位实际版本',async()=>{
