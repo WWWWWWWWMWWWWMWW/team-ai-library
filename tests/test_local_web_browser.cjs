@@ -113,6 +113,23 @@ const checks=[];
     assert.equal(await page.getByTestId('pending-nav').count(),0);
     assert.equal(await page.locator('#view-pending').count(),0);
   });
+  await check('沉淀按钮只在真实复制成功后显示短暂已复制状态',async()=>{
+    await go(html);
+    await page.getByTestId('contribute-nav').click();
+    assert.equal(await page.locator('#contribute-options[open]').count(),0);
+    for(const testid of ['task-codex','task-organize','task-share']){
+      const button=page.getByTestId(testid);
+      assert.equal(await button.getAttribute('data-copy-state'),'ready');
+      assert.equal(await button.getAttribute('class'), 'btn');
+    }
+    await page.getByTestId('task-organize').click();
+    await page.getByTestId('task-organize').filter({hasText:'已复制'}).waitFor();
+    assert.match(await page.getByTestId('task-organize').getAttribute('class'),/primary/);
+    assert.equal(await page.getByTestId('task-codex').getAttribute('data-copy-state'),'ready');
+    await page.waitForTimeout(2700);
+    assert.equal(await page.getByTestId('task-organize').innerText(),'复制整理指令');
+    assert.equal(await page.getByTestId('task-organize').getAttribute('class'),'btn');
+  });
   await check('沉淀三入口与首次接入、更新指令遵循真实操作边界',async()=>{
     await go(html); await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:()=>Promise.reject(new Error('synthetic denial'))}}));
     await page.getByTestId('contribute-nav').click();
