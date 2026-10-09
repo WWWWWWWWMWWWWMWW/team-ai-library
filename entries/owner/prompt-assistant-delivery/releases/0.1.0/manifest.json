@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "id": "owner/prompt-assistant-delivery",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/instructions.md"
+  ],
+  "scope": {
+    "inputs": [
+      "失败证据、源码、测试入口"
+    ],
+    "outputs": [
+      "修复补丁、测试/构建/签名/安装记录"
+    ],
+    "includes": [
+      "本机应用修复",
+      "可逆本地交付"
+    ],
+    "excludes": [
+      "发布、推送、生产部署",
+      "无证据重构"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "macos"
+    ],
+    "runtimes": {},
+    "tools": [
+      "Codex",
+      "macOS",
+      "Xcode/本机构建工具"
+    ],
+    "capabilities": [
+      "filesystem.read",
+      "filesystem.write",
+      "process.execute"
+    ]
+  },
+  "effects": [
+    "read_only",
+    "project_write",
+    "local_generate"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "3144da14b05775296c91cb02f210d90ab26da83460cba5317cec9cca2beab107",
+      "size": 1578
+    },
+    {
+      "path": "payload/instructions.md",
+      "sha256": "30491f708e6e58093f1b8325a2e0ba5251df247d2aac17e2dc43495545436554",
+      "size": 1750
+    }
+  ]
+}
