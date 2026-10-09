@@ -1,0 +1,4 @@
+interface:
+  display_name: "Game Billing Batch"
+  short_description: "Generate Huawei, CN, and HMT billing batch files"
+  default_prompt: "Use $game-billing-batch to generate Huawei, CN, and HMT billing-point batch files from product IDs, names, and Cash prices."

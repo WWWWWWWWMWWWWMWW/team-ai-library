@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "id": "owner/game-billing-batch",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/SKILL.md"
+  ],
+  "scope": {
+    "inputs": [
+      "商品 ID、名称和 Cash 价格",
+      "后台导出模板"
+    ],
+    "outputs": [
+      "批量导入文件",
+      "ID/行数/字段核对结果"
+    ],
+    "includes": [
+      "新增商品批量准备",
+      "同价模板复制",
+      "多后台格式转换"
+    ],
+    "excludes": [
+      "修改已有商品",
+      "缺少模板",
+      "直接操作后台"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "macos"
+    ],
+    "runtimes": {},
+    "tools": [
+      "Codex",
+      "Python 3"
+    ],
+    "capabilities": [
+      "filesystem.read",
+      "filesystem.write",
+      "process.execute"
+    ]
+  },
+  "effects": [
+    "read_only",
+    "local_generate"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "7764d8202a2e9764528e82ad906ced215ae3d70ea58d7d7c3cb96fa64099f2db",
+      "size": 2495
+    },
+    {
+      "path": "payload/SKILL.md",
+      "sha256": "2423045f8992b9ce1b38ae29b9f9a9ca57bd7d02890e60ed086922c19f2a7f7a",
+      "size": 4497
+    },
+    {
+      "path": "payload/agents/openai.yaml",
+      "sha256": "533c30e7269f1e3bb3b66456d72609b016856bea5f96c34233398bf929e5037f",
+      "size": 264
+    },
+    {
+      "path": "payload/scripts/generate_billing_batches.py",
+      "sha256": "55f4d02dc86613322f4fa03ce954e1ceebadee02d9a70f3612b09659ccb7cb40",
+      "size": 10715
+    }
+  ]
+}

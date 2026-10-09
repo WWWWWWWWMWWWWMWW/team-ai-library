@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "owner/game-billing-batch",
+  "title": "游戏计费点批量生成",
+  "kind": "skill",
+  "summary": "根据商品 ID、中文名和 Cash 价格，按已有后台模板生成华为、国服 GM、港澳台 GM 的计费点批量文件，并执行重复 ID 与字段回读检查。",
+  "tags": [
+    "计费点",
+    "批量生成",
+    "运营工具"
+  ],
+  "aliases": [
+    "计费批量生成",
+    "商品批量导入"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "本机 Codex 自定义技能：/Users/hcm-b0263/.codex/skills/game-billing-batch；团队内部能力整理，本版本按原技能材料生成。"
+  }
+}
