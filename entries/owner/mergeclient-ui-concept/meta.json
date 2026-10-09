@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "owner/mergeclient-ui-concept",
+  "title": "MergeClient 活动 UI 概念设计",
+  "kind": "skill",
+  "summary": "从少量风格参考建立页面结构，生成活动 UI 概念方案，并用质量量表复审；结果用于概念沟通，不代替 Prefab 或正式切图。",
+  "tags": [
+    "UI设计",
+    "活动页面",
+    "概念图"
+  ],
+  "aliases": [
+    "活动UI概念",
+    "MergeClient UI方案"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "本机 Codex 自定义技能：/Users/hcm-b0263/.codex/skills/mergeclient-ui-concept；团队内部能力整理，本版本按原技能材料生成。"
+  }
+}

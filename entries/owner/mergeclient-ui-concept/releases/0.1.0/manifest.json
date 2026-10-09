@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "id": "owner/mergeclient-ui-concept",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/SKILL.md"
+  ],
+  "scope": {
+    "inputs": [
+      "活动目标、行为和页面类型",
+      "风格参考",
+      "尺寸与禁用内容"
+    ],
+    "outputs": [
+      "页面结构",
+      "概念图说明",
+      "评分与迭代记录"
+    ],
+    "includes": [
+      "活动页概念阶段",
+      "页面结构讨论",
+      "视觉风格复审"
+    ],
+    "excludes": [
+      "直接当作运行时 Prefab",
+      "未授权使用二进制素材"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "macos"
+    ],
+    "runtimes": {},
+    "tools": [
+      "Codex",
+      "Python 3",
+      "图像生成工具"
+    ],
+    "capabilities": [
+      "filesystem.read",
+      "filesystem.write",
+      "network.read"
+    ]
+  },
+  "effects": [
+    "read_only",
+    "local_generate"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "cebcd92a48a9a91b2533d4f39d1ede5d3f5379671c05121cfe006806e8cfb12c",
+      "size": 2571
+    },
+    {
+      "path": "payload/SKILL.md",
+      "sha256": "a53d4b753e873e91caa4b9dfbd6f90da809b938795a03d18e3332f5748471a89",
+      "size": 3715
+    },
+    {
+      "path": "payload/agents/openai.yaml",
+      "sha256": "9c4809b8fba411e54d0ef12652b9ad28d6cba7ec13443c8d0e5013098934d265",
+      "size": 318
+    },
+    {
+      "path": "payload/references/archetype-overrides.json",
+      "sha256": "7fce83bbdbe59eeccdef4cd265a5e230b5fdbe796aba7340f5f867448e1dc5cb",
+      "size": 55
+    },
+    {
+      "path": "payload/references/page-archetypes.md",
+      "sha256": "6a779712c1da76379658565e5b7ff17c8b6dd36efa81dcb394ffb45c18b3ddab",
+      "size": 2517
+    },
+    {
+      "path": "payload/references/quality-audit.csv",
+      "sha256": "11c644fe65dbdf44b3ea48ae13b70524f419606d775ec641f0ecbf0ecb916a41",
+      "size": 117697
+    },
+    {
+      "path": "payload/references/quality-rubric.md",
+      "sha256": "99e2903b1e1bc83e4c29820a5ee583459db17c97fbdf80bdafc88dc719441331",
+      "size": 1762
+    },
+    {
+      "path": "payload/references/reference-manifest.json",
+      "sha256": "8b354f2a67eb3a3f23f21ff7f51f1444cb854d1a2cff604e74d743de3798ed2c",
+      "size": 43720
+    },
+    {
+      "path": "payload/references/research-and-maintenance.md",
+      "sha256": "6606251b2738812559cbc95d57cc2280068e996b7e11b10922b416bbdb09227b",
+      "size": 3292
+    },
+    {
+      "path": "payload/references/selection-overrides.json",
+      "sha256": "c4b5cf0792b136191c15470e7ed34bb9cdcee89a4a4543b9bb048f4c939fd559",
+      "size": 468
+    },
+    {
+      "path": "payload/references/style-profile.md",
+      "sha256": "6a9b342bcaab9a159c99fc7f912168fadeec18dc0ac51584395e636f8bcf18ae",
+      "size": 3614
+    },
+    {
+      "path": "payload/scripts/build_reference_library.py",
+      "sha256": "ff4217781c3243ee35dea7be55590b4e407b7e2d7747eba9161006cc90e0688e",
+      "size": 16352
+    },
+    {
+      "path": "payload/scripts/select_references.py",
+      "sha256": "746bfcaee08af74f4c7a0ef7274494adc8d57fca389a5fcd2ecb80cf22a545fc",
+      "size": 3700
+    }
+  ]
+}

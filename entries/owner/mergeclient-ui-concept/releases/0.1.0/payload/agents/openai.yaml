@@ -1,0 +1,5 @@
+interface:
+  display_name: "MergeClient 活动 UI 概念图"
+  short_description: "从项目活动截图提炼视觉语言并生成高保真 UI 概念效果图"
+  brand_color: "#F5A623"
+  default_prompt: "Use $mergeclient-ui-concept to create a portrait mobile activity UI concept in the project's established style."
