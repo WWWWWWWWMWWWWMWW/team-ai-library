@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "owner/dlt-reliable-analysis",
+  "title": "大乐透可靠查询与统计分析",
+  "kind": "skill",
+  "summary": "基于官方数据源和白名单镜像，完成开奖查询、历史统计、对奖核验和固定种子娱乐样本，不将统计包装成预测。",
+  "tags": [
+    "数据分析",
+    "来源核验",
+    "彩票统计"
+  ],
+  "aliases": [
+    "大乐透分析",
+    "开奖统计"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "本机 Codex 自定义技能：/Users/hcm-b0263/.codex/skills/dlt-reliable-analysis；团队内部能力整理，本版本按原技能材料生成。"
+  }
+}

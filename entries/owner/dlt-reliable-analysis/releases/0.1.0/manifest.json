@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "id": "owner/dlt-reliable-analysis",
+  "version": "0.1.0",
+  "entrypoints": [
+    "payload/SKILL.md"
+  ],
+  "scope": {
+    "inputs": [
+      "期号或历史数据",
+      "官方/白名单数据源",
+      "分析窗口"
+    ],
+    "outputs": [
+      "来源核验",
+      "统计结果",
+      "对奖报告或娱乐样本"
+    ],
+    "includes": [
+      "公开数据分析",
+      "来源冲突检查",
+      "号码范围核验"
+    ],
+    "excludes": [
+      "预测中奖率",
+      "绕过官方来源",
+      "付费或自动下注"
+    ]
+  },
+  "compatibility": {
+    "os": [
+      "macos"
+    ],
+    "runtimes": {},
+    "tools": [
+      "Codex",
+      "Python 3",
+      "网络访问"
+    ],
+    "capabilities": [
+      "filesystem.read",
+      "network.read",
+      "local_generate"
+    ]
+  },
+  "effects": [
+    "read_only",
+    "local_generate"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "08e206a59cb327f32c94160dd8bab8be9ca9a1e01da77bc561fb44372f285639",
+      "size": 2542
+    },
+    {
+      "path": "payload/SKILL.md",
+      "sha256": "96ad57850530e2546908981130d2933a9e53e248d5e492000afcf1741d882d4d",
+      "size": 4634
+    },
+    {
+      "path": "payload/references/data-sources.md",
+      "sha256": "e7d17595b9e89217721c2b148c4744851c09ee45ef9f843c4b30b5d3c013cedd",
+      "size": 1705
+    },
+    {
+      "path": "payload/scripts/dlt_analyzer.py",
+      "sha256": "5b516883449a0ceb06500a9dee7224f8a8df41dee62d531667604de3b7050c13",
+      "size": 23742
+    },
+    {
+      "path": "payload/scripts/test_dlt_analyzer.py",
+      "sha256": "e4c4e38acbee291af261cb9cc2397cfca28b6d43f518bdec8043b27ee73afac2",
+      "size": 3246
+    }
+  ]
+}
