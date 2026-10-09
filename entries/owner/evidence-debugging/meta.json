@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "owner/evidence-debugging",
+  "title": "证据驱动调试与验证门禁",
+  "kind": "workflow",
+  "summary": "把失败现象拆成证据链，区分确认、观察、推断和待验证项，完成最小修复并逐层验证。",
+  "tags": [
+    "debugging",
+    "verification",
+    "evidence"
+  ],
+  "aliases": [
+    "debugging",
+    "verification"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "本机 Codex 历史任务中的团队内部工作方法；已整理为可复用流程，未复制原始聊天。"
+  }
+}
