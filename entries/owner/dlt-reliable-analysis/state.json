@@ -1,8 +1,10 @@
 {
   "schema_version": 1,
   "owner_key": "owner",
-  "recommended_version": "0.1.0",
-  "withdrawn_versions": [],
+  "recommended_version": null,
+  "withdrawn_versions": [
+    "0.1.0"
+  ],
   "reviews": [],
   "verification": []
 }
