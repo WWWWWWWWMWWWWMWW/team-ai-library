@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "owner/work-knowledge",
+  "title": "工作知识库检索与单向收录",
+  "kind": "skill",
+  "summary": "从明确项目和来源检索工作知识，保留来源和指纹，经 prepare/apply 流程单向收录到知识库。",
+  "tags": [
+    "知识库",
+    "Obsidian",
+    "来源追溯"
+  ],
+  "aliases": [
+    "工作知识库",
+    "知识收录"
+  ],
+  "author_key": "owner",
+  "owner_key": "owner",
+  "source": {
+    "type": "original",
+    "reference": "本机 Codex 自定义技能：/Users/hcm-b0263/.codex/skills/work-knowledge；团队内部能力整理，本版本按原技能材料生成。"
+  }
+}
