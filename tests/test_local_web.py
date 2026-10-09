@@ -51,6 +51,11 @@ class LocalWebTests(unittest.TestCase):
         self.assertNotIn(str(self.root),json.dumps(record))
         self.assertRegex(record['generated_at'],r'^\d{4}-\d{2}-\d{2}T.*\+00:00$')
 
+    def test_web_resolves_author_display_name_from_trusted_member_mapping(self):
+        record=self.record()
+        self.assertEqual(record['member_labels']['alice'],'alice')
+        self.assertNotIn('email',json.dumps(record['member_labels']))
+
     def test_forged_catalog_or_wrong_source_cannot_supply_body(self):
         for key in ('source','releases'):
             record=build_catalog(self.snapshot)

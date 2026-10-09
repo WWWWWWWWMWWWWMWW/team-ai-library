@@ -53,7 +53,13 @@ const checks=[];
     assert.equal(await detail.getByTestId('dependency-link').count(),1);
     await closeDetail(); assert.equal(await page.evaluate(()=>document.activeElement.tagName),'BUTTON');
   });
+  await check('详情作者显示可信 GitHub 登录名，不显示内部身份键',async()=>{
+    await go(html); await page.getByTestId('team-collection').click(); await page.getByTestId('search').fill('缓存清理');
+    await rows().first().getByTestId('view-detail').click(); const text=await page.getByTestId('detail-dialog').innerText();
+    assert.ok(text.includes('WWWWWWWWMWWWWMWW')); assert.ok(!text.includes('owner / owner')); await closeDetail();
+  });
   await check('真实剪贴板成功后才显示复制反馈，目标包含版本和检查规则',async()=>{
+    await go(html);
     await rows().first().getByTestId('view-detail').click(); await page.getByTestId('reuse-action').click();
     await page.locator('#detail-action-note').filter({hasText:'已复制'}).waitFor();
     assert.ok((await page.locator('#detail-action-note').innerText()).includes('已复制')); await page.screenshot({path:path.join(output,'copy-success.png')}); const text=await copied(); assert.ok(text.includes('owner/design-review')); assert.ok(text.includes('0.1.0')); assert.ok(text.includes('check-reuse'));
