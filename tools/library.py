@@ -38,7 +38,7 @@ def parser():
         else:p.add_argument('--target',required=True)
     p=sub('propose');p.add_argument('--entry',required=True,type=Path)
     p=sub('publish');p.add_argument('--receipt',required=True,type=Path)
-    p=sub('status');p.add_argument('--request',required=True);p.add_argument('--kind',choices=['proposal','governance'],default='proposal');p.add_argument('--expected',type=Path)
+    p=sub('status');p.add_argument('--request');p.add_argument('--kind',choices=['proposal','governance'],default='proposal');p.add_argument('--expected',type=Path)
     p=sub('check-reuse');p.add_argument('--selection',required=True,type=Path);p.add_argument('--context',required=True,type=Path)
     p=sub('update');p.add_argument('--receipt',required=True,type=Path);p.add_argument('--version',required=True)
     p=sub('withdraw');p.add_argument('--id',required=True);p.add_argument('--version',required=True);p.add_argument('--reason',required=True)
@@ -115,9 +115,16 @@ def dispatch(args,operation_id):
         return data['state'],data,'Publication requires verified shared material; business verification remains separate.'
     if args.operation=='status':
         if args.kind=='governance':
+            if not args.request:raise TeamLibError('INVALID_PACKAGE','Governance status requires a request ID.')
             from tools.teamlib.platform import get_governance_request
             data=get_governance_request(config,args.request)
             return 'submitted',data,'Issue state is not proof that capability withdrawal has been applied.'
+        if config.get('publish_mode')=='direct':
+            if not args.expected:raise TeamLibError('INVALID_PACKAGE','Direct publication status requires its local receipt.')
+            from tools.teamlib.publish import verify_direct_publication
+            data=verify_direct_publication(config,read_json(args.expected),workspace)
+            return data['state'],data,'Published material remains subject to current availability and task checks.'
+        if not args.request:raise TeamLibError('INVALID_PACKAGE','Proposal status requires a request ID.')
         from tools.teamlib.publish import verify_request
         expected=read_json(args.expected) if args.expected else None
         if expected is None:

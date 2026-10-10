@@ -415,6 +415,26 @@ def complete_publication(config, expected):
     return verify_request(config, expected['request_id'], expected)
 
 
+def verify_direct_publication(config, expected, workspace):
+    """Recheck an existing direct-write receipt against the current main tree."""
+    if config.get('publish_mode') != 'direct' or not isinstance(expected, dict) or expected.get('direct_write') is not True:
+        raise TeamLibError('STATUS_UNVERIFIED', 'A direct publication receipt is required.')
+    if expected.get('repository') != config.get('remote') or expected.get('shared_branch') != config.get('shared_branch'):
+        raise TeamLibError('STATUS_UNVERIFIED', 'Direct publication provenance differs from the configured repository.')
+    identifier = expected.get('id'); validate_id(identifier)
+    files = expected.get('files')
+    if not isinstance(files, dict) or not files or any(not isinstance(path, str) or not path.startswith('entries/' + identifier + '/') or not isinstance(digest, str) or not re.fullmatch(r'[0-9a-f]{64}', digest) for path, digest in files.items()):
+        raise TeamLibError('STATUS_UNVERIFIED', 'Direct publication file inventory is incomplete.')
+    snapshot = open_snapshot(config, workspace)
+    target = Path(snapshot['root']) / 'entries' / identifier
+    validate_entry(target)
+    if _material(target, 'entries/' + identifier + '/') != files:
+        return dict(expected, state='prepared', code='STATUS_UNVERIFIED',
+                    message='Current shared material differs from the direct publication receipt.')
+    return dict(expected, state='published', code='OK', published_commit=snapshot['source_commit'],
+                message='Exact direct publication material is verified in the current shared branch.')
+
+
 def verify_request(config, request_id, expected):
     if not isinstance(expected, dict) or expected.get('repository') != config.get('remote') or expected.get('shared_branch') != config.get('shared_branch'):
         raise TeamLibError('STATUS_UNVERIFIED', 'Expected request provenance is missing or mismatched.')

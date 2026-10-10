@@ -51,6 +51,7 @@ class PublicWriteTests(unittest.TestCase):
             'auto_merge': False,
             'deployment_mode': 'public_write',
         }
+        service.shared_config = dict(config, workspace='.cache/teamlib', target_profiles={})
         with patch.object(platform, 'run_command', service):
             result = platform.doctor_platform(config)
         self.assertTrue(result['public'])
@@ -59,6 +60,11 @@ class PublicWriteTests(unittest.TestCase):
         self.assertEqual(result['role'], 'contributor')
         self.assertFalse(result['manual_review_required'])
         self.assertFalse(any(args[1:3] == ['pr', 'create'] for args, _ in service.calls if args[0] == 'gh'))
+        service.permissions = {'pull': True, 'push': False, 'admin': False}
+        with patch.object(platform, 'run_command', service):
+            self.assertTrue(platform.doctor_read(config)['read_verified'])
+            with self.assertRaises(TeamLibError):
+                platform.doctor_platform(config)
 
 
 if __name__ == '__main__':

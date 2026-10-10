@@ -61,6 +61,7 @@ class PublishTests(unittest.TestCase):
         self.cfg.update(publish_mode='direct', deployment_mode='public_write')
         self.service.private = False
         self.service.protected = False
+        self.service.shared_config = dict(self.cfg, workspace='.cache/teamlib', target_profiles={})
 
         def dynamic_snapshot(*args, **kwargs):
             head = self.git('--git-dir=' + str(self.remote), 'rev-parse', 'main').strip()
@@ -74,7 +75,9 @@ class PublishTests(unittest.TestCase):
 
         with patch.object(self.publish, 'open_snapshot', dynamic_snapshot):
             result = self.publish.propose_entry(self.cfg, self.source, self.workspace)
+            checked = self.publish.verify_direct_publication(self.cfg, result, self.workspace)
         self.assertEqual(result['state'], 'published')
+        self.assertEqual(checked['published_commit'], result['published_commit'])
         self.assertTrue(result['direct_write'])
         self.assertEqual(self.git('--git-dir=' + str(self.remote), 'rev-parse', 'main').strip(), result['published_commit'])
         self.assertEqual(self.service.requests, [])

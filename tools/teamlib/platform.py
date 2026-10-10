@@ -134,8 +134,6 @@ def _read_identity(config):
     if config.get('deployment_mode') == 'public_write':
         if repository.get('private') is not False:
             raise TeamLibError('SCOPE_DENIED', 'The configured repository is not verified public.')
-        if not permissions['push']:
-            raise TeamLibError('SCOPE_DENIED', 'The authenticated account has no verified GitHub Write permission.')
         # GitHub collaborator permission is the write authority in public mode.
         # The local member registry remains optional metadata for attribution.
         actor_key = actor['login'].lower()
@@ -206,6 +204,12 @@ def doctor_platform(config):
     mode = deployment_mode(config)
     if mode == 'public_write':
         identity, _repository = _read_identity(config)
+        if not identity['permissions']['push']:
+            raise TeamLibError('SCOPE_DENIED', 'The authenticated account has no verified GitHub Write permission.')
+        shared = _strict_json(_contents(identity['repository'], 'library.json', identity['source_commit']))
+        validate_config_fields(shared)
+        if any(shared.get(key) != config.get(key) for key in ('remote', 'shared_branch', 'platform', 'publish_mode', 'auto_merge', 'deployment_mode')):
+            raise TeamLibError('SCOPE_DENIED', 'Direct-write configuration differs from the trusted shared baseline.')
         if identity['protected']:
             # Protection is compatible with reading, but direct mode intentionally
             # requires that the branch accept a normal authenticated push.
