@@ -22,7 +22,8 @@
     "deployment_mode": {
       "enum": [
         "protected",
-        "owner_trial"
+        "owner_trial",
+        "public_write"
       ]
     },
     "workspace": {
@@ -30,7 +31,10 @@
       "minLength": 1
     },
     "publish_mode": {
-      "const": "request"
+      "enum": [
+        "request",
+        "direct"
+      ]
     },
     "auto_merge": {
       "type": "boolean"
@@ -74,6 +78,59 @@
   ],
   "additionalProperties": false,
   "allOf": [
+    {
+      "if": {
+        "properties": {
+          "deployment_mode": {
+            "const": "public_write"
+          }
+        },
+        "required": [
+          "deployment_mode"
+        ]
+      },
+      "then": {
+        "properties": {
+          "platform": {
+            "const": "github"
+          },
+          "publish_mode": {
+            "const": "direct"
+          },
+          "auto_merge": {
+            "const": false
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "publish_mode": {
+            "const": "direct"
+          }
+        },
+        "required": [
+          "publish_mode"
+        ]
+      },
+      "then": {
+        "properties": {
+          "deployment_mode": {
+            "const": "public_write"
+          },
+          "platform": {
+            "const": "github"
+          },
+          "auto_merge": {
+            "const": false
+          }
+        },
+        "required": [
+          "deployment_mode"
+        ]
+      }
+    },
     {
       "if": {
         "properties": {

@@ -81,7 +81,7 @@ def dispatch(args,operation_id):
             try:
                 data['platform_checks']=doctor_platform(config)
                 if not data['platform_checks'].get('permissions',{}).get('push'):
-                    raise TeamLibError('SCOPE_DENIED','The authenticated account can read but cannot submit a branch.')
+                    raise TeamLibError('SCOPE_DENIED','The authenticated account can read but cannot write to the shared main branch.')
                 data['can_publish']=True
                 for key in ('deployment_mode','owner_trial','hard_gate_enforced','manual_review_required','protected'):
                     if key in data['platform_checks']:data[key]=data['platform_checks'][key]

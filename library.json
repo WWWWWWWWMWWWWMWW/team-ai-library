@@ -4,7 +4,7 @@
   "shared_branch": "main",
   "platform": "github",
   "workspace": ".teamlib-workspace",
-  "publish_mode": "request",
+  "publish_mode": "direct",
   "auto_merge": false,
   "target_profiles": {
     "local_materials": {
@@ -12,5 +12,5 @@
       "tool": "library-directory"
     }
   },
-  "deployment_mode": "owner_trial"
+  "deployment_mode": "public_write"
 }

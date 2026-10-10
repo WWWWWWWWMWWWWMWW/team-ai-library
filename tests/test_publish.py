@@ -56,6 +56,30 @@ class PublishTests(unittest.TestCase):
         second = self.publish.propose_entry(self.cfg, self.source, self.workspace)
         self.assertEqual(second['operation_id'], result['operation_id']); self.assertEqual(len(self.service.requests), 1)
 
+    def test_public_write_direct_pushes_main_without_pull_request(self):
+        from tools.teamlib.snapshots import export_tree
+        self.cfg.update(publish_mode='direct', deployment_mode='public_write')
+        self.service.private = False
+        self.service.protected = False
+
+        def dynamic_snapshot(*args, **kwargs):
+            head = self.git('--git-dir=' + str(self.remote), 'rev-parse', 'main').strip()
+            if head == self.commit:
+                return dict(self.snapshot)
+            verified = self.root / 'verified-public'
+            if verified.exists():
+                shutil.rmtree(verified)
+            export_tree(self.remote, head, verified)
+            return dict(self.snapshot, root=str(verified), source_commit=head)
+
+        with patch.object(self.publish, 'open_snapshot', dynamic_snapshot):
+            result = self.publish.propose_entry(self.cfg, self.source, self.workspace)
+        self.assertEqual(result['state'], 'published')
+        self.assertTrue(result['direct_write'])
+        self.assertEqual(self.git('--git-dir=' + str(self.remote), 'rev-parse', 'main').strip(), result['published_commit'])
+        self.assertEqual(self.service.requests, [])
+        self.assertFalse(any(args[1:3] == ['pr', 'create'] for args, _ in self.service.calls if args[0] == 'gh'))
+
     def test_automatic_proposal_publishes_real_git_material_and_retry_is_idempotent(self):
         from tests.platform_helpers import owner_trial_config
         from tools.teamlib.snapshots import export_tree

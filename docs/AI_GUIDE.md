@@ -2,7 +2,7 @@
 
 `tools/library.py` 已实现，Python 3.11+、标准库即可运行；GitHub 操作还需要 Git 和已登录个人账号的 `gh`。先读本仓库 `AGENTS.md` 与 [AI 自动操作手册](AI_OPERATIONS.md)，再按用户当前意图选择流程。本文是命令与 JSON 参考；策划只需 [简化提示词](MEMBER_PROMPT.md)。本文命令在仓库根目录运行，JSON 只保存脱敏任务摘要。
 
-实际仓库为 private 的 [WWWWWWWWMWWWWMWW/team-ai-library](https://github.com/WWWWWWWWMWWWWMWW/team-ai-library)、共享 `main`。当前只有 owner 维护者，分支保护设置遇到 403/Pro 条件，服务器硬门禁未生效。当前选择仅 owner 的 `owner_trial` 试用方案，部署到可信共享基线并验证后才可创建试用 PR；真实试用投稿验收待完成。源码、配置、指南与六个示例已于 2026-10-08 初始化到 main，读取可用；试用方案不会开放第二成员。下面涉及远端条目的示例以当前账号/成员映射可读为前提。
+实际仓库为公开的 [WWWWWWWWMWWWWMWW/team-ai-library](https://github.com/WWWWWWWWMWWWWMWW/team-ai-library)、共享 `main`。当前配置为 `publish_mode=direct`、`deployment_mode=public_write`：公开读取，登录并具备 GitHub Write 的成员可直推 main；不要求 Pull Request 或审核。当前实时协作者列表仍只有 owner，其他成员需由维护者按 GitHub 用户名或 team slug 授予 Write。下面涉及远端条目的示例以当前账号可读为前提。
 
 ## 按意图选择命令
 
@@ -17,7 +17,7 @@
 | 记录实际结果 | `record-run` | `reused` 表示本地记录已写入，实际通过与否看 result |
 | 本机明确更新 | `update` | 成功为 `installed`；冲突则保全并阻断 |
 | 整理改编来源 | `derive` | `prepared`；保留来源与变化，不上传 |
-| 明确分享/同步 | `propose` | 请求存在为 `submitted`，核实合并材料后才是 `published` |
+| 明确分享/同步 | `propose` | 直推回读材料后为 `published`；失败则保留 `prepared` 回执 |
 | 查询投稿 | `status` | 按实际请求和共享材料报告，不猜成功 |
 | 明确申请撤回 | `withdraw` | issue 成立为 `submitted`，不等于已撤回 |
 
@@ -37,11 +37,11 @@ python3 tools/library.py search --query '审策划案'
 python3 tools/library.py --config library.local.json search --query '策划案'
 ```
 
-`doctor` 分别核对读取条件和当前模式的投稿条件；投稿阻断时，读取通过仍保留 `data.readable=true`、`can_publish=false` 和 `publishing_failure`，按具体诊断处理。读取流程独立校验个人登录、private/pull 权限、可信共享成员映射及 main；不通过这些读取条件时仍须停止。
+`doctor` 核对公开仓库、个人登录、`pull=true`、`push=true`、共享 main 和 direct 配置；成员名单只用于作者显示与维护者角色，不作为普通成员写入 allowlist。缺少 Write 时保留可读取状态并报告 `can_publish=false`，不继续远程写入。
 
-`deployment_mode` 是可选配置，省略为 `protected`，要求可核实的正式分支保护。`owner_trial` 仅允许 GitHub 私有库的唯一 owner 试用；它必须先写入经过批准的共享基线，不能仅改 `library.local.json` 或加本机标志启用。真实写入前重新检查 owner 身份、admin/push 权限、全部分页协作者只有 owner、无待处理邀请，以及可信成员映射只有 owner 维护者。共享配置也必须为 `owner_trial`，且 remote、shared_branch、platform、publish_mode=request 与可信 owner_trial 自动入库策略一致。任何一项不符即停止写入；不要换身份、改为 local 平台或跳过检查。
+当前 `deployment_mode=public_write` 与 `publish_mode=direct` 必须来自可信共享配置。真实写入前重新核对公开仓库、个人账号、pull/push 权限、最新 main 和未启用阻断直推的分支状态。普通成员不需要出现在 `governance/members.json`；维护者角色和作者显示仍从该文件读取。不能仅改本机配置放行、换身份或跳过检查。
 
-试用结果应明确 `owner_trial=true`、`hard_gate_enforced=false`、`manual_review_required=false`、`auto_merge=true（旧基线省略显式策略字段时由 owner_trial 自动启用）`。这些字段说明 owner 试用和 AI 自动检查范围，不能证明服务器禁止绕过。新增任何协作者或邀请后写入即阻断，须切回 `protected` 并重测门禁才能开放多人。主分支尚无初始化材料时，不把本地未提交内容当共享条目。
+直推结果应明确 `deployment_mode=public_write`、`direct_write=true`、`manual_review_required=false`、`auto_merge=false`。这些字段说明当前发布路径；CI 只在 push 后做只读复核，不是 Pull Request 门槛。main 尚无初始化材料或发生竞争时，不把本地未提交内容当共享条目。
 
 工具代码来自当前 clone；能力材料从独立工作区新鲜获取共享分支，因而 `clone HEAD` 可以与下载/复用的 `source_commit` 不同。以工具实际来源锁为准，不将仓库提交变化自动视为能力版本升级。更新工具指南时先保护本机改动，再由 AI 核对已批准共享分支。
 
@@ -187,9 +187,9 @@ python3 tools/library.py derive --source .teamlib-workspace/source.json --change
 
 ## 上传时的中文说明格式
 
-AI 整理材料后，先把能力名称、用途摘要、版本 README、提交说明和 PR 文案写成策划能理解的中文，再提交。条目 ID/版本/文件名可保留技术形式，但不能作为唯一说明。不要让策划自己填写这些字段。
+AI 整理材料后，先把能力名称、用途摘要、版本 README 和提交说明写成策划能理解的中文，再提交。条目 ID/版本/文件名可保留技术形式，但不能作为唯一说明。不要让策划自己填写这些字段。
 
-提交标题示例：`新增工作流：活动配置表检查`。提交正文和 PR 正文应按以下内容组织；同能力升级必须具体写出本次变化：
+提交标题示例：`新增工作流：活动配置表检查`。提交正文应按以下内容组织；同能力升级必须具体写出本次变化：
 
 1. **分享的内容**：它是什么、解决什么问题；不只写“新增了一个 Skill”。
 2. **适用范围**：什么时候用，哪些情况不能用，需要什么输入，得到什么产物。
@@ -199,13 +199,13 @@ AI 整理材料后，先把能力名称、用途摘要、版本 README、提交�
 6. **验证情况**：实际检查了什么、结果与证据；没有运行过的业务写“未验证”，不把上传成功写成能力有效。
 7. **来源与限制**：原作者、改编来源、踩过的坑及已知限制。
 
-工具会依据已校验的名称、摘要、各版本范围/入口/依赖/文件清单生成中文提交说明和 PR 概要。它不会替 AI 推断业务步骤、本次业务差异或效果；这些必须根据真实材料写入中文版本 README。标题与正文仍走完整出站检查和请求摘要绑定。
+工具会依据已校验的名称、摘要、各版本范围/入口/依赖/文件清单生成中文提交说明。它不会替 AI 推断业务步骤、本次业务差异或效果；这些必须根据真实材料写入中文版本 README。标题与正文仍走完整出站检查。
 
 ## 投稿、查询与撤回
 
-用户可以说“把这份改进整理后分享到库里，自动检查通过后入库”。这已授权 AI 准备包、检查出站材料、核对可信 CI 并自动合并。
+用户可以说“把这份改进整理后分享到库里，自动检查通过后入库”。这已授权 AI 准备包、检查出站材料并直推当前共享 main。
 
-`protected` 模式需要正式门禁通过；`owner_trial` 需要可信共享部署和每次 owner 独占检查通过。满足对应条件且用户明确要求分享/撤回后可运行以下命令；不要为演示自动创建远端请求。当前真实试用 PR 验收待完成，部署前不能报告投稿已启用。
+当前 `public_write` 要求公开仓库、个人 GitHub 登录、Write 权限、最新 main 和未启用阻断直推的保护。满足条件且用户明确要求分享/撤回后可运行以下命令；不创建 Pull Request，不把本地准备说成已入库。
 
 本地可先准备完整 entry（meta/state/releases）并校验：
 
@@ -217,10 +217,10 @@ python3 tools/library.py validate --entry /实际待分享条目目录
 
 ```sh
 python3 tools/library.py propose --entry /实际待分享条目目录
-python3 tools/library.py status --request 实际PR编号或URL
+python3 tools/library.py status --expected /实际投稿记录.json
 ```
 
-propose 先创建可追溯请求。owner 试用须在结果和请求正文明确“仅 owner 试用、服务器硬门禁未生效、由 AI 自动检查后入库”；AI 核对当前请求头、可信 CI 与完整材料后自动 merge。status 需要原投稿收据（通常工具在 workspace/proposals 找到），也可用 `--expected /实际投稿记录.json`。只有合并后共享材料和期望摘要匹配才 published，仍不等于业务验证。超时先查原请求，不盲目重复投稿，不直推 main、不绕过检查。
+propose 在本地生成一次性直推提交。AI 核对当前 GitHub Write 身份、main 的父提交、可信 base 检查和完整材料后 fast-forward 推送；随后读回 main，只有实际材料和期望摘要匹配才是 `published`，仍不等于业务验证。status 读取 workspace/proposals 中的回执；超时或竞争时保留回执，不 force push、不绕过检查。
 
 ```sh
 python3 tools/library.py withdraw --id owner/design-review --version 0.1.0 --reason '填写本次非敏感撤回原因'
@@ -229,4 +229,4 @@ python3 tools/library.py status --kind governance --request 实际issue编号或
 
 上述 ID/version 也必须换成用户明确申请的对象。withdraw 建立治理 issue，不修改本地/远端版本状态；issue closed 也不能证明撤回已经生效。维护者另按审核流程生成 state 提案，合并后核实。恢复使用明确安全版本、完整依赖和新的范围检查，不自动回滚业务项目，不强推或重写历史。
 
-命令不成功时保留材料，报告 code、operation_id、阻断项及下一步。登录、成员映射、共享部署、当前模式条件分别处理，不能用缓存、假身份或跳过检查声称成功。完整包检查、不可变版本、可信基线检查器与当前内容/状态绑定在试用中继续执行。
+命令不成功时保留材料，报告 code、operation_id、阻断项及下一步。登录、Write 权限、共享配置、当前 main 条件分别处理，不能用缓存、假身份或跳过检查声称成功。完整包检查、不可变版本、可信基线检查器与当前内容/状态绑定继续执行。

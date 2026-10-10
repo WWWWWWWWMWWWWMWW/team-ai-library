@@ -109,13 +109,20 @@ def check_change(base, candidate, context):
     try:
         base=ensure_no_symlinks(base); candidate=ensure_no_symlinks(candidate)
         if not isinstance(context,dict): return _decision(False,'AUTH_REQUIRED','Trusted platform context is required.')
+        public_write = context.get('public_write') is True
         members=_members(base); actor=context.get('actor_key')
-        if actor not in members or context.get('proposal_author') != actor or context.get('role') != members[actor]:
+        if public_write:
+            # In public_write mode GitHub's authenticated collaborator permission
+            # is the write authority. The registry is retained for attribution and
+            # maintainer-only governance, but it is not an allowlist for commits.
+            if not isinstance(actor, str) or context.get('proposal_author') != actor or context.get('role') not in {'contributor', 'maintainer'}:
+                return _decision(False,'AUTH_REQUIRED','Authenticated GitHub Write identity is incomplete.')
+        elif actor not in members or context.get('proposal_author') != actor or context.get('role') != members[actor]:
             return _decision(False,'AUTH_REQUIRED','Platform identity and trusted membership do not agree.')
         if context.get('reviewed_commit') is not None and context.get('reviewed_commit') != context.get('head_commit'):
             return _decision(False,'STATUS_UNVERIFIED','Approval does not bind the current candidate commit.')
         maintenance=context.get('proposal_kind') == 'maintenance'
-        if maintenance and members[actor] != 'maintainer':
+        if maintenance and context.get('role') != 'maintainer':
             return _decision(False,'SCOPE_DENIED','Maintenance requires a trusted base maintainer.')
         policy=read_json(base/'governance'/'policy.json')
         _validate_governance(base,['governance/policy.json'])
@@ -139,7 +146,7 @@ def check_change(base, candidate, context):
             return _decision(True,'OK','Trusted-base maintenance material policy passed.',changed)
         governance=context.get('proposal_kind') == 'governance'
         if governance:
-            if members[actor] != 'maintainer': return _decision(False,'SCOPE_DENIED','Governance requires a trusted maintainer.',changed)
+            if context.get('role') != 'maintainer': return _decision(False,'SCOPE_DENIED','Governance requires a trusted maintainer.',changed)
             approved_governance=GOVERNANCE_FILES
             if any(p not in approved_governance and not re.fullmatch(r'entries/[^/]+/[^/]+/(state|meta)\.json',p) for p in changed):
                 return _decision(False,'SCOPE_DENIED','Governance changes contain forbidden paths.',changed)

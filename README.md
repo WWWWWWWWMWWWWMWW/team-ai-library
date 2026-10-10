@@ -37,13 +37,13 @@
 
 **已确认：** 工具已实现，本地自动测试已通过（见 tests/evidence 最新全套证据）；包含完整依赖下载、实际材料与固定来源核对、当前撤回/作废检查、安装收据、更新冲突保全及本地复用记录。网页浏览无需账号权限；CLI 的 `search`、`fetch`、`check-reuse` 读取流程仍需按当前工具规则核对环境。真实业务效果仍需单独验证。
 
-**已确认：** 仓库已公开，网页可直接分享链接使用。能力上传和治理仍按 `owner_trial` 维护流程执行；公开仓库不等于开放所有人投稿，也不自动开启分支保护。
+**已确认：** 仓库已公开，网页可直接分享链接使用。当前发布模式为 `public_write`：登录 GitHub 且具备仓库 `Write` 权限的成员可直推 `main`；匿名用户只有读取权限，不要求 Pull Request 或审核。
 
-**已确认：** `owner_trial` 配置仍保留在共享 `main`，用于维护者投稿检查；网页浏览与维护者投稿是两条不同流程。AI 会在可信基线、敏感内容、依赖、版本和 CI 检查通过后自动合并；检查不完整或内容变化时暂停。
+**已确认：** AI 会在直推前执行可信基线、敏感内容、依赖、版本和出站检查，使用 fast-forward 推送并读回 `main` 核对实际材料。CI 在 push 后做只读复核，失败会报告但不把它伪装成业务验证。
 
 **已确认：** 2026-10-08 源码、配置、指南与六个示例已初始化到远端 `main`，初始化提交为 `8cfd19c84e6b0275c16f5d5d5e8b3aef055f31a3`。
 
-**待验证：** 能力投稿合并后的发布验收、撤回治理闭环、真实业务复用、另一种 AI/目标工具。多人协作暂不开放；新增任何协作者或邀请都会阻断试用写入，切回 `protected` 并重测正式门禁后才能团队化。
+**待验证：** 其他成员的 GitHub Write 授权、各成员本机的直推验收、撤回治理闭环、真实业务复用和另一种 AI/目标工具。当前 GitHub 账号列表仍只有仓库所有者，补充成员账号后才能完成 Write 授权。
 
 **已确认：** 独立 AI 上下文从远端新 clone，仅按指南实际完成搜索、完整依赖下载、check-reuse、合成策划稿审查与本地 record-run。合成文档审查通过，真实游戏 runtime 未验证；此次同机器、同账号、同工具，不替代第二人或第二工具验收。
 
@@ -55,7 +55,7 @@
 
 ## 开始使用
 
-在本仓库根目录运行；需要 Python 3.11+、Git，以及已登录个人账号的 GitHub CLI `gh`。
+在本仓库根目录运行；需要 Python 3.11+、Git，以及已登录个人账号的 GitHub CLI `gh`；只浏览网页不需要 `gh`。
 
 ```sh
 python3 tools/library.py --help
@@ -64,7 +64,7 @@ python3 tools/library.py search --query '审策划案'
 python3 tools/library.py fetch --id owner/design-review --version 0.1.0 --dest .teamlib-workspace/downloads/design-review-0.1.0
 ```
 
-`doctor` 分别报告读取和投稿条件。默认 `protected` 模式仍要求可核实的分支保护；`owner_trial` 只有共享部署和 owner 独占条件都通过才允许试用投稿。发布阻断时，若读取检查通过会保留 `data.readable=true`、`can_publish=false` 和发布失败原因。读取流程独立核对个人登录、私有库读取权限、成员映射与共享分支，不要求具有发布权限。若共享材料尚未初始化，则停止并由维护者完成部署，不把未提交本地文件当成已发布版本。
+`doctor` 报告读取和直推条件。`public_write` 要求仓库公开、个人账号已登录、当前账号具有 GitHub `Write` 权限且 `main` 未启用阻断直推的保护；成员名单只用于作者显示，不作为写入 allowlist。若共享材料尚未初始化或 main 发生竞争，则停止，不把本地未提交文件当成已发布版本。
 
 下载目录必须不存在。使用下载包前按 [AI 操作指南](docs/AI_GUIDE.md) 写当前任务的 `selection.json` 和 `context.json`，运行 `check-reuse`；检查通过只表示可在已授权范围内进一步使用，实际效果需在本地记录。
 
@@ -94,4 +94,4 @@ python3 tools/library.py fetch --id owner/design-review --version 0.1.0 --dest .
 | [TRACEABILITY.md](docs/TRACEABILITY.md) | 来源、更新基线、复用与改编记录 |
 | [条目说明模板](templates/entry-README.md) | 根据实际材料填写说明 |
 
-上传与撤回需要用户明确意图及对应部署前提。owner 试用由 AI 自动检查并入库，未通过检查不会写入共享分支；撤回仍保留治理记录和可追溯恢复路径。查找不安装，临时复用不默认永久安装；本地记录不自动回传。
+上传与撤回需要用户明确意图及对应部署前提。public_write 由 AI 完成本地检查后以成员账号直推 main，未通过检查不会写入；撤回仍保留治理记录和可追溯恢复路径。查找不安装，临时复用不默认永久安装；本地记录不自动回传。

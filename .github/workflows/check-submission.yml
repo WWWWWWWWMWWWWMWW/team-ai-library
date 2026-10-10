@@ -2,6 +2,8 @@ name: Team library admission
 on:
   pull_request_target:
     types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches: [main]
 permissions:
   contents: read
   pull-requests: read
@@ -14,7 +16,8 @@ jobs:
       - name: Read approved base only
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # verified v4 tag, 2026-10-08
         with:
-          ref: ${{ github.event.pull_request.base.sha }}
+          ref: ${{ github.event.pull_request.base.sha || github.sha }}
+          fetch-depth: 0
           persist-credentials: false
       - name: Check candidate as data without running its code
         env:

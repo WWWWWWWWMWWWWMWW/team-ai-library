@@ -14,14 +14,15 @@ def automatic_publication(config):
         return False
     if mode == 'automatic':
         return config.get('auto_merge') is True
-    # The first private owner-trial baseline predates explicit policy fields.
-    # Its trusted deployment is automatic; protected deployments stay manual.
+    # The historical owner-trial baseline predates explicit policy fields.
+    # Public direct-write mode is deliberately never automatic: publication is
+    # an authenticated fast-forward push, not an implicit merge action.
     return config.get('deployment_mode') == 'owner_trial'
 
 
 def deployment_mode(config):
     mode = config.get('deployment_mode', 'protected')
-    if mode not in ('protected', 'owner_trial') or (mode == 'owner_trial' and config.get('platform') != 'github'):
+    if mode not in ('protected', 'owner_trial', 'public_write') or (mode in {'owner_trial', 'public_write'} and config.get('platform') != 'github'):
         raise TeamLibError('CONFIG_MISSING', 'Deployment mode is unsupported for this platform.')
     return mode
 
@@ -96,8 +97,15 @@ def validate_config_fields(config):
     if not CONFIG_KEYS <= config.keys() or set(config) - CONFIG_KEYS - OPTIONAL_CONFIG_KEYS or type(config.get('schema_version')) is not int or config['schema_version'] != 1:
         raise TeamLibError('CONFIG_MISSING', 'Library configuration fields are missing or unsupported.')
     deployment_mode(config)
-    if config['publish_mode'] != 'request' or type(config['auto_merge']) is not bool:
-        raise TeamLibError('CONFIG_MISSING', 'Publication requires requests and an explicit merge policy.')
+    if config['publish_mode'] not in {'request', 'direct'} or type(config['auto_merge']) is not bool:
+        raise TeamLibError('CONFIG_MISSING', 'Publication mode and merge policy are invalid.')
+    mode = deployment_mode(config)
+    if config['publish_mode'] == 'direct' and mode != 'public_write':
+        raise TeamLibError('CONFIG_MISSING', 'Direct publication requires the public_write deployment mode.')
+    if mode == 'public_write' and config['publish_mode'] != 'direct':
+        raise TeamLibError('CONFIG_MISSING', 'public_write deployment requires direct publication.')
+    if config['publish_mode'] == 'direct' and config['auto_merge'] is not False:
+        raise TeamLibError('CONFIG_MISSING', 'Direct publication cannot use auto_merge.')
     automatic = automatic_publication(config)
     if config.get('review_mode') is not None and config.get('review_mode') not in {'manual', 'automatic'}:
         raise TeamLibError('CONFIG_MISSING', 'Review and merge policies must agree.')

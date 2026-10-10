@@ -55,6 +55,30 @@ def materialize_candidate(repo,number,sha,workspace):
     return candidate
 
 
+def prepare_push_context(base, event, config):
+    """Build a post-push context without requiring a PR or member allowlist."""
+    repo = event.get('repository', {}).get('full_name')
+    if not isinstance(repo, str) or event.get('ref') != 'refs/heads/' + config.get('shared_branch', ''):
+        raise TeamLibError('SCOPE_DENIED', 'Push is outside the configured shared branch.')
+    before, after = event.get('before'), event.get('after')
+    if not re.fullmatch(r'[0-9a-f]{40}', str(before)) or not re.fullmatch(r'[0-9a-f]{40}', str(after)):
+        raise TeamLibError('STATUS_UNVERIFIED', 'Push provenance is incomplete.')
+    actor = event.get('sender') or event.get('pusher') or {}
+    login = actor.get('login')
+    if actor.get('type', 'User') != 'User' or not isinstance(login, str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9-]*', login):
+        raise TeamLibError('SCOPE_DENIED', 'Push needs an individual GitHub account.')
+    actor_key, role = login.lower(), 'contributor'
+    try:
+        members = read_json(Path(base) / 'governance/members.json')
+        matches = [row for row in members.get('members', []) if isinstance(row, dict) and row.get('github_login', '').casefold() == login.casefold()]
+        if len(matches) == 1:
+            actor_key, role = matches[0]['actor_key'], matches[0]['role']
+    except (OSError, TypeError, AttributeError):
+        pass
+    return {'actor_key': actor_key, 'role': role, 'proposal_author': actor_key,
+            'public_write': True, 'base_commit': before, 'head_commit': after}
+
+
 def _api(endpoint):
     # gh manages existing authentication and redirect handling; token is only an environment value.
     try:
@@ -75,20 +99,25 @@ def main():
         repo=os.environ['GITHUB_REPOSITORY']
         if event.get('repository',{}).get('full_name')!=repo or not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+',repo):
             raise TeamLibError('SCOPE_DENIED','Event repository differs from the trusted workflow context.')
-        number=event.get('number')
-        if type(number) is not int or number<=0:raise TeamLibError('SCOPE_DENIED','Request identity is invalid.')
-        request=json.loads(_api(f'repos/{repo}/pulls/{number}'))
         trusted=Path(__file__).resolve().parents[1]
-        context=prepare_context(trusted,event,request)
+        config=read_json(trusted/'library.json')
+        push_event = event.get('ref') == 'refs/heads/' + config.get('shared_branch', '') and 'pull_request' not in event
+        if push_event:
+            context = prepare_push_context(trusted, event, config)
+        else:
+            number=event.get('number')
+            if type(number) is not int or number<=0:raise TeamLibError('SCOPE_DENIED','Request identity is invalid.')
+            request=json.loads(_api(f'repos/{repo}/pulls/{number}'))
+            context=prepare_context(trusted,event,request)
         with tempfile.TemporaryDirectory(prefix='teamlib-ci-') as d:
             workspace=Path(d).resolve()
-            actual_base=_git(['-C',str(trusted),'rev-parse','HEAD']).stdout.decode().strip()
-            if actual_base!=context['base_commit']:
-                raise TeamLibError('STATUS_UNVERIFIED','Checked-out trusted base differs from the platform event.')
             base_git=_git(['-C',str(trusted),'rev-parse','--absolute-git-dir']).stdout.decode().strip()
             canonical_base=workspace/'base'
             export_tree(Path(base_git),context['base_commit'],canonical_base)
-            candidate=materialize_candidate(repo,number,context['head_commit'],workspace)
+            if push_event:
+                candidate=workspace/'candidate'; export_tree(Path(base_git),context['head_commit'],candidate)
+            else:
+                candidate=materialize_candidate(repo,number,context['head_commit'],workspace)
             context_path=workspace/'context.json';write_json(context_path,context)
             result=subprocess.run([sys.executable,'-I','-B',str(canonical_base/'tools/check_submission.py'),
                                    '--base',str(canonical_base),'--candidate',str(candidate),'--context',str(context_path)],

@@ -59,8 +59,11 @@ def repository_name(config):
     branch = config.get('shared_branch')
     if not match or not isinstance(branch, str) or not branch or branch.startswith('-') or any(x in branch for x in ('..', '~', '^', ':', '?', '*', '[', '\\', '@{')) or any(c.isspace() or ord(c) < 32 for c in branch):
         raise TeamLibError('CONFIG_MISSING', 'An explicit credential-free GitHub remote and safe shared branch are required.')
-    if config.get('publish_mode', 'request') != 'request' or (config.get('auto_merge', False) is not False and not automatic_publication(config)):
-        raise TeamLibError('SCOPE_DENIED', 'Only requests under a consistent publication policy are supported.')
+    mode = config.get('publish_mode', 'request')
+    if mode not in {'request', 'direct'} or (mode == 'direct' and config.get('deployment_mode') != 'public_write'):
+        raise TeamLibError('SCOPE_DENIED', 'Publication mode is inconsistent with the configured deployment mode.')
+    if config.get('auto_merge', False) is not False and not automatic_publication(config):
+        raise TeamLibError('SCOPE_DENIED', 'Automatic merging is not allowed by the configured publication policy.')
     return match.group(1)
 
 
@@ -113,8 +116,8 @@ def _read_identity(config):
     if not isinstance(actor, dict) or actor.get('type') != 'User' or not isinstance(actor.get('login'), str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9-]*', actor['login']):
         raise TeamLibError('AUTH_REQUIRED', 'Repository operations require an individual account.')
     repository = _api(repo, '')
-    if not isinstance(repository, dict) or repository.get('private') is not True or not isinstance(repository.get('full_name'), str) or repository['full_name'].lower() != repo.lower():
-        raise TeamLibError('SCOPE_DENIED', 'The configured repository is not verified private.')
+    if not isinstance(repository, dict) or not isinstance(repository.get('full_name'), str) or repository['full_name'].lower() != repo.lower():
+        raise TeamLibError('SCOPE_DENIED', 'The configured repository identity cannot be verified.')
     permission_data = repository.get('permissions')
     if not isinstance(permission_data, dict):
         raise TeamLibError('STATUS_UNVERIFIED', 'Repository permissions cannot be verified.')
@@ -128,6 +131,27 @@ def _read_identity(config):
         raise TeamLibError('STATUS_UNVERIFIED', 'The configured shared branch cannot be verified.')
     if type(branch.get('protected')) is not bool:
         raise TeamLibError('STATUS_UNVERIFIED', 'Shared branch protection state cannot be verified.')
+    if config.get('deployment_mode') == 'public_write':
+        if repository.get('private') is not False:
+            raise TeamLibError('SCOPE_DENIED', 'The configured repository is not verified public.')
+        if not permissions['push']:
+            raise TeamLibError('SCOPE_DENIED', 'The authenticated account has no verified GitHub Write permission.')
+        # GitHub collaborator permission is the write authority in public mode.
+        # The local member registry remains optional metadata for attribution.
+        actor_key = actor['login'].lower()
+        role = 'contributor'
+        try:
+            member = _trusted_member(repo, sha, actor['login'])
+            actor_key, role = member['actor_key'], member['role']
+        except TeamLibError as exc:
+            if exc.code not in {'SCOPE_DENIED', 'STATUS_UNVERIFIED'}:
+                raise
+        return {'platform': 'github', 'repository': repo, 'private': False, 'public': True, 'read_verified': True,
+                'shared_branch': config['shared_branch'], 'source_commit': sha,
+                'login': actor['login'], 'actor_key': actor_key, 'role': role,
+                'permissions': permissions, 'protected': branch.get('protected') is True}, repository
+    if repository.get('private') is not True:
+        raise TeamLibError('SCOPE_DENIED', 'The configured repository is not verified private.')
     member = _trusted_member(repo, sha, actor['login'])
     return {'platform': 'github', 'repository': repo, 'private': True, 'read_verified': True,
             'shared_branch': config['shared_branch'], 'source_commit': sha,
@@ -180,6 +204,17 @@ def _owner_trial(config, identity, repository):
 
 def doctor_platform(config):
     mode = deployment_mode(config)
+    if mode == 'public_write':
+        identity, _repository = _read_identity(config)
+        if identity['protected']:
+            # Protection is compatible with reading, but direct mode intentionally
+            # requires that the branch accept a normal authenticated push.
+            raise TeamLibError('SCOPE_DENIED', 'public_write requires an unprotected shared branch for direct pushes.')
+        return dict(identity, deployment_mode='public_write', owner_trial=False,
+                    approval_required=False, base_owned_checker=True,
+                    workflow_uses_base_event=False, required_check_sources=[],
+                    hard_gate_enforced=False, manual_review_required=False,
+                    auto_merge=False, direct_write=True)
     if mode == 'owner_trial':
         local = {key: value for key, value in config.items() if key not in {'repository_root', 'config_path'}}
         validate_config_fields(local)

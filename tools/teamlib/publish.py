@@ -120,12 +120,14 @@ def _chinese_upload_description(validated, operation_id, deployment):
                   f'- 版本说明：entries/{identifier}/releases/{version}/README.md','']
     lines += ['## 验证与审核','本次只校验材料、权限、依赖和分享范围，不代表已经执行能力或验证业务效果。',
               '业务验证需逐版本核对 state 中绑定的证据；没有证据的范围必须标注“未验证”，不能编造效果或节省时间。',
-              '自动检查通过后，AI 会合入共享分支并核对实际材料；检查未完成或内容发生变化时会暂停，不会把未核对内容写入共享分支。','',
+              ('检查通过后，AI 会以当前登录 GitHub 账号直接快速前进推送到共享分支并核对实际材料；检查未完成或内容发生变化时会暂停。' if deployment.get('direct_write') else '自动检查通过后，AI 会合入共享分支并核对实际材料；检查未完成或内容发生变化时会暂停，不会把未核对内容写入共享分支。'),' ',
               '## 来源与追溯',meta['source']['reference'],f'- 原作者：{meta["author_key"]}；当前负责人：{meta["owner_key"]}']
     if meta['source'].get('derived_from'):
         d=meta['source']['derived_from'];lines.append(f'- 改编自：{d["repository"]}，{d["id"]}@{d["version"]}，来源提交 {d["source_commit"]}，摘要 {d["manifest_sha256"]}')
     if deployment['owner_trial']:
         lines += ['','## 当前发布方式','仅所有者试用：共享分支未启用 GitHub 强制审核；本库由 AI 完成可信基线检查、敏感内容检查和 CI 检查，全部通过后自动合入。']
+    if deployment.get('direct_write'):
+        lines += ['','## 当前发布方式','公开仓库可直接读取；只有登录 GitHub 且具备 Write 权限的团队成员才能向 main 直推。匿名用户没有写入权限，也不要求 Pull Request 或审核。']
     lines += ['',f'<!-- teamlib-operation: {operation_id} -->','']
     body='\n'.join(lines)
     return title,title+'\n\n'+body,body
@@ -134,6 +136,8 @@ def _chinese_upload_description(validated, operation_id, deployment):
 def propose_entry(config, entry, workspace):
     entry = ensure_no_symlinks(entry); workspace = ensure_no_symlinks(workspace)
     validated = validate_entry(entry); identifier = validated['meta']['id']; validate_id(identifier)
+    if config.get('publish_mode') == 'direct':
+        return _direct_publish_entry(config, entry, workspace)
     workspace.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='proposal-', dir=workspace) as temporary:
         temp = Path(temporary); locked = temp / 'entry'; shutil.copytree(entry, locked)
@@ -279,6 +283,122 @@ def propose_entry(config, entry, workspace):
             write_json(record_path, prepared)
             return prepared
     raise TeamLibError('CONFLICT', 'Proposal could not acquire a fresh trusted base.')
+
+
+def _direct_publish_entry(config, entry, workspace):
+    """Publish one checked entry with an authenticated fast-forward push to main.
+
+    Public repositories are readable by anyone, but only a GitHub collaborator
+    with Write permission can reach this path. The branch is never force-pushed;
+    a race with main causes a retry or a conflict receipt.
+    """
+    entry = ensure_no_symlinks(entry); workspace = ensure_no_symlinks(workspace)
+    validated = validate_entry(entry); identifier = validated['meta']['id']; validate_id(identifier)
+    workspace.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix='direct-publication-', dir=workspace) as temporary:
+        temp = Path(temporary); locked = temp / 'entry'; shutil.copytree(entry, locked)
+        validated = validate_entry(locked); files = _material(locked, 'entries/' + identifier + '/')
+        material_digest = hashlib.sha256(json.dumps(files, sort_keys=True).encode()).hexdigest()
+        doctor = doctor_platform(config)
+        operation_id = hashlib.sha256(json.dumps([config['remote'], config['shared_branch'], doctor['actor_key'], identifier, material_digest]).encode()).hexdigest()[:32]
+        record_path = workspace / 'proposals' / (operation_id + '.json')
+        if record_path.exists():
+            previous = read_json(record_path)
+            if previous.get('files') != files or previous.get('repository') != config['remote']:
+                raise TeamLibError('CONFLICT', 'Stored direct publication does not match the submitted material.')
+            if previous.get('state') == 'published':
+                return previous
+
+        deployment = {'deployment_mode': 'public_write', 'owner_trial': False,
+                      'hard_gate_enforced': False, 'manual_review_required': False,
+                      'auto_merge': False, 'direct_write': True}
+        title, commit_message, body = _chinese_upload_description(validated, operation_id, deployment)
+        body_file = temp / 'body.md'; body_file.write_text(body, encoding='utf-8')
+        _operation(body); scan_text(title, 'direct_commit_title')
+        for attempt in range(3):
+            snapshot = open_snapshot(config, workspace)
+            doctor = doctor_platform(config)
+            if snapshot['source_commit'] != doctor['source_commit']:
+                if attempt < 2: continue
+                raise TeamLibError('CONFLICT', 'Shared branch changed repeatedly during direct publication.')
+            base = Path(snapshot['root']); existing = base / 'entries' / identifier
+            policy = _trusted_policy(base)
+            validate_outbound(locked, commit_message + '\n' + title, body_file, policy=policy)
+            _version_conflict(existing, locked)
+            if existing.exists() and _material(existing, 'entries/' + identifier + '/') == files:
+                result = {'state': 'published', 'code': 'OK', 'operation_id': operation_id,
+                          'id': identifier, 'versions': sorted(validated['releases']),
+                          'source_commit': snapshot['source_commit'], 'published_commit': snapshot['source_commit'],
+                          'repository': config['remote'], 'shared_branch': config['shared_branch'],
+                          'files': files, 'message': 'Exact entry material is already verified in the public shared branch.', **deployment}
+                write_json(record_path, result); return result
+            candidate = temp / ('candidate-' + str(attempt)); candidate.mkdir()
+            _copy_snapshot(base, candidate)
+            target = candidate / 'entries' / identifier
+            if target.exists(): shutil.rmtree(target)
+            target.parent.mkdir(parents=True, exist_ok=True); shutil.copytree(locked, target)
+            old_versions = set(validate_entry(existing)['releases']) if existing.exists() else set()
+            new_versions = set(validated['releases']) - old_versions
+            governance = existing.exists() and not new_versions and (hash_file(existing / 'state.json') != hash_file(locked / 'state.json') or read_json(existing / 'meta.json')['owner_key'] != validated['meta']['owner_key'])
+            context = {'actor_key': doctor['actor_key'], 'proposal_author': doctor['actor_key'],
+                       'role': doctor['role'], 'public_write': True,
+                       'proposal_kind': 'governance' if governance else 'publication'}
+            decision = _check_base(snapshot, candidate, context)
+            fresh = open_snapshot(config, workspace); latest_doctor = doctor_platform(config)
+            if fresh['source_commit'] != snapshot['source_commit'] or latest_doctor['source_commit'] != snapshot['source_commit']:
+                if attempt < 2: continue
+                raise TeamLibError('CONFLICT', 'Shared branch changed repeatedly before the direct push.')
+            if latest_doctor['login'].casefold() != doctor['login'].casefold() or latest_doctor['permissions'].get('push') is not True:
+                raise TeamLibError('SCOPE_DENIED', 'GitHub Write identity changed while preparing the direct push.')
+            branch = 'teamlib/' + operation_id + (('-' + str(attempt)) if attempt else '')
+            _git(candidate, 'init', '--initial-branch=' + branch)
+            _git(candidate, 'fetch', '--no-tags', config['remote'], 'refs/heads/' + config['shared_branch'])
+            if _git(candidate, 'rev-parse', 'FETCH_HEAD') != snapshot['source_commit']:
+                if attempt < 2: continue
+                raise TeamLibError('CONFLICT', 'Shared branch changed while preparing the direct history.')
+            _git(candidate, 'read-tree', snapshot['source_commit']); _git(candidate, 'update-ref', 'HEAD', snapshot['source_commit'])
+            for path in tree_files(target):
+                rel = path.relative_to(candidate).as_posix(); blob = _git(candidate, 'hash-object', '-w', '--no-filters', str(path))
+                _git(candidate, 'update-index', '--add', '--cacheinfo', '100644,' + blob + ',' + rel)
+            _git(candidate, '-c', 'user.name=Team library contributor', '-c', 'user.email=teamlib@users.noreply.github.com', '-c', 'commit.gpgsign=false', 'commit', '--no-verify', '-m', commit_message)
+            head_commit = _git(candidate, 'rev-parse', 'HEAD')
+            if _committed_material(candidate, head_commit, identifier) != files:
+                raise TeamLibError('INVALID_PACKAGE', 'Actual direct commit material differs from the verified inventory.')
+            if _git(candidate, 'rev-list', '--count', snapshot['source_commit'] + '..' + head_commit) != '1':
+                raise TeamLibError('SCOPE_DENIED', 'Direct publication must contain exactly one new commit.')
+            actual_paths = _git(candidate, 'diff', '--name-only', snapshot['source_commit'], head_commit).splitlines()
+            if not actual_paths or any(not p.startswith('entries/' + identifier + '/') for p in actual_paths):
+                raise TeamLibError('SCOPE_DENIED', 'Direct commit contains unexpected material.')
+            validate_outbound(target, commit_message + '\n' + title, body_file, policy=policy)
+            prepared = {'state': 'prepared', 'code': 'OK', 'operation_id': operation_id, 'id': identifier,
+                        'versions': sorted(validated['releases']), 'new_versions': sorted(new_versions), 'files': files,
+                        'head_commit': head_commit, 'source_commit': snapshot['source_commit'],
+                        'repository': config['remote'], 'shared_branch': config['shared_branch'], 'workspace': str(workspace),
+                        'checks': decision['checks'], 'proposal_actor_key': doctor['actor_key'],
+                        'author_login': doctor['login'], **deployment}
+            write_json(record_path, prepared)
+            try:
+                _git(candidate, 'push', config['remote'], head_commit + ':refs/heads/' + config['shared_branch'])
+            except TeamLibError as exc:
+                prepared.update({'code': exc.code, 'message': 'Direct commit was prepared; main was not confirmed updated.'})
+                write_json(record_path, prepared); return prepared
+            remote_head = _git(candidate, 'ls-remote', '--heads', config['remote'], 'refs/heads/' + config['shared_branch'])
+            if not remote_head or remote_head.split()[0] != head_commit:
+                prepared.update({'code': 'STATUS_UNVERIFIED', 'message': 'Direct push completed without a verifiable main ref.'})
+                write_json(record_path, prepared); return prepared
+            try:
+                verified = open_snapshot(config, workspace)
+                verified_target = Path(verified['root']) / 'entries' / identifier
+                validate_entry(verified_target)
+                if _material(verified_target, 'entries/' + identifier + '/') != files:
+                    raise TeamLibError('STATUS_UNVERIFIED', 'Shared material differs from the direct commit.')
+            except (TeamLibError, OSError, KeyError):
+                prepared.update({'code': 'STATUS_UNVERIFIED', 'message': 'Direct push is recorded, but exact shared material is not verified.'})
+                write_json(record_path, prepared); return prepared
+            result = dict(prepared, state='published', code='OK', published_commit=verified['source_commit'],
+                          message='Exact submitted material is verified in the public shared branch.')
+            write_json(record_path, result); return result
+    raise TeamLibError('CONFLICT', 'Direct publication could not acquire a fresh trusted base.')
 
 
 def complete_publication(config, expected):
